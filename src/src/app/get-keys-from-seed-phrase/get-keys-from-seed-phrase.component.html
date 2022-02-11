@@ -1,0 +1,17 @@
+
+<div class="card mx-0 mb-1 text-white bg-dark">
+    <div class="card-header d-flex justify-content-between">
+        <div >Get keys from seed phrase</div>
+        <div >
+            <button (click)="getPublicAddresses()" class="btn p-0"><fa-icon [icon]="faPlay" class="text-success" ></fa-icon></button>
+        </div>
+  </div>
+    <div class="card-body">
+        <input type="password" [(ngModel)]="seedPhrase" id="seedPhrase" name="seedPhrase" class="m-1 w-100" /> <br />
+          <button type="button" class="btn btn-primary m-1" (click)="getPrivateKeys()">Get Private Keys</button> 
+          <button type="button" class="btn btn-primary m-1" (click)="getPublicAddresses()">Get Public Addresses</button> 
+    </div>
+    <div class="card-footer">
+          <textarea rows="5" class="p-3 w-100" readonly disabled>{{result}}</textarea>
+    </div>
+</div>

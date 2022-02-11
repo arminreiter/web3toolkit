@@ -1,0 +1,39 @@
+<div class="d-flex flex-column px-3 pt-2 text-white min-vh-100">
+    <a href="/" class="d-flex mb-3 mb-md-0 text-white text-decoration-none">
+        <span class="d-none d-sm-inline">Web3ToolKit</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item"> <a href="#" class="nav-link active" aria-current="page"> <i class="fa fa-home"></i><span class="ms-2">Home</span> </a> </li>
+        <li>
+            <a href="#" class="nav-link text-white">
+                <fa-icon [icon]="faWallet"></fa-icon> <span class="m-2">Wallet</span> 
+            </a> 
+            <div class="submenu">
+                <ul class="btn-toggle-nav list-unstyled pl-4">
+                  <li>
+                    <a (click)="genSeedPhrase()" class="text-white">Generate Seed Phrase</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-white">Generate Private Key</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-white">Get keys and address from seed phrase</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-white">Get address from private key</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-white">Drain account</a>
+                  </li>
+                </ul>
+              </div>
+        </li>
+        <li> <a href="#" class="nav-link text-white"> <i class="fa fa-first-order"></i><span class="ms2">My Orders</span> </a> </li>
+        <li> <a href="#" class="nav-link text-white"> <i class="fa fa-cog"></i><span class="m-2">Settings</span> </a> </li>
+        <li> <a href="#" class="nav-link text-white"> <i class="fa fa-bookmark"></i><span class="m-2">Bookmarks</span> </a> </li>
+    </ul>
+</div>
+
+
+
