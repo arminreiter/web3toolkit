@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -8,11 +9,16 @@ import { DataService } from '../shared/services/data.service';
   styleUrls: ['./input-output.component.scss']
 })
 export class InputOutputComponent implements OnInit {
+  faTrash = faTrash;
   
   constructor(public dataService: DataService) {
   }
 
   ngOnInit(): void { 
+  }
+
+  clear() {
+    this.dataService.clear();
   }
 
 }

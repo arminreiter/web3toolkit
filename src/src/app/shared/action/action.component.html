@@ -1,9 +1,10 @@
 
 <div class="cardmx-0 mb-1 text-white bg-dark">
     <div class="card-header d-flex justify-content-between">
-          <div>{{ title }}</div>
+          <div>{{ action.title }}</div>
           <div >
-              <button (click)="click()" class="btn p-0"><fa-icon [icon]="faPlay" class="text-success" ></fa-icon></button>
+            <button (click)="clear()" class="btn py-0 px-2 text-light"><fa-icon [icon]="faTrash"></fa-icon></button>
+            <button (click)="click()" class="btn p-0"><fa-icon [icon]="faPlay" class="text-success" ></fa-icon></button>
           </div>
     </div>
 

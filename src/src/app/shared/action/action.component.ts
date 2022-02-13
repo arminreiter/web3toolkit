@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Action, DataService } from '../services/data.service';
 
 @Component({
   selector: 'w3tk-action',
@@ -7,20 +8,23 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./action.component.scss']
 })
 export class ActionComponent implements OnInit {
-  @Input() title:string = '';
+  @Input() action!:Action;
   @Output() public onClick: EventEmitter<any> = new EventEmitter();
-  result:string = '';
 
   faPlay = faPlay;
+  faTrash = faTrash;
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    
   }
 
   click(): void {
-    this.onClick.emit();
+    this.action.action();
+  }
+
+  clear(): void {
+    this.dataService.removeAction(this.action.id);
   }
 
 }

@@ -1,4 +1,0 @@
-class Action {
-    title:string = '';
-
-}

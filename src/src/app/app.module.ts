@@ -15,6 +15,7 @@ import { ActionComponent } from './shared/action/action.component';
 import { MainHeaderComponent } from './main-header/main-header.component';
 import { ActionsInuseComponent } from './actions-inuse/actions-inuse.component';
 import { InputOutputComponent } from './input-output/input-output.component';
+import { TextInputComponent } from './shared/text-input/text-input.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { InputOutputComponent } from './input-output/input-output.component';
     ActionComponent,
     MainHeaderComponent,
     ActionsInuseComponent,
-    InputOutputComponent
+    InputOutputComponent,
+    TextInputComponent
   ],
   imports: [
     BrowserModule,
@@ -39,4 +41,5 @@ import { InputOutputComponent } from './input-output/input-output.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}

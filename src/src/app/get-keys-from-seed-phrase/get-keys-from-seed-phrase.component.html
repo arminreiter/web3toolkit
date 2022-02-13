@@ -1,7 +1,6 @@
 <w3tk-action title="Get private keys from seed phrase" (onClick)="getPrivateKeys()">
-    <!-- <input type="password" [(ngModel)]="seedPhrase" id="seedPhrase" name="seedPhrase" class="m-1 w-100" /> <br /> -->
-    <input type="number" [(ngModel)]="amount" value="20" />
-
-    <!-- <textarea rows="5" class="p-3 w-100" readonly disabled>{{result}}</textarea> -->
-
+    <div class="form-floating my-1 text-secondary">
+        <input type="text" class="form-control w-100" [(ngModel)]="amount" />
+        <label for="floatingInput">Number of Keys</label>
+      </div>
 </w3tk-action>
