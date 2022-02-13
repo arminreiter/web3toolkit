@@ -1,0 +1,22 @@
+
+    <div class="row header align-items-center" [ngClass]="dataService.network.shortName">
+        <div class="col-10 text-white" >
+            <img src="{{dataService.network.imgUrl}}" class=""><span class="p-3" style="font-size: large; vertical-align: -0.15rem;">{{dataService.network.name}}</span>
+        </div>
+        <div class="col-2 py-1">
+            <div class="btn-group bg-secondary w-100 rounded">
+                <button type="button" class="btn text-white dropdown-toggle w-100" data-bs-toggle="dropdown" aria-haspopup="true"> {{selectedValue}} </button>
+                <ul class="dropdown-menu network-dropdown w-100 bg-secondary" aria-labelledby="dropdownMenuLink">
+                    <li><span class="dropdown-header  text-white">Mainnets</span></li>
+                    <li *ngFor="let net of mainnets" value="{{net.shortName}}" (click)="selectValue(net)">
+                        <a class="dropdown-item text-white" href="#"><img src="{{net.imgUrl}}" /> {{net.name}}</a>
+                    </li>
+                    <li><hr class="dropdown-divider text-white"></li>
+                    <li><h3 class="dropdown-header text-white">Testnets</h3></li>
+                    <li *ngFor="let net of testnets" value="{{net.shortName}}" (click)="selectValue(net)">
+                        <a class="dropdown-item text-white" href="#"><img src="{{net.imgUrl}}" /> {{net.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>

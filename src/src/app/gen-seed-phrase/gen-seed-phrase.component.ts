@@ -11,9 +11,9 @@ import { DataService } from '../shared/services/data.service';
 })
 export class GenSeedPhraseComponent implements OnInit {
   faPlay = faPlay;
-  result:string = "a";
-
-  constructor() { }
+  
+  constructor(public dataService: DataService) { 
+  }
 
   ngOnInit(): void {
   }
@@ -25,10 +25,8 @@ export class GenSeedPhraseComponent implements OnInit {
     //this.result = randomSeed.mnemonic.phrase;
 
     var rand = ethers.utils.randomBytes(16);
-    this.result = ethers.utils.entropyToMnemonic(rand);
-    DataService.output = this.result;
-    
-    return this.result;
+    var result = ethers.utils.entropyToMnemonic(rand);
+    this.dataService.addResult("Generate Seed Phrase", result);
   }
 
   toClipboard() {

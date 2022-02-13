@@ -11,6 +11,10 @@ import { GetKeysFromSeedPhraseComponent } from './get-keys-from-seed-phrase/get-
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 import { GetBalanceComponent } from './get-balance/get-balance.component';
+import { ActionComponent } from './shared/action/action.component';
+import { MainHeaderComponent } from './main-header/main-header.component';
+import { ActionsInuseComponent } from './actions-inuse/actions-inuse.component';
+import { InputOutputComponent } from './input-output/input-output.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { GetBalanceComponent } from './get-balance/get-balance.component';
     SidebarComponent,
     GenSeedPhraseComponent,
     GetKeysFromSeedPhraseComponent,
-    GetBalanceComponent
+    GetBalanceComponent,
+    ActionComponent,
+    MainHeaderComponent,
+    ActionsInuseComponent,
+    InputOutputComponent
   ],
   imports: [
     BrowserModule,

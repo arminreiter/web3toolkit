@@ -1,0 +1,21 @@
+.header {
+    height: 52px;
+
+    img {
+        height: 32px;
+    }
+}
+
+.network-dropdown {
+    img {
+        height: 24px;
+    }
+
+    li:hover {
+        background-color: none;
+    }
+
+    a:hover {
+        background-color: #0D6BF5;
+    }
+}

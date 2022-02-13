@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { faWallet } from '@fortawesome/free-solid-svg-icons';
-import Web3 from 'web3';
 import { DataService } from './shared/services/data.service';
 
 @Component({
@@ -10,5 +8,9 @@ import { DataService } from './shared/services/data.service';
 })
 export class AppComponent {
   title = 'web3toolkit';
-  output = DataService.output;
+
+  constructor(public dataService: DataService) {
+    
+  }
+
 }

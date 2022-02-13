@@ -1,13 +1,4 @@
+<w3tk-action title="Generate Seed Phrase" (onClick)="clickEvent()">
+      <!-- <button ngxClipboard  cbContent="{{result}}"  class="btn btn-primary">copy to clipboard</button>  -->
+</w3tk-action>
 
-<div class="cardmx-0 mb-1 text-white bg-dark">
-      <div class="card-header d-flex justify-content-between">
-            <div >Generate Seed Phrase</div>
-            <div >
-                <button (click)="clickEvent()" class="btn p-0"><fa-icon [icon]="faPlay" class="text-success" ></fa-icon></button>
-            </div>
-      </div>
-      <div class="card-body">
-            <textarea rows="2" cols="45" class="p-3 w-100" readonly disabled>{{result}}</textarea>
-            <button ngxClipboard  cbContent="{{result}}"  class="btn btn-primary">copy to clipboard</button> 
-      </div>
-</div>

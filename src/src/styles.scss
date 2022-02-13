@@ -3,3 +3,35 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+$ethback: #222222;
+
+body {
+
+}
+
+.hide-if-empty:empty {
+    display: none;
+}
+
+.eth-main, .eth-rinkeby {
+    background-color: $dark;
+
+    #action-main {
+        background-color: $secondary;
+    }
+
+    #io-col {
+        background-color: $dark;
+    }
+}
+
+.ecs-main, .ecs-test {
+    background-color: #278DE1;
+    
+    #action-main {
+        background-color: $secondary; //#278DE1;
+    }
+    #io-col {
+        background-color: $dark; //#3092E2;
+    }
+}

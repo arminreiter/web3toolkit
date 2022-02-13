@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { DataService } from '../shared/services/data.service';
 
 @Component({
   selector: 'w3tk-get-balance',
@@ -10,30 +11,44 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 })
 export class GetBalanceComponent implements OnInit {
   faPlay = faPlay;
-  addresses: string = "";
-  result: string = "";
 
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
   }
 
   getBalances() {
-    this.result = "";
-    var web3js = new Web3(new Web3.providers.HttpProvider("https://rpc.ecredits.com/"));
+    var result = "";
+    var web3js = new Web3(new Web3.providers.HttpProvider(this.dataService.network.rpcUrl));
 
-    var spadd = this.addresses.split("\n");
-    console.log(this.addresses);
+    var spadd = this.dataService.getInput().split("\n");
+
+    var promises: Promise<string | void>[] = [];
 
     spadd.forEach(address => {
-      console.log(address);
-      var balance = web3js.eth.getBalance(address).then((bal) => {
-        this.result += address + ": " + Web3.utils.fromWei(bal) + "\n";
-        
-      });      
+      promises.push(
+        web3js.eth.getBalance(address).then((bal) => {
+          result += address + ": " + Web3.utils.fromWei(bal) + "\n";
+        })
+      );
     });
 
-    return this.result;
+    Promise.all(promises).then(() => {
+      this.dataService.addResult("Get Balance", result.slice(0,-1));
+    });
+
+    // var counter = 0;
+    // spadd.forEach(address => {
+    //   var balance = web3js.eth.getBalance(address).then((bal) => {
+    //     counter++;
+    //     result += address + ": " + Web3.utils.fromWei(bal) + "\n";
+    //     if(counter >= spadd.length-1) {
+    //       this.dataService.addResult("Get Balance", result.slice(0, -1));
+    //     }
+    //   });      
+    // });
+    
+    return result;
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faWallet } from '@fortawesome/free-solid-svg-icons';
+import { faHammer, faWallet } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -10,6 +10,7 @@ import { faWallet } from '@fortawesome/free-solid-svg-icons';
 export class SidebarComponent implements OnInit {
 
   faWallet = faWallet;
+  faHammer = faHammer;
 
   constructor() { }
 

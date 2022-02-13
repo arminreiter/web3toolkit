@@ -1,0 +1,13 @@
+
+<div class="cardmx-0 mb-1 text-white bg-dark">
+    <div class="card-header d-flex justify-content-between">
+          <div>{{ title }}</div>
+          <div >
+              <button (click)="click()" class="btn p-0"><fa-icon [icon]="faPlay" class="text-success" ></fa-icon></button>
+          </div>
+    </div>
+
+    <div class="card-body hide-if-empty">
+        <ng-content></ng-content>
+    </div>
+</div>
