@@ -1,4 +1,3 @@
-import { Component } from "@angular/core";
 import { ethers } from "ethers";
 import { Action } from "../actions/action";
 import { ActionInput } from "../model/actioninput";

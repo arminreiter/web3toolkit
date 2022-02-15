@@ -21,10 +21,14 @@
     }
 
     .nav-link {
-        padding: 0.25rem 1rem;
+        padding: 0.25rem 2rem;
         color: white;
         border-radius: 0.25rem;
     }
+}
+
+.accordion-body {
+    font-size: 0.9rem;
 }
 
 .accordion-button.collapsed::after {

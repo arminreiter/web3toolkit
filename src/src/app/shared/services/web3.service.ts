@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import Web3 from "web3";
+import { Network } from "../model/network";
 
 export class Web3Service {
 
@@ -47,6 +48,17 @@ export class Web3Service {
             result = result.slice(0,-1);
         });
         return result;
+    }
+
+    static async sendTransaction(from: string, network:Network, receiver: string, amount: number) {
+        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
+        web3js.eth.sendTransaction({
+            from: from,
+            to: receiver,
+            value: amount
+        }).then((receipt) => {
+            return receipt.transactionHash;
+        })
     }
 
     static getAddresses(seedPhrase: string, amount:number) {
