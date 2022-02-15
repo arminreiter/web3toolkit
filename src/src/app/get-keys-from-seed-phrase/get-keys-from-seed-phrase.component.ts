@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Web3 from 'web3';
 import { ethers } from 'ethers';
-import { isExpressionWithTypeArguments } from 'typescript';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from '../shared/services/data.service';
 
@@ -34,19 +32,6 @@ export class GetKeysFromSeedPhraseComponent implements OnInit {
     this.dataService.addResult("Get Private Keys", result.slice(0,-1));
     return result;
   }
-
-  // getPublicAddresses() {
-  //   this.result = "";
-    
-  //   for(var i = 0; i < 20; i++) {
-  //     var path = this.getPath(i);
-  //     console.log(path);
-  //     var wallet = ethers.Wallet.fromMnemonic(this.seedPhrase, path);
-  //     this.result += wallet.address + "\n";
-  //   }
-
-  //   return this.result;
-  // }
 
   getPath(id: number) {
     var path = ethers.utils.getAccountPath(0);

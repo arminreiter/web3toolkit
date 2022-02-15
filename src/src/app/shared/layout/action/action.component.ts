@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faPlay, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Action, DataService } from '../services/data.service';
+import { Action } from '../../actions/action';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'w3tk-action',
@@ -20,7 +21,10 @@ export class ActionComponent implements OnInit {
   }
 
   click(): void {
-    this.action.action();
+    this.action.run(this.dataService.getInput()).then(
+      (result) => this.dataService.addResult(this.action.title, result)
+    );
+    
   }
 
   clear(): void {

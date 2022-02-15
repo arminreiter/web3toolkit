@@ -1,0 +1,51 @@
+<div class="px-3 pt-3 text-white min-vh-100">
+  <div class="align-items-center">
+    <a href="#" class="p-2 text-white text-decoration-none">
+      <img src="assets/img/favicon.png" class="px-2" style="height: 20px;" /> <span class="p-3" style="font-size: large; vertical-align: -0.25rem;">Web3ToolKit</span>
+    </a>
+  </div>
+    <hr>
+
+    <div class="accordion" id="menuAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="acc-headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseOne" aria-expanded="true" aria-controls="acc-collapseOne">
+            <fa-icon [icon]="faKey" class="px-2"></fa-icon> Key Management
+          </button>
+        </h2>
+        <div id="acc-collapseOne" class="accordion-collapse collapse show" aria-labelledby="acc-headingOne">
+          <div *ngFor="let action of getKeyMgmt()" class="accordion-body">
+            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="acc-headingTwo">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseTwo" aria-expanded="true" aria-controls="acc-collapseTwo">
+            <fa-icon [icon]="faWallet" class="px-2"></fa-icon> Wallet
+          </button>
+        </h2>
+        <div id="acc-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="acc-headingTwo">
+          <div *ngFor="let action of getWallet()" class="accordion-body">
+            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="acc-headingThree">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseThree" aria-expanded="true" aria-controls="acc-collapseThree">
+            <fa-icon [icon]="faCode" class="px-2"></fa-icon> Utils
+          </button>
+        </h2>
+        <div id="acc-collapseThree" class="accordion-collapse collapse show" aria-labelledby="acc-headingThree">
+          <div *ngFor="let action of getUtils()" class="accordion-body">
+            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+

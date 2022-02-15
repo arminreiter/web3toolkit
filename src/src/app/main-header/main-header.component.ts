@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService, Network } from '../shared/services/data.service';
+import { Network } from '../shared/model/network';
+import { DataService } from '../shared/services/data.service';
 
 @Component({
   selector: 'w3tk-main-header',

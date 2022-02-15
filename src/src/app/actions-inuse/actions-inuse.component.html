@@ -15,7 +15,9 @@
   
 <div>
   <div *ngFor="let action of dataService.actions">
-    <w3tk-action [action]="action"></w3tk-action>
+    <w3tk-action [action]="action">
+      <ng-content></ng-content>
+    </w3tk-action>
   </div>
 
 </div>

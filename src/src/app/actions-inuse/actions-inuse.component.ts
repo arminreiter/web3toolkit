@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faPlay, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from '../shared/services/data.service';
 
@@ -17,10 +17,11 @@ export class ActionsInuseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  play() {
-    this.dataService.actions.forEach(action => {
-      action.action();
-    });
+  async play() {
+    for (var action of this.dataService.actions) {
+      let result = await action.run(this.dataService.getInput());
+      this.dataService.addResult(action.title, result);
+    }
   }
 
   clear() {
