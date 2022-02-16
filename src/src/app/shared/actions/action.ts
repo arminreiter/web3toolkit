@@ -6,6 +6,7 @@ export abstract class Action {
     abstract title:string;
     abstract description:string;
     abstract module:Module;
+    abstract requiresConnection:boolean;
 
     public id:number = Action.counter++;
 
@@ -13,7 +14,7 @@ export abstract class Action {
 }
 
 export class SimpleAction extends Action {
-    constructor(public title:string, public module:Module, public description:string, public run:(input:ActionInput) => Promise<string>) {
+    constructor(public title:string, public module:Module, public description:string, public run:(input:ActionInput) => Promise<string>, public requiresConnection: boolean = false) {
         super();
     }
 }

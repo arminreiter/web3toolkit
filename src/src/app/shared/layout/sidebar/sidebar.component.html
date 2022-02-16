@@ -1,4 +1,4 @@
-<div class="px-3 pt-3 text-white min-vh-100">
+<div class="px-3 pt-3 text-white h-100 d-flex flex-column">
   <div class="align-items-center">
     <a href="#" class="p-2 text-white text-decoration-none">
       <img src="assets/img/favicon.png" class="px-2" style="height: 20px;" /> <span class="p-3" style="font-size: large; vertical-align: -0.25rem;">Web3ToolKit</span>
@@ -6,7 +6,7 @@
   </div>
     <hr>
 
-    <div class="accordion" id="menuAccordion">
+    <div class="accordion flex-grow-1" id="menuAccordion" style="overflow-y: auto;">
       <div class="accordion-item">
         <h2 class="accordion-header" id="acc-headingOne">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseOne" aria-expanded="true" aria-controls="acc-collapseOne">
@@ -15,7 +15,7 @@
         </h2>
         <div id="acc-collapseOne" class="accordion-collapse collapse show" aria-labelledby="acc-headingOne">
           <div *ngFor="let action of getKeyMgmt()" class="accordion-body">
-            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}}</a>
+            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
         </h2>
         <div id="acc-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="acc-headingTwo">
           <div *ngFor="let action of getWallet()" class="accordion-body">
-            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}}</a>
+            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
           </div>
         </div>
       </div>
@@ -39,11 +39,16 @@
         </h2>
         <div id="acc-collapseThree" class="accordion-collapse collapse show" aria-labelledby="acc-headingThree">
           <div *ngFor="let action of getUtils()" class="accordion-body">
-            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}}</a>
+            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
           </div>
         </div>
       </div>
     </div>
+    
+  <div class="mb-3" style="position: relative; bottom: 0px;">
+    <hr>
+    <a href="#" class="mx-3 text-white text-decoration-none" [routerLink]="['/about']" >About</a>
+  </div>
 
 </div>
 

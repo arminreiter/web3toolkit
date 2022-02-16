@@ -1,6 +1,22 @@
+@import '~bootstrap/scss/bootstrap';
+
 .result {
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     font-size: small;
+}
+
+.input {
+    resize: vertical;
+    min-height: 5.5rem !important;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: small;
+}
+
+.form-floating {
+    label {
+        color: $secondary;
+    }
 }

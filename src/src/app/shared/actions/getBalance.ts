@@ -7,9 +7,9 @@ export class GetBalance extends Action {
     title: string = "Get Balance";
     description: string = "Returns the balance of the public addresses";
     module: Module = Module.Wallet;
+    requiresConnection: boolean = true;
     
     async run(input: ActionInput): Promise<string> {
         return await Web3Service.getBalances(input.input, input.network.rpcUrl);
     }
-
 }

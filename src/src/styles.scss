@@ -7,36 +7,26 @@
     display: none;
 }
 
+body {
+    color: white;
+}
+
+#action-main {
+    background-color: $secondary;
+}
+
+#io-col {
+    background-color: $dark;
+}
+
 .eth-main, .eth-rinkeby {
     background-color: $dark;
-
-    #action-main {
-        background-color: $secondary;
-    }
-
-    #io-col {
-        background-color: $dark;
-    }
 }
 
 .ecs-main, .ecs-test {
     background-color: #278DE1;
-    
-    #action-main {
-        background-color: $secondary; //#278DE1;
-    }
-    #io-col {
-        background-color: $dark; //#3092E2;
-    }
 }
 
 .gns-main {
     background-color: #04795B;
-
-    #action-main {
-        background-color: $secondary; //#278DE1;
-    }
-    #io-col {
-        background-color: $dark; //#3092E2;
-    }
 }

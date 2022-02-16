@@ -1,33 +1,21 @@
-
-
 <div class="cardmx-0 my-1 alert-primary">
   <div class="card-header d-flex justify-content-between fw-bold">
     <div>Input &amp; Results</div>
-        <div>
-            <button (click)="clear()" class="btn p-0"><fa-icon [icon]="faTrash"></fa-icon></button>
-        </div>
+    <div>
+      <button (click)="clear()" class="btn p-0">
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
+    </div>
   </div>
-
-
 </div>
 
-  
 <div class="form-floating my-1">
-  <textarea class="form-control w-100 h-100 rounded-0" style="resize: none;" [(ngModel)]="dataService.input" ></textarea>
+  <textarea class="form-control w-100 input" [(ngModel)]="dataService.input"></textarea>
   <label for="floatingInput">Input</label>
 </div>
 
 <div *ngFor="let res of dataService.results" class="form-floating mb-1">
-    <textarea class="form-control w-100 rounded-0 result" rows="{{res.result.split('\n').length}}">{{res.result}}</textarea>
-    <label for="floatingInput">{{res.actionName}}</label>
+  <textarea class="form-control w-100 result" style="height: 100%;"
+    rows="{{res.result.split('\n').length}}">{{res.result}}</textarea>
+  <label for="floatingInput">{{res.actionName}}</label>
 </div>
-
-
- <!-- <div class="form-floating mb-1" style="height: calc(50% - .25rem);">
-    <textarea class="form-control w-100 h-100 rounded-0" style="resize: none;" [(ngModel)]="dataService.input" ></textarea>
-    <label for="floatingInput">Input</label>
-  </div>
-  <div class="form-floating h-50">
-    <textarea class="form-control w-100 h-100 rounded-0" style="resize: none;" >{{dataService.output}}</textarea>
-    <label for="floatingInput">Output</label>
-  </div> -->
