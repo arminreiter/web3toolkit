@@ -21,9 +21,10 @@ export class AboutComponent implements OnInit {
 
   addressGeneration() {
     this.dataService.actions = [];
+    this.dataService.input = "";
 
     this.dataService.addAction(Actions.genSeedPhraseAction());
-    this.dataService.addAction(Actions.getAddressesFromSeedPhrase());
+    this.dataService.addAction(Actions.derivePrivateKeys());
     this.dataService.addAction(Actions.getAddressesFromPrivateKeys());
 
     this.router.navigate(['/']);
