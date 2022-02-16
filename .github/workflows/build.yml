@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_ARTIFACT_LOCATION: "dist" # location of client code build output
-  AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }} # secret containing deployment token for your static web app
+  APP_ARTIFACT_LOCATION: "src/dist" # location of client code build output
   NODE_VERSION: '16.x'                # set this to the node version to use
 
 jobs:
@@ -23,16 +22,17 @@ jobs:
         cache: 'npm'
 
     - name: npm install, build, and test
+      working-directory: src
       run: |
         npm install -g @angular/cli
         npm install 
         ng build --prod
 
     - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2.3.1
       with:
         name: angular-app
-        path: .
+        path: src/dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,5 +48,5 @@ jobs:
       id: deploy-to-static-web 
       uses: TravisSpomer/deploy-to-azure-storage@v1.4.0
       with:
-        source-path: dist
+        source-path: .
         sas-url: ${{ secrets.DEPLOY_SAS_URL }}
