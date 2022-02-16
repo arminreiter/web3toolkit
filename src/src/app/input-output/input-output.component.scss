@@ -1,5 +1,3 @@
-@import '~bootstrap/scss/bootstrap';
-
 .result {
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
@@ -17,6 +15,6 @@
 
 .form-floating {
     label {
-        color: $secondary;
+        color: #6c757d;
     }
 }
