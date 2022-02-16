@@ -23,7 +23,7 @@ export class ActionComponent implements OnInit {
   click(): void {
     this.action.run(this.dataService.getInput()).then(
       (result) => this.dataService.addResult(this.action.title, result)
-    );
+    ).catch((err) => { this.dataService.addResult(this.action.title, String(err)); });
     
   }
 

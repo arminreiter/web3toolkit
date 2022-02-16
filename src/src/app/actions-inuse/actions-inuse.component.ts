@@ -19,8 +19,12 @@ export class ActionsInuseComponent implements OnInit {
 
   async play() {
     for (var action of this.dataService.actions) {
-      let result = await action.run(this.dataService.getInput());
-      this.dataService.addResult(action.title, result);
+      try {
+        let result = await action.run(this.dataService.getInput());
+        this.dataService.addResult(action.title, result);
+      } catch (error) {
+        this.dataService.addResult(action.title, String(error));
+      }
     }
   }
 
