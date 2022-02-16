@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  APP_ARTIFACT_LOCATION: "src/dist" # location of client code build output
   NODE_VERSION: '16.x'                # set this to the node version to use
 
 jobs:
@@ -20,6 +19,7 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+        cache-dependency-path: src/package-lock.json
 
     - name: npm install, build, and test
       working-directory: src
