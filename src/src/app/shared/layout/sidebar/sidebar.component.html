@@ -7,42 +7,20 @@
     <hr>
 
     <div class="accordion flex-grow-1" id="menuAccordion" style="overflow-y: auto;">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="acc-headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseOne" aria-expanded="true" aria-controls="acc-collapseOne">
-            <fa-icon [icon]="faKey" class="px-2"></fa-icon> Key Management
+
+      <div *ngFor="let module of modules; let i = index" class="accordion-item">
+        <h2 class="accordion-header" id="{{ 'acc-heading-' + i }}">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#acc-collapse-' + i" aria-expanded="true" [attr.aria-controls]="'acc-collapse-' + i">
+            <fa-icon [icon]="module.icon" class="px-2"></fa-icon> {{module.module}}
           </button>
         </h2>
-        <div id="acc-collapseOne" class="accordion-collapse collapse show" aria-labelledby="acc-headingOne">
-          <div *ngFor="let action of getKeyMgmt()" class="accordion-body">
+        <div id="{{ 'acc-collapse-' + i }}" class="accordion-collapse collapse show" [attr.aria-labelledby]="'acc-heading-' + i">
+          <div *ngFor="let action of getActions(module.module)" class="accordion-body">
             <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
           </div>
         </div>
       </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="acc-headingTwo">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseTwo" aria-expanded="true" aria-controls="acc-collapseTwo">
-            <fa-icon [icon]="faWallet" class="px-2"></fa-icon> Wallet
-          </button>
-        </h2>
-        <div id="acc-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="acc-headingTwo">
-          <div *ngFor="let action of getWallet()" class="accordion-body">
-            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="acc-headingThree">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc-collapseThree" aria-expanded="true" aria-controls="acc-collapseThree">
-            <fa-icon [icon]="faCode" class="px-2"></fa-icon> Utils
-          </button>
-        </h2>
-        <div id="acc-collapseThree" class="accordion-collapse collapse show" aria-labelledby="acc-headingThree">
-          <div *ngFor="let action of getUtils()" class="accordion-body">
-            <a href="#" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
-          </div>
-        </div>
-      </div>
+
     </div>
     
   <div class="mb-3" style="position: relative; bottom: 0px;">

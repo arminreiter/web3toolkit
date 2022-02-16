@@ -18,6 +18,8 @@ export class Actions {
             new SimpleAction("To Wei", Module.Utils, "Converts a decimal value to wei", async (input:ActionInput) => { return Web3.utils.toWei(input.input); }),
             new IsValidSeedPhrase(),
             new SimpleAction("Is Valid Address", Module.Utils, "Checks if an address is a valid address", async (input:ActionInput) => { return String(Web3.utils.isAddress(input.input, input.network.chainId)); }),
+            new SimpleAction("Get Block", Module.Blockchain, "Read the data of the given block (number)", async (input:ActionInput) => { return await Web3Service.getBlock(parseInt(input.input), input.network); }, true),
+            new SimpleAction("Get Transaction", Module.Blockchain, "Returns the transaction of the given tx hash", async (input:ActionInput) => { return await Web3Service.getTransaction(input.input, input.network); }, true),
             //new SimpleAction("", Module.Utils, "", async (input:ActionInput) => { return ""; }),
         ];
 
