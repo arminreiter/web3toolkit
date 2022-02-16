@@ -86,4 +86,17 @@ export class Web3Service {
         return result.slice(0, -1);
     }
 
+    static async getBlock(blockNumber:number, network:Network) : Promise<string> {
+        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
+        var block = await web3js.eth.getBlock(blockNumber);
+        
+        return JSON.stringify(block, null, 2);
+    }
+    
+    static async getTransaction(txHash:string, network:Network) : Promise<string> {
+        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
+        var tx = await web3js.eth.getTransaction(txHash);
+        
+        return JSON.stringify(tx, null, 2);
+    }
 }
