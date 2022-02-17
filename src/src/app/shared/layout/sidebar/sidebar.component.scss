@@ -1,5 +1,8 @@
+@import '../../../../assets/variables';
+
+
 .nav-link:hover {
-    background-color: #525252 !important
+    background-color: $primary !important
 }
 
 .nav-link .fa {
@@ -11,18 +14,18 @@
 }
 
 .accordion, .accordion-item, .accordion-header, .accordion-button, .accordion-body {
-    background-color: #212529;
-    color: white;
+    background-color: $dark;
+    color: $light;
     padding: 0.25rem 0px;
     border: none;
 
     button {
-        border-color: white;
+        border-color: $light;
     }
 
     .nav-link {
         padding: 0.25rem 0rem 0.25rem 2rem;
-        color: white;
+        color: $light;
         border-radius: 0.25rem;
     }
 }
