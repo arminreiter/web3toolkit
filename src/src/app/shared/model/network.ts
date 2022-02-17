@@ -7,6 +7,6 @@ export class Network {
         new Network("gns-main", "Gnosis", "https://rpc.gnosischain.com", "assets/img/gnosis_logo.png", 100),
         new Network("ecs-main", "eCredits", "https://rpc.ecredits.com", "assets/img/eCredits_logo.png", 63000),
         new Network("eth-rinkeby", "Ethereum Rinkeby", "https://rinkeby-light.eth.linkpool.io/", "assets/img/ethereum_logo.webp", 4, true),
-        new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "assets/img/eCredits_logo.png", 63001, true),
+        new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "assets/img/eCredits_logo.png", 63001, true)
     ];
 }

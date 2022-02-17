@@ -9,9 +9,6 @@ import { DataService } from './shared/services/data.service';
 export class AppComponent {
   title = 'web3toolkit';
 
-
   constructor(public dataService: DataService) {
-
   }
-
 }
