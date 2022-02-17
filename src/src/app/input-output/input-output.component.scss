@@ -1,3 +1,5 @@
+@import '../../assets/variables.scss';
+
 .result {
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
@@ -15,6 +17,6 @@
 
 .form-floating {
     label {
-        color: #6c757d;
+        color: $secondary;
     }
 }

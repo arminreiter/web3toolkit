@@ -1,0 +1,53 @@
+// https://getbootstrap.com/docs/5.0/utilities/colors/
+
+$primary:       #0D6BF5; // 25408f or 0D6BF5
+$secondary:     #3e4246;
+$success:       #198754;
+$info:          #0dcaf0;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #f8f9fa;
+$dark:          #212529;
+
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark
+);
+
+/*
+// darker style
+$primary:       #00478f; // 25408f or 0D6BF5
+$secondary:     #161b22;
+$success:       #3fb950;
+$info:          #0dcaf0;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #f8f9fa;
+$dark:          #0D1117;
+
+// dark, but a bit lighter
+$primary:       #0D6BF5; // 25408f or 0D6BF5
+$secondary:     #6c757d;
+$success:       #198754;
+$info:          #0dcaf0;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #f8f9fa;
+$dark:          #212529;
+
+// another one...
+$primary:       #00478f; // 25408f or 0D6BF5
+$secondary:     #333333;
+$success:       #198754;
+$info:          #0dcaf0;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #f8f9fa;
+$dark:          #191919;
+*/
