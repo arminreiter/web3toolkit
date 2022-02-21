@@ -37,11 +37,14 @@ export class Web3Service {
         var promises: Promise<string | void>[] = [];
 
         spadd.forEach(address => {
-            promises.push(
-                web3js.eth.getBalance(address).then((bal) => {
-                result += address + ": " + Web3.utils.fromWei(bal) + "\n";
-                })
-            );
+            address = address.trim();
+            if(address.length > 0) {
+                promises.push(
+                    web3js.eth.getBalance(address).then((bal) => {
+                    result += address + ": " + Web3.utils.fromWei(bal) + "\n";
+                    })
+                );
+            }
         });
 
         await Promise.all(promises).then(() => {
@@ -63,6 +66,7 @@ export class Web3Service {
 
     static getAddresses(seedPhrase: string, amount:number) {
         var result = "";
+        seedPhrase = seedPhrase.trim();
 
         for (var i = 0; i < amount; i++) {
             var path = this.getPath(i);
@@ -80,7 +84,10 @@ export class Web3Service {
         var web3js = new Web3();
 
         keyarr.forEach(key => {
-            result += web3js.eth.accounts.privateKeyToAccount(key).address + "\n";
+            key = key.trim();
+            if(key.length > 0) {
+                result += web3js.eth.accounts.privateKeyToAccount(key).address + "\n";
+            }
         }); 
 
         return result.slice(0, -1);

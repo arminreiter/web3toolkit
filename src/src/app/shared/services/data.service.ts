@@ -28,7 +28,7 @@ export class DataService {
     }
 
     getInput() : ActionInput {
-        return new ActionInput( this.lastResult ? this.lastResult : this.input, this.network );
+        return new ActionInput( this.lastResult ? this.lastResult.trim() : this.input.trim(), this.network );
     }
 
     clear() {
