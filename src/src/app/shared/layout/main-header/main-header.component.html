@@ -9,12 +9,12 @@
                 <ul class="dropdown-menu network-dropdown w-100 bg-dark border-secondary" aria-labelledby="dropdownMenuLink">
                     <li><span class="dropdown-header  text-white">Mainnets</span></li>
                     <li *ngFor="let net of mainnets" value="{{net.shortName}}" (click)="selectValue(net)">
-                        <a class="dropdown-item text-white" href="#"><img src="{{net.imgUrl}}" class="m-1" /> {{net.name}}</a>
+                        <button class="dropdown-item text-white" ><img src="{{net.imgUrl}}" class="m-1" /> {{net.name}}</button>
                     </li>
                     <li><hr class="dropdown-divider text-white"></li>
                     <li><h3 class="dropdown-header text-white">Testnets</h3></li>
                     <li *ngFor="let net of testnets" value="{{net.shortName}}" (click)="selectValue(net)">
-                        <a class="dropdown-item text-white" href="#"><img src="{{net.imgUrl}}" class="m-1" /> {{net.name}}</a>
+                        <button class="dropdown-item text-white" ><img src="{{net.imgUrl}}" class="m-1" /> {{net.name}}</button>
                     </li>
                 </ul>
             </div>

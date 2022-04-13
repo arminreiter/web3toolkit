@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Network } from '../shared/model/network';
-import { DataService } from '../shared/services/data.service';
+import { Network } from '../../model/network';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'w3tk-main-header',
@@ -8,12 +8,14 @@ import { DataService } from '../shared/services/data.service';
   styleUrls: ['./main-header.component.scss']
 })
 export class MainHeaderComponent implements OnInit {
-  selectedValue: string = "Ethereum";
+  selectedValue: string;
 
   mainnets: Network[] = Network.Networks.filter(net => net.isTestNet == false);
   testnets: Network[] = Network.Networks.filter(net => net.isTestNet == true);
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService) { 
+    this.selectedValue = dataService.network.name;
+  }
 
   ngOnInit(): void {
   }

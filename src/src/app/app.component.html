@@ -1,9 +1,11 @@
 <div id="container" class="container-fluid bg-dark">
   <div class="row">
-    <div id="sidebar-col" class="col-2 border-right border-secondary">
-      <w3tk-sidebar></w3tk-sidebar>
-    </div> 
-    <main id="main-col" class="col-10" style="height: 100vh;">
+
+    <div class="bg-sidenav p-2" style="width: 6.5rem;">
+      <w3tk-sidenav></w3tk-sidenav>
+    </div>
+
+    <main id="main-col" class="col" style="height: 100vh;">
       
       <router-outlet></router-outlet>
       

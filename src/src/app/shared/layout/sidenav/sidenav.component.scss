@@ -1,0 +1,12 @@
+@import '../../../../assets/variables';
+.nav li span, .web3tklink {
+    font-size: 0.75rem;
+}
+
+.nav-pills, .nav-link {
+    border-radius: 0rem;
+}
+
+.nav a:hover {
+    color: $primary;
+}

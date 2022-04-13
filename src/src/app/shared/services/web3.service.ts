@@ -22,8 +22,8 @@ export class Web3Service {
         return result.slice(0, -1);
     }
 
-    static getPath(id: number) {
-        var path = ethers.utils.getAccountPath(0);
+    static getPath(id: number, path:string = "m/44'/60'/0'/0/0") {
+        //var path = ethers.utils.getAccountPath(0);
         path = path.substring(0, path.lastIndexOf('/')+1) + id;
         return path;
     }
@@ -64,12 +64,12 @@ export class Web3Service {
         })
     }
 
-    static getAddresses(seedPhrase: string, amount:number) {
+    static getAddresses(seedPhrase: string, amount:number, derivationPath:string = "m/44'/60'/0'/0/0") {
         var result = "";
         seedPhrase = seedPhrase.trim();
 
         for (var i = 0; i < amount; i++) {
-            var path = this.getPath(i);
+            var path = this.getPath(i, derivationPath);
             var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
             result += wallet.address + "\n";
         }

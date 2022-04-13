@@ -1,0 +1,13 @@
+
+<div class="row row-cols-1 row-cols-md-3 p-5">
+    <div class="col" *ngFor="let tool of tools">
+        <div  class="card bg-dark border-info h-100">
+            <div class="card-body">
+                <h5 class="card-title"><fa-icon [icon]="tool.icon" class="px-2"></fa-icon> {{tool.module}}</h5>
+                <hr />
+                <div *ngFor="let action of tool.actions">
+                    <button class="btn nav-link text-light w-100 m-2 text-start" [routerLink]="action.route">{{action.name}}</button> 
+                </div>
+            </div>
+        </div>
+    </div>

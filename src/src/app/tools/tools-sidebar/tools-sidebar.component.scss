@@ -1,15 +1,7 @@
-@import '../../../../assets/variables';
+@import '../../../assets/variables';
 
 .nav-link:hover {
     background-color: $primary !important
-}
-
-.nav-link .fa {
-    transition: all 1s
-}
-
-.nav-link:hover .fa {
-    transform: rotate(360deg)
 }
 
 .accordion, .accordion-item, .accordion-header, .accordion-button, .accordion-body {

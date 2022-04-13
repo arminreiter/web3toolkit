@@ -13,6 +13,16 @@ body {
     color: $light;
 }
 
+.bg-sidenav {
+    border-right: 1px solid $secondary;
+}
+
+.font-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: small;
+}
+
 #action-main {
     background-color: $secondary;
 }
@@ -31,4 +41,8 @@ body {
 
 .gns-main {
     background-color: #04795B;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

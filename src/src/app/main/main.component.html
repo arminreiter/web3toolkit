@@ -1,13 +1,51 @@
-<w3tk-main-header></w3tk-main-header>
 
-<div id="action-main" class="row" style="height: calc(100vh - 52px);">
+<div style="padding-left: 15%; padding-right: 15%">
+<div class="row p-4">
 
-    <div id="action-col" class="col-5 p-1 h-100" style="overflow-y: auto;">
-      <w3tk-actions-inuse></w3tk-actions-inuse>
+<h1 align="center" dir="auto">
+  <img src="assets/img/w3tk_logo.png" class="p-4" style="height: 100px; width: auto;"> Web3ToolKit
+</h1>
+<hr />
+
+</div>
+
+<div class="row px-5">
+    <h2>...a toolkit for the web3</h2>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 p-5">
+  <div class="col">
+    <div class="card bg-dark cursor-pointer border-info h-100" [routerLink]="['/tools']">
+      <fa-icon [icon]="faToolbox" class="card-img-top p-5"></fa-icon>
+      <div class="card-body">
+        <h5 class="card-title">Tools</h5>
+        <p class="card-text">A set of easy to use tools. Generate a new seed phrase, get a block from the blockchain or convert wei to eth.</p>
+      </div>
     </div>
-
-    <div id="io-col" class="col-7 py-0 px-1 h-100"  style="overflow-y: auto; " >
-      <w3tk-input-output></w3tk-input-output>
-    </div>
-
   </div>
+  <div class="col">
+    <div class="card bg-dark link cursor-pointer border-info h-100" [routerLink]="['/automator']">
+      <fa-icon [icon]="faRobot" class="card-img-top p-5"></fa-icon>
+      <div class="card-body">
+        <h5 class="card-title">Automator</h5>
+        <p class="card-text">Allows you to add multiple operations to your flow and execute them in a row. You can e.g. generate a seed phrase, derive 20 private keys and get the public keys of each private key.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card bg-dark cursor-pointer border-info h-100" [routerLink]="['/about']">
+      <fa-icon [icon]="faQuestionCircle" class="card-img-top p-5"></fa-icon>
+      <div class="card-body">
+        <h5 class="card-title">About</h5>
+        <p class="card-text">Want to know more about Web3Toolkit? Check out the about section.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row p-4">
+
+</div>
+ <hr />
+ <div class="px-4">This tool is still under development. More actions and features are planned for the future.</div>
+</div>

@@ -27,14 +27,14 @@ export class AboutComponent implements OnInit {
     this.dataService.addAction(Actions.derivePrivateKeys());
     this.dataService.addAction(Actions.getAddressesFromPrivateKeys());
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/automator']);
   }
 
   balanceReport() {
     this.dataService.actions = [];
     this.dataService.input = "0x0000000000000000000000000000000000000000";
     this.dataService.addAction(new GetBalance());
-    this.router.navigate(['/']);
+    this.router.navigate(['/automator']);
   }
 
 }
