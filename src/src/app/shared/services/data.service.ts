@@ -35,6 +35,13 @@ export class DataService {
         this.lastResult = "";
         this.results = [];
     }
+
+    trySetNetwork(net: string) {
+        var network = Network.getNetwork(net);
+        if(network) {
+            this.network = network;
+        }
+    }
 }
 
 export class ActionResult {
