@@ -1,5 +1,9 @@
 # Notes
 
+## Url Parameters
+
+- net: allows to set the network via URL param. values are e.g.: eth, eth-test, ecs, Gnosis
+
 ## Add new tool to tools
 
 1. generate component:

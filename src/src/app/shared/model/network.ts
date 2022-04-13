@@ -9,4 +9,18 @@ export class Network {
         new Network("eth-rinkeby", "Ethereum Rinkeby", "https://rinkeby-light.eth.linkpool.io/", "assets/img/ethereum_logo.webp", 4, true),
         new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "assets/img/eCredits_logo.png", 63001, true)
     ];
+
+    public static getNetwork(name: string) : Network | undefined {
+        name = name.toLowerCase();
+        var net = Network.Networks.find(x => x.shortName.toLowerCase() == name);
+        if(net) return net;
+
+        net = Network.Networks.find(x => x.name.toLowerCase() == name);
+        if(net) return net;
+        
+        net = Network.Networks.find(x => x.shortName.toLowerCase() == name + "-main");
+        if(net) return net;
+
+        return net;
+    }
 }
