@@ -13,6 +13,9 @@ import { ActionsInuseComponent } from './actions-inuse/actions-inuse.component';
 import { InputOutputComponent } from './input-output/input-output.component';
 import { MainComponent } from './main/main.component';
 import { AboutComponent } from './about/about.component';
+import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
+import { AutomatorComponent } from './automator/automator.component';
+import { ToolsModule } from './tools/tools.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { AboutComponent } from './about/about.component';
     ActionsInuseComponent,
     InputOutputComponent,
     MainComponent,
-    AboutComponent
+    AboutComponent,
+    SidenavComponent,
+    AutomatorComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,8 @@ import { AboutComponent } from './about/about.component';
     NgbModule,
     FontAwesomeModule,
     FormsModule,
-    ClipboardModule
+    ClipboardModule,
+    ToolsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

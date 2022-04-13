@@ -1,6 +1,5 @@
 @import '../../../../assets/variables';
 
-
 .nav-link:hover {
     background-color: $primary !important
 }
@@ -27,6 +26,10 @@
         padding: 0.25rem 0rem 0.25rem 2rem;
         color: $light;
         border-radius: 0.25rem;
+        border: none;
+        background-color: $dark;
+        width: 100%;
+        text-align: left;
     }
 }
 
