@@ -17,5 +17,5 @@
 <div *ngFor="let res of dataService.results" class="form-floating mb-1">
   <textarea class="form-control w-100 result" style="height: 100%;"
     rows="{{res.result.split('\n').length}}">{{res.result}}</textarea>
-  <label for="floatingInput">{{res.actionName}}</label>
+  <label >{{res.actionName}}</label>
 </div>

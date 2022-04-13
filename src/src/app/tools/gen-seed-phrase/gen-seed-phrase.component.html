@@ -1,1 +1,19 @@
-<p>gen-seed-phrase works!</p>
+<div class="card bg-dark">
+    <h5 class="card-header bg-dark">Generate Seed Phrase</h5>
+    <div class="card-body">
+      <p class="card-text">
+          Generate up to 100 BIP-39 seed phrases by clicking one button.
+      </p>
+      <p class="card-text">
+        Number of seed phrases: <br />
+        <input type="number" class="form-control" max="100" min="1" [(ngModel)]="nrOfSeeds">
+    </p>
+    <p class="card-text">
+      <button (click)="genSeedPhrase()" class="btn btn-primary" >Generate</button>
+    </p>
+    <p class="card-text">
+        <textarea class="form-control font-code" rows="20" disabled>{{genSeeds}}</textarea>
+        
+       </p> 
+    </div>
+  </div>

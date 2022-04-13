@@ -1,0 +1,16 @@
+<div class="card bg-dark">
+    <h5 class="card-header bg-dark">Wei converter</h5>
+    <div class="card-body">
+      <p class="card-text">
+          Converts Wei to Gwei and Ether
+      </p>
+      <p class="card-text">
+        Wei: <br />
+        <input type="number" class="form-control" max="100" min="1" [(ngModel)]="wei" (change)="fwei()">
+        Gwei: <br />
+        <input type="number" class="form-control" max="100" min="1" [(ngModel)]="gwei" (change)="fgwei()">
+        Ether: <br />
+        <input type="number" class="form-control" max="100" min="1" [(ngModel)]="ether" (change)="fether()">
+    </p>
+    </div>
+  </div>

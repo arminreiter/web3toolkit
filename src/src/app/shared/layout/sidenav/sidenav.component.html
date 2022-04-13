@@ -1,12 +1,11 @@
 <div class="d-flex flex-column flex-shrink-0 h-100">
-<a href="/" class="d-block pb-4 pt-2 text-center border-bottom web3tklink link-light text-decoration-none" title="web3toolkit">
+<a href="#" class="d-block pb-4 pt-2 text-center border-bottom web3tklink link-light text-decoration-none" title="web3toolkit" [routerLink]="['/']">
     <img src="assets/img/favicon.png" class="mb-2" style="height: 36px;" /> <br />
     <span class="fw-bold">Web3Toolkit</span>
 </a>
 <ul class="nav nav-pills flex-column mb-auto text-center link-light">
     <li>
-        <a href="#" class="nav-link py-3 border-bottom border-secondary link-light" aria-current="page" title="Home" data-bs-toggle="tooltip"
-            data-bs-placement="right" data-bs-original-title="Home">
+        <a href="#" class="nav-link py-3 border-bottom border-secondary link-light" title="Home" [routerLink]="['/']">
             <fa-icon [icon]="faHome"></fa-icon> <br />
             <span>Home</span>
         </a>
@@ -30,7 +29,7 @@
         </a>
     </li>
 </ul>
-<div class="dropdown border-top">
+<!-- <div class="dropdown border-top">
     <a href="#"
         class="d-flex align-items-center justify-content-center py-0 px-3 link-light text-decoration-none dropdown-toggle"
         id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,5 +44,5 @@
         </li>
         <li><a class="dropdown-item" href="#">Sign out</a></li>
     </ul>
-</div>
+</div> -->
 </div>
