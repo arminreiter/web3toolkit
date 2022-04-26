@@ -28,7 +28,7 @@ export class Web3Service {
         return path;
     }
     
-    static async getBalances(addresses: string, rpcUrl: string): Promise<string> {
+    static async getBalances(addresses: string, rpcUrl: string, delimiter: string = ": "): Promise<string> {
         var result = "";
         var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
 
@@ -41,7 +41,7 @@ export class Web3Service {
             if(address.length > 0) {
                 promises.push(
                     web3js.eth.getBalance(address).then((bal) => {
-                    result += address + ": " + Web3.utils.fromWei(bal) + "\n";
+                    result += address + delimiter + Web3.utils.fromWei(bal) + "\n";
                     })
                 );
             }

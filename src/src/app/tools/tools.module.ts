@@ -10,6 +10,7 @@ import { GetAddressFromSeedComponent } from './get-address-from-seed/get-address
 import { FormsModule } from '@angular/forms';
 import { WeiConverterComponent } from './wei-converter/wei-converter.component';
 import { ToolsOverviewComponent } from './tools-overview/tools-overview.component';
+import { GetBalanceComponent } from './get-balance/get-balance.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ToolsOverviewComponent } from './tools-overview/tools-overview.componen
     ToolsSidebarComponent,
     GetAddressFromSeedComponent,
     WeiConverterComponent,
-    ToolsOverviewComponent
+    ToolsOverviewComponent,
+    GetBalanceComponent
     
   ],
   imports: [
