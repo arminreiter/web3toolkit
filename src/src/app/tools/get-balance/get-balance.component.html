@@ -5,7 +5,7 @@
           Enter public addresses below to get the balance (one address per line)
       </p>
       <p class="card-text">
-        <textarea class="form-control font-code" rows="20" [(ngModel)]="addresses"></textarea><br />
+        <textarea class="form-control font-code" rows="12" [(ngModel)]="addresses"></textarea><br />
 
         Delimiter: <br />
         <input type="text" class="form-control" [(ngModel)]="delimiter">
@@ -14,7 +14,7 @@
       <button (click)="getBalances()" class="btn btn-primary" >Get Balances</button>
     </p>
     <p class="card-text">
-        <textarea class="form-control font-code" rows="20" disabled>{{balances}}</textarea>
+        <textarea class="form-control font-code" rows="12" disabled>{{balances}}</textarea>
        </p> 
     </div>
   </div>

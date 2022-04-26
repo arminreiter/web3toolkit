@@ -1,18 +1,18 @@
-<div class="row">
-  <div id="sidebar-col" class="col-2 border-right border-secondary">
+<div class="row" style="height: calc(100vh - 52px);">
+  <div id="sidebar-col" class="col-2 border-right border-secondary" style="min-width: 240px; height: calc(100vh );">
     <w3tk-sidebar></w3tk-sidebar>
   </div>
-  <div class="col" style="height: 100vh;">
+  <div class="col" >
+    <div id="action-main" class="row" >
+      <w3tk-main-header></w3tk-main-header>
 
-    <w3tk-main-header></w3tk-main-header>
+    
 
-    <div id="action-main" class="row" style="height: calc(100vh - 52px);">
-
-      <div id="action-col" class="col-5 p-1 h-100" style="overflow-y: auto;">
+      <div id="action-col" class="col-5 p-1 " style="min-width: 220px; height: calc(100vh - 52px);" >
         <w3tk-actions-inuse></w3tk-actions-inuse>
       </div>
 
-      <div id="io-col" class="col-7 py-0 px-1 h-100" style="overflow-y: auto; ">
+      <div id="io-col" class="col-7 py-0 px-1"  style="min-width: 220px; height: calc(100vh - 52px);" >
         <w3tk-input-output></w3tk-input-output>
       </div>
 
