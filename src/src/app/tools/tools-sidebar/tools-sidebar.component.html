@@ -15,7 +15,7 @@
         </h2>
         <div id="{{ 'acc-collapse-' + i }}" class="accordion-collapse collapse show" [attr.aria-labelledby]="'acc-heading-' + i">
           <div *ngFor="let action of tool.actions" class="accordion-body" title={{action.name}}>
-            <button href="#" class="nav-link" [routerLink]="action.route">{{action.name}} </button> 
+            <button href="#" class="nav-link" [routerLink]="action.route">{{action.name}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></button> 
           </div>
         </div>
       </div>
