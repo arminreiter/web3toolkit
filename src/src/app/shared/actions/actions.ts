@@ -35,10 +35,10 @@ export class Actions {
     }
 
     public static getAddressesFromPrivateKeys() : Action {
-        return new SimpleAction("Get Addresses from Private Key(s)", Module.KeyManagement,"Gets public addresses of private keys", async (input:ActionInput) => { return Web3Service.getAddressFromPrivateKeys(input.input); });
+        return new SimpleAction("Get Addresses from Private Key(s)", Module.KeyManagement,"Gets public addresses of private keys", async (input:ActionInput) => { return Web3Service.getAddressFromPrivateKeys(input.input.split("\n")).join("\n"); });
     }
 
     public static derivePrivateKeys() : Action {
-        return new SimpleAction("Get Private Keys", Module.KeyManagement, "Derives private keys from a seed phrase", async (input: ActionInput) => { return Web3Service.getPrivateKeys(input.input, 20); });
+        return new SimpleAction("Get Private Keys", Module.KeyManagement, "Derives private keys from a seed phrase", async (input: ActionInput) => { return Web3Service.getPrivateKeys(input.input, 20).join("\n"); });
     }
 }

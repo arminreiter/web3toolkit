@@ -5,7 +5,8 @@ export class ToolsData {
     public static tools = [
         { module: Module.KeyManagement, icon: faKey, actions: [ 
           { name: "Seed Phrase Generator", route: "/tools/genseedphrase", requiresConnection: false },
-          { name: "Get Addresses from Seed Phrase", route: "/tools/getaddrfromseed", requiresConnection: false } 
+          { name: "Get Addresses from Seed Phrase", route: "/tools/getaddrfromseed", requiresConnection: false } ,
+          { name: "Get Address and Keys from Seed Phrase", route: "/tools/getaddrkeysfromseed", requiresConnection: false}
         ] },
         { module: Module.Wallet,        icon: faWallet, actions: [ 
           { name: "Get Balances", route: "/tools/getbalances", requiresConnection: true } 

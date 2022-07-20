@@ -10,20 +10,20 @@ export class Web3Service {
         return result;
     }
 
-    static getPrivateKeys(seedPhrase: string, amount: number) {
-        var result = "";
+    static getPrivateKeys(seedPhrase: string, amount: number, derivationPath:string = "m/44'/60'/0'/0/0"): string[] {
+        var result = [];
+        seedPhrase = seedPhrase.trim();
 
         for (var i = 0; i < amount; i++) {
-            var path = this.getPath(i);
+            var path = this.getPath(i, derivationPath);
             var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
-            result += wallet.privateKey + "\n";
+            result.push(wallet.privateKey);
         }
 
-        return result.slice(0, -1);
+        return result;
     }
 
     static getPath(id: number, path:string = "m/44'/60'/0'/0/0") {
-        //var path = ethers.utils.getAccountPath(0);
         path = path.substring(0, path.lastIndexOf('/')+1) + id;
         return path;
     }
@@ -77,21 +77,38 @@ export class Web3Service {
         return result.slice(0, -1);
     }
 
-    static getAddressFromPrivateKeys(keys: string) {
-        var keyarr = keys.split("\n");
-        var result = "";
-
+    static getAddressFromPrivateKey(key: string) : string {
         var web3js = new Web3();
+        return web3js.eth.accounts.privateKeyToAccount(key).address;
+    }
 
-        keyarr.forEach(key => {
+    static getAddressFromPrivateKeys(keys: string[]) :string[] {
+        var result: string[] = [];
+
+        keys.forEach(key => {
             key = key.trim();
             if(key.length > 0) {
-                result += web3js.eth.accounts.privateKeyToAccount(key).address + "\n";
+                result.push(this.getAddressFromPrivateKey(key));
             }
-        }); 
-
-        return result.slice(0, -1);
+        });
+        return result;
     }
+
+    // static getAddressFromPrivateKeys(keys: string) {
+    //     var keyarr = keys.split("\n");
+    //     var result = "";
+
+    //     var web3js = new Web3();
+
+    //     keyarr.forEach(key => {
+    //         key = key.trim();
+    //         if(key.length > 0) {
+    //             result += web3js.eth.accounts.privateKeyToAccount(key).address + "\n";
+    //         }
+    //     }); 
+
+    //     return result.slice(0, -1);
+    // }
 
     static async getBlock(blockNumber:number, network:Network) : Promise<string> {
         var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
