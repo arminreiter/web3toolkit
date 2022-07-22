@@ -72,6 +72,10 @@ a {
     font-size: small;
 }
 
+.card-text > .row {
+    padding-bottom: 0.5em;
+}
+
 #action-main {
     background-color: $secondary;
 }
