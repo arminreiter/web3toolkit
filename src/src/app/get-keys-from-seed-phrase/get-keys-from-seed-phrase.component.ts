@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ethers } from 'ethers';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from '../shared/services/data.service';
+import { Web3Service } from '../shared/services/web3.service';
 
 @Component({
   selector: 'w3tk-get-keys-from-seed-phrase',
@@ -18,17 +19,9 @@ export class GetKeysFromSeedPhraseComponent implements OnInit {
   }
 
   getPrivateKeys() {
-    var result = "";
     var seedPhrase = this.dataService.lastResult;
-    if(!seedPhrase) {
-      seedPhrase = this.dataService.input;
-    }
-    
-    for(var i = 0; i < this.amount; i++) {
-      var path = this.getPath(i);
-      var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
-      result += wallet.privateKey + "\n";
-    }
+    var keys = Web3Service.getPrivateKeys(seedPhrase, this.amount);
+    var result = keys.join("\n");
     this.dataService.addResult("Get Private Keys", result.slice(0,-1));
     return result;
   }
