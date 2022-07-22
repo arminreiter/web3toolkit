@@ -6,25 +6,42 @@
             funds of the addresses of the seed phrases to the target address.
         </p>
 
+        <div class="card-text">
+            <div class="row">
+                <div class="col">
+                    <textarea class="form-control font-code" rows="2" [(ngModel)]="seedPhrases"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    Number of derived addresses: <br />
+                    <input type="number" class="form-control" max="100" min="1" [(ngModel)]="nrOfAddresses">
+                </div>
+                <div class="col-6">
+                    Derivation path: <br />
+                    <input type="text" class="form-control" [(ngModel)]="derivationPath">
+                </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col">
+                Target Address: <br />
+                <input type="text" class="form-control" [(ngModel)]="targetAddress">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">Gas: <input type="number" class="form-control" [(ngModel)]="gas"></div>
+                <div class="col-6">
+                    Gas Price (Gwei): <input type="number" class="form-control" [(ngModel)]="gasPrice">
+                </div>
+            </div>
+            <br />
+        </div>
         <p class="card-text">
-            <textarea class="form-control font-code" rows="2" [(ngModel)]="seedPhrases"></textarea><br />
-    
-            Number of derived addresses: <br />
-            <input type="number" class="form-control" max="100" min="1" [(ngModel)]="nrOfAddresses"><br />
-    
-            Derivation path: <br />
-            <input type="text" class="form-control" [(ngModel)]="derivationPath">
-        </p>
-        <p class="card-text">
-            Target Address: <br />
-            <input type="text" class="form-control" [(ngModel)]="targetAddress">
-        </p>
-        <p class="card-text">
-            Gas: <input type="number" class="form-control" [(ngModel)]="gas">
-            Gas Price (Gwei): <input type="number" class="form-control" [(ngModel)]="gasPrice">
-        </p>
-        <p class="card-text">
-            <button (click)="drainFunds()" class="btn btn-primary">Drain Funds</button>
+            <button (click)="drainFunds()" class="btn">Drain Funds</button>
         </p>
         <p class="card-text">
             <textarea class="form-control font-code" rows="20" disabled>{{output}}</textarea>

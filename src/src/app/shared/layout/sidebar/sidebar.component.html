@@ -9,13 +9,13 @@
 
       <div *ngFor="let module of modules; let i = index" class="accordion-item">
         <h2 class="accordion-header" id="{{ 'acc-heading-' + i }}">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#acc-collapse-' + i" aria-expanded="true" [attr.aria-controls]="'acc-collapse-' + i">
+          <a  class="accordion-button" data-bs-toggle="collapse" [attr.data-bs-target]="'#acc-collapse-' + i" aria-expanded="true" [attr.aria-controls]="'acc-collapse-' + i">
             <fa-icon [icon]="module.icon" class="px-2"></fa-icon> {{module.module}}
-          </button>
+          </a>
         </h2>
         <div id="{{ 'acc-collapse-' + i }}" class="accordion-collapse collapse show" [attr.aria-labelledby]="'acc-heading-' + i">
           <div *ngFor="let action of getActions(module.module)" class="accordion-body" title={{action.description}}>
-            <button type="button" (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></button> 
+            <a (click)="addAction(action)" class="nav-link">{{action.title}} <img *ngIf="action.requiresConnection" src="assets/img/circle.svg" class="p-2" title="This action requires an active internet connection." style="float: right;"></a> 
           </div>
         </div>
       </div>
