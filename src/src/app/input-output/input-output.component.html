@@ -2,7 +2,7 @@
   <div class="card-header d-flex justify-content-between fw-bold">
     <div>Input &amp; Results</div>
     <div>
-      <button (click)="clear()" class="btn p-0">
+      <button (click)="clear()" class="btn-icon p-0">
         <fa-icon [icon]="faTrash"></fa-icon>
       </button>
     </div>
@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-floating my-1">
-  <textarea class="form-control w-100 input bg-light" [(ngModel)]="dataService.input"></textarea>
+  <textarea class="form-control w-100 input" [(ngModel)]="dataService.input"></textarea>
   <label for="floatingInput">Input</label>
 </div>
 

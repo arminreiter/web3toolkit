@@ -1,4 +1,17 @@
+@import '../../assets/variables';
+
 .card-img-top {
     text-align: center;
     font-size: 6rem;
+}
+
+.overview {
+    background-color: $dark;
+    cursor: pointer;
+    border: 1px solid $info;
+    height: 100%;
+}
+
+.overview:hover {
+    color: $info;
 }

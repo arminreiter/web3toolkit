@@ -8,16 +8,34 @@
     }
 }
 
+.btn {
+    border: none;
+}
+.btn:hover, .btn:focus, .btn:active {
+    color: white;
+    background-color: $dark;
+}
+
 .network-dropdown {
+    
     img {
-        height: 24px;
+        object-fit: contain;
+        width: 24px;
+        height: 28px;
+        padding-right: 3px;
     }
 
     li:hover {
         background-color: none;
     }
 
+    button {
+        color: white;
+    }
+
     button:hover {
-        background-color: $primary;
+
+        color: $info;
+        background-color: $dark;
     }
 }
