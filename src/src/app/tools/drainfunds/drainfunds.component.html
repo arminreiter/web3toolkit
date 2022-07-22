@@ -1,0 +1,33 @@
+<div class="card bg-dark">
+    <h5 class="card-header bg-dark">Drain Funds</h5>
+    <div class="card-body">
+        <p class="card-text">
+            Enter one or multiple seed phrases, a target address and execute this tool to move all
+            funds of the addresses of the seed phrases to the target address.
+        </p>
+
+        <p class="card-text">
+            <textarea class="form-control font-code" rows="2" [(ngModel)]="seedPhrases"></textarea><br />
+    
+            Number of derived addresses: <br />
+            <input type="number" class="form-control" max="100" min="1" [(ngModel)]="nrOfAddresses"><br />
+    
+            Derivation path: <br />
+            <input type="text" class="form-control" [(ngModel)]="derivationPath">
+        </p>
+        <p class="card-text">
+            Target Address: <br />
+            <input type="text" class="form-control" [(ngModel)]="targetAddress">
+        </p>
+        <p class="card-text">
+            Gas: <input type="number" class="form-control" [(ngModel)]="gas">
+            Gas Price (Gwei): <input type="number" class="form-control" [(ngModel)]="gasPrice">
+        </p>
+        <p class="card-text">
+            <button (click)="drainFunds()" class="btn btn-primary">Drain Funds</button>
+        </p>
+        <p class="card-text">
+            <textarea class="form-control font-code" rows="20" disabled>{{output}}</textarea>
+        </p>
+    </div>
+</div>

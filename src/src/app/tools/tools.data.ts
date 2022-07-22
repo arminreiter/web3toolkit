@@ -9,7 +9,8 @@ export class ToolsData {
           { name: "Get Address and Keys from Seed Phrase", route: "/tools/getaddrkeysfromseed", requiresConnection: false}
         ] },
         { module: Module.Wallet,        icon: faWallet, actions: [ 
-          { name: "Get Balances", route: "/tools/getbalances", requiresConnection: true } 
+          { name: "Get Balances", route: "/tools/getbalances", requiresConnection: true },
+          { name: "Drain Funds", route: "/tools/drainfunds", requiresConnection: true}
         ] },
         // { module: Module.Blockchain,    icon: faLink, actions: [ { name: "Seed Phrase Generator", route: "/tools/genseedphrase" } ] },
         { module: Module.Utils,         icon: faCode, actions: [ { name: "WeiConverter", route: "/tools/weiconverter", requiresConnection: false } ] }
