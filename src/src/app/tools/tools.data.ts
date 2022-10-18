@@ -10,7 +10,8 @@ export class ToolsData {
         ] },
         { module: Module.Wallet,        icon: faWallet, actions: [ 
           { name: "Get Balances", route: "/tools/getbalances", requiresConnection: true },
-          { name: "Drain Funds", route: "/tools/drainfunds", requiresConnection: true}
+          { name: "Drain Funds", route: "/tools/drainfunds", requiresConnection: true},
+          { name: "Get Transactions", route: "/tools/getTransactions", requiresConnection: true}
         ] },
         // { module: Module.Blockchain,    icon: faLink, actions: [ { name: "Seed Phrase Generator", route: "/tools/genseedphrase" } ] },
         { module: Module.Utils,         icon: faCode, actions: [ { name: "WeiConverter", route: "/tools/weiconverter", requiresConnection: false } ] }

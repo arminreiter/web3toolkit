@@ -58,6 +58,41 @@ export class Web3Service {
         return result;
     }
 
+    static async getTransactions(address: string, rpcUrl: string) : Promise<string> {
+        var result = "";
+        var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+
+        var blockNumber = await web3js.eth.getBlockNumber();
+        var n = await web3js.eth.getTransactionCount(address, blockNumber);
+        var strBal = await web3js.eth.getBalance(address, blockNumber);
+        var bal :number = +strBal;
+
+        for (var i=blockNumber; i >= 0 && (n > 0 || bal > 0); --i) {
+            try {
+                var block = await web3js.eth.getBlock(i, true);
+                if (block && block.transactions) {
+                    block.transactions.forEach(function(e) {
+                        if (address == e.from) {
+                            if (e.from != e.to)
+                                bal = bal + +e.value;
+                            console.log(i, e.from, e.to, e.value.toString());
+                            --n;
+                        }
+                        if (address == e.to) {
+                            if (e.from != e.to)
+                                bal = bal- +e.value;
+                            console.log(i, e.from, e.to, e.value.toString());
+                        }
+                    });
+                }
+            } catch (e) { console.error("Error in block " + i, e); }
+        }
+
+        result = bal.toString()
+
+        return result;
+    }
+
     static async sendTransaction(from: string, network:Network, receiver: string, amount: number) {
         var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
         web3js.eth.sendTransaction({
