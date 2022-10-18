@@ -17,8 +17,9 @@
 
 ## Introduction
 
-Web3ToolKit is an open source tool for interacting with the web3.  
+Web3ToolKit is an open source tool to interact with the web3.  
 
-<https://w3tk.app>
+<https://w3tk.app>  
+<https://web3toolkit.app>
 
 ![Screenshot](https://github.com/arminreiter/web3toolkit/raw/dev/src/src/assets/img/screenshots/scr1.jpg)
