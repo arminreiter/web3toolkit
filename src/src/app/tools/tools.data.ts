@@ -6,6 +6,7 @@ export class ToolsData {
         { module: Module.KeyManagement, icon: faKey, actions: [ 
           { name: "Seed Phrase Generator", route: "/tools/genseedphrase", requiresConnection: false },
           { name: "Get Addresses from Seed Phrase", route: "/tools/getaddrfromseed", requiresConnection: false } ,
+          { name: "Get Addresses from Private Key", route: "/tools/getaddrfromkey", requiresConnection: false } ,
           { name: "Get Address and Keys from Seed Phrase", route: "/tools/getaddrkeysfromseed", requiresConnection: false}
         ] },
         { module: Module.Wallet,        icon: faWallet, actions: [ 

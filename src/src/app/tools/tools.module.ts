@@ -13,6 +13,7 @@ import { ToolsOverviewComponent } from './tools-overview/tools-overview.componen
 import { GetBalanceComponent } from './get-balance/get-balance.component';
 import { GetAddressKeysFromSeedComponent } from './get-address-keys-from-seed/get-address-keys-from-seed.component';
 import { DrainfundsComponent } from './drainfunds/drainfunds.component';
+import { GetAddressFromKeyComponent } from './get-address-from-key/get-address-from-key.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DrainfundsComponent } from './drainfunds/drainfunds.component';
     ToolsOverviewComponent,
     GetBalanceComponent,
     GetAddressKeysFromSeedComponent,
-    DrainfundsComponent
+    DrainfundsComponent,
+    GetAddressFromKeyComponent
     
   ],
   imports: [
