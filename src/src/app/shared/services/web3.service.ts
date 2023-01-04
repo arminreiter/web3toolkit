@@ -237,7 +237,7 @@ export class Web3Service {
         var tmpmap: string[] = []
         var shortestDistance = 100;
 
-        for(var i = 0; i < 2049;i++) {
+        for(var i = 0; i < 2048;i++) {
             var tmpword = wordlist.getWord(i);
             var distance = this.levenshteinDistance(word, tmpword);
             if(distance < shortestDistance) { 
