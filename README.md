@@ -23,3 +23,15 @@ Web3ToolKit is an open source tool to interact with the web3.
 <https://web3toolkit.app>
 
 ![Screenshot](https://github.com/arminreiter/web3toolkit/raw/dev/src/src/assets/img/screenshots/scr1.jpg)
+
+## URL Params
+
+network can be set via url param `net`:
+
+| network          | url param        |
+|------------------|------------------|
+| Ethereum         | ?net=eth         |
+| Gnosis           | ?net=gnosis      |
+| eCredits         | ?net=ecs         |
+| Ethereum Rinkeby | ?net=eth-rinkeby |
+| eCredits Testnet | ?net=ecs-test    |

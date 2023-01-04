@@ -5,6 +5,7 @@ import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from '../app-routing.module';
 import { MainHeaderComponent } from './layout/main-header/main-header.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { MainHeaderComponent } from './layout/main-header/main-header.component'
   imports: [
     CommonModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   exports: [
     MainHeaderComponent,
