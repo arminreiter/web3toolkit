@@ -153,9 +153,9 @@ export class Web3Service {
     }
 
     static async drainFunds(key: string, targetAddress: string, 
-        network:Network, gas: number = 21000, gasPrice: number = 10) : Promise<string[]> {
+        network:Network, gas: number = 21000, gasPrice: number = 10) : Promise<string> {
         var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
-        var result: string[] = [];
+        var result: string = "";
         
         var from = this.getAddressFromPrivateKey(key);
 
@@ -164,7 +164,7 @@ export class Web3Service {
         await web3js.eth.getBalance(from, function(error: any, bal: any) {
 
             if(error){
-               result.push(error);
+               result = error;
             }
             else{
                balance = web3js.utils.toBN(bal);
@@ -179,7 +179,7 @@ export class Web3Service {
         var amount = balance.sub(gasCosts);
 
         if(amount.isNeg()) {
-            result.push("Insufficient balance for account " + from);
+            result = "Insufficient balance for account " + from;
             return result;
         }      
 
@@ -196,10 +196,10 @@ export class Web3Service {
 
         var tx = await web3js.eth.sendSignedTransaction(signed, function(error: any, hash: any) {
             if(!error) {
-                result.push(hash + " - from: " + from + " to: " + targetAddress + " amount: " + amount);
+                result = hash + " - from: " + from + " to: " + targetAddress + " amount: " + amount;
             }
             else {
-                result.push("ERROR - something went wrong with your transaction: " + error)
+                result = "ERROR - something went wrong with your transaction: " + error;
             }
         });
 
