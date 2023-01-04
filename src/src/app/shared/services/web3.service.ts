@@ -29,7 +29,7 @@ export class Web3Service {
             if(index < 0) {
                 var alternatives = this.getSimilarWords(word, ethers.wordlists['en']).join(', ');
 
-                invalidWords += word + " (similar, allowed words: " + alternatives + ")" ;
+                invalidWords += word + " (similar, allowed words: " + alternatives + ") " ;
             }
         });
         if (invalidWords.length > 0) {
