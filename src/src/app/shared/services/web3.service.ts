@@ -15,6 +15,11 @@ export class Web3Service {
         return result;
     }
 
+    static genKeyPair() {
+        var wallet = ethers.Wallet.createRandom();
+        return  wallet.privateKey + ", " + wallet.address;
+    }
+
     static getPrivateKeys(seedPhrase: string, amount: number, derivationPath:string = "m/44'/60'/0'/0/0"): string[] {
         var result = [];
         seedPhrase = seedPhrase.trim();
