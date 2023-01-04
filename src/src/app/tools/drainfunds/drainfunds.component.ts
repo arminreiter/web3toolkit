@@ -8,7 +8,7 @@ import { Web3Service } from 'src/app/shared/services/web3.service';
   styleUrls: ['./drainfunds.component.scss']
 })
 export class DrainfundsComponent implements OnInit {
-  seedPhrases: string = "";
+  input: string = "";
   nrOfAddresses: number = 5;
   derivationPath: string = "m/44'/60'/0'/0/0";
   targetAddress: string = "";
@@ -31,23 +31,23 @@ export class DrainfundsComponent implements OnInit {
       }
       console.log("drain funds started...");
 
-      var phrases = this.seedPhrases.split("\n");
+      var phrases = this.input.split("\n").map(element => element.trim());
 
-      phrases.forEach(phrase => {
-        phrase = phrase.trim();
-        if(phrase.length < 2) { // can also be lower than 10, 2 is just what I chose
+      phrases.forEach(line => {
+        
+        if(line.length < 2) { // can also be lower than 10, 2 is just what I chose
           return;
         }
 
-        var keys = Web3Service.getPrivateKeys(phrase, this.nrOfAddresses, this.derivationPath);
-        keys.forEach(async key => {
-          var address = Web3Service.getAddressFromPrivateKey(key);
-          var tmpResult = await Web3Service.drainFunds(key, this.targetAddress, 
-            this.dataService.network, this.gas, this.gasPrice);
-          if(tmpResult.length > 0) {
-            this.output += tmpResult.join("\n") + "\n";
-          }
-        });
+        if(line.startsWith("0x")) {
+          this.drain(line);
+        }
+        else {
+          var keys = Web3Service.getPrivateKeys(line, this.nrOfAddresses, this.derivationPath);
+          keys.forEach(async key => {
+            await this.drain(key);
+          });
+        }
 
       });
 
@@ -55,6 +55,14 @@ export class DrainfundsComponent implements OnInit {
       this.output = String(error);
     }
     console.log("drain funds finished!");
+  }
+
+  async drain(key: string) {
+    var tmpResult = await Web3Service.drainFunds(key, this.targetAddress, 
+      this.dataService.network, this.gas, this.gasPrice);
+    if(tmpResult.length > 0) {
+      this.output += tmpResult + "\n";
+    }
   }
 
 }

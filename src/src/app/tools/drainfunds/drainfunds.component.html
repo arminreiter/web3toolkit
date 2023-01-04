@@ -2,14 +2,14 @@
     <h5 class="card-header bg-dark">Drain Funds</h5>
     <div class="card-body">
         <p class="card-text">
-            Enter one or multiple seed phrases, a target address and execute this tool to move all
-            funds of the addresses of the seed phrases to the target address.
+            Enter one or multiple seed phrases or private keys as well as a target address which will receive the funds. 
+            Press the 'Drain Funds' button and all funds will be transfered from seed phrase/private key to the target address.
         </p>
 
         <div class="card-text">
             <div class="row">
                 <div class="col">
-                    <textarea class="form-control font-code" rows="2" [(ngModel)]="seedPhrases"></textarea>
+                    <textarea class="form-control font-code" rows="2" [(ngModel)]="input"></textarea>
                 </div>
             </div>
 
