@@ -9,6 +9,40 @@ export class Web3Service {
         return ethers.utils.isAddress(address);
     }
 
+    static isValidSeedPhrase(seed: string) : string {
+        var isvalid = ethers.utils.isValidMnemonic(seed);
+        if (isvalid) {
+            return "true";
+        }
+
+        var words = seed.trim().split(' ').map(element => element.trim());
+
+        // check if word length is correct
+        if (words.length < 2 || words.length > 24 || words.length % 3 != 0) {
+            return "false - Error: invalid word length. seed phrase must have 3, 6, 9, 12, 15, 18, 21 or 24 words."
+        }
+
+        // check if words are present in BIP39 wordlist
+        var invalidWords = "";
+        words.forEach(word => {
+            var index = ethers.wordlists['en'].getWordIndex(word);
+            if(index < 0) {
+                invalidWords += word;
+            }
+        });
+        if (invalidWords.length > 0) {
+            return "false - Error: the following words are not allowed: " + invalidWords;
+        }
+
+        try {
+            ethers.Wallet.fromMnemonic(seed);
+        }
+        catch(error) {
+            return "false - " + error;
+        }
+        return "true"; // this should never happen
+    }
+
     static genSeedPhrase() {
         var rand = ethers.utils.randomBytes(16);
         var result = ethers.utils.entropyToMnemonic(rand);

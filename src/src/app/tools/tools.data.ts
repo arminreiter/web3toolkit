@@ -14,8 +14,11 @@ export class ToolsData {
           { name: "Get Balances", route: "/tools/getbalances", requiresConnection: true },
           { name: "Drain Funds", route: "/tools/drainfunds", requiresConnection: true}
         ] },
-        // { module: Module.Blockchain,    icon: faLink, actions: [ { name: "Seed Phrase Generator", route: "/tools/genseedphrase" } ] },
-        { module: Module.Utils,         icon: faCode, actions: [ { name: "WeiConverter", route: "/tools/weiconverter", requiresConnection: false } ] }
+        { module: Module.Utils,         icon: faCode, actions: [ 
+          { name: "Is Valid Seed Phrase", route: "/tools/isvalidseed", requiresConnection: false },
+          { name: "Is Valid Address", route: "/tools/isvalidaddress", requiresConnection: false },
+          { name: "WeiConverter", route: "/tools/weiconverter", requiresConnection: false } 
+        ] }
     
       ];
       
