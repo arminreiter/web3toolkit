@@ -13,6 +13,7 @@ export class IsValidSeedPhrase extends Action {
     public amount:number = 20;
 
     async run(input: ActionInput): Promise<string> {
+        
         return String(ethers.utils.isValidMnemonic(input.input));
     }
 }

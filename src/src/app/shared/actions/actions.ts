@@ -10,6 +10,7 @@ export class Actions {
     public static get(): Action[] {
         var all: Action[] = [
             Actions.genSeedPhraseAction(),
+            Actions.genKeyPairAction(),
             Actions.derivePrivateKeys(),
             Actions.getAddressesFromSeedPhrase(), 
             Actions.getAddressesFromPrivateKeys(),
@@ -28,6 +29,10 @@ export class Actions {
 
     public static genSeedPhraseAction() : Action {
         return new SimpleAction("Generate Seed Phrase", Module.KeyManagement, "Generates a new seed phrase", async (input: ActionInput) => { return Web3Service.genSeedPhrase(); });
+    }
+
+    public static genKeyPairAction() : Action {
+        return new SimpleAction("Generate Key Pair", Module.KeyManagement, "Generate a new private key and public address", async (input: ActionInput) => { return Web3Service.genKeyPair(); })
     }
 
     public static getAddressesFromSeedPhrase() : Action {
