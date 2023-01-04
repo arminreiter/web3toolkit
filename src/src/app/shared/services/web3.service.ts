@@ -12,14 +12,14 @@ export class Web3Service {
     static isValidSeedPhrase(seed: string) : string {
         var isvalid = ethers.utils.isValidMnemonic(seed);
         if (isvalid) {
-            return "true";
+            return "VALID";
         }
 
         var words = seed.trim().split(' ').map(element => element.trim());
 
         // check if word length is correct
         if (words.length < 2 || words.length > 24 || words.length % 3 != 0) {
-            return "false - Error: invalid word length. seed phrase must have 3, 6, 9, 12, 15, 18, 21 or 24 words."
+            return "INVALID - Error: invalid word length. seed phrase must have 3, 6, 9, 12, 15, 18, 21 or 24 words."
         }
 
         // check if words are present in BIP39 wordlist
@@ -27,20 +27,22 @@ export class Web3Service {
         words.forEach(word => {
             var index = ethers.wordlists['en'].getWordIndex(word);
             if(index < 0) {
-                invalidWords += word;
+                var alternatives = this.getSimilarWords(word, ethers.wordlists['en']).join(', ');
+
+                invalidWords += word + " (similar, allowed words: " + alternatives + ")" ;
             }
         });
         if (invalidWords.length > 0) {
-            return "false - Error: the following words are not allowed: " + invalidWords;
+            return "INVALID - Error: the following words are not allowed: " + invalidWords;
         }
 
         try {
             ethers.Wallet.fromMnemonic(seed);
         }
         catch(error) {
-            return "false - " + error;
+            return "INVALID - " + error;
         }
-        return "true"; // this should never happen
+        return "VALID"; // this should never happen
     }
 
     static genSeedPhrase() {
@@ -205,4 +207,47 @@ export class Web3Service {
 
         return result;        
     }
+
+
+    // ============================= helper ==================================================
+    // https://www.tutorialspoint.com/levenshtein-distance-in-javascript
+    static levenshteinDistance (str1 = '', str2 = '')  {
+        const track = Array(str2.length + 1).fill(null).map(() =>
+        Array(str1.length + 1).fill(null));
+        for (let i = 0; i <= str1.length; i += 1) {
+           track[0][i] = i;
+        }
+        for (let j = 0; j <= str2.length; j += 1) {
+           track[j][0] = j;
+        }
+        for (let j = 1; j <= str2.length; j += 1) {
+           for (let i = 1; i <= str1.length; i += 1) {
+              const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+              track[j][i] = Math.min(
+                 track[j][i - 1] + 1, // deletion
+                 track[j - 1][i] + 1, // insertion
+                 track[j - 1][i - 1] + indicator, // substitution
+              );
+           }
+        }
+        return track[str2.length][str1.length];
+     };
+
+     static getSimilarWords(word: string, wordlist: ethers.Wordlist) : string[] {
+        var tmpmap: string[] = []
+        var shortestDistance = 100;
+
+        for(var i = 0; i < 2049;i++) {
+            var tmpword = wordlist.getWord(i);
+            var distance = this.levenshteinDistance(word, tmpword);
+            if(distance < shortestDistance) { 
+                shortestDistance = distance; 
+                tmpmap = [ tmpword ]
+            }
+            else if(distance == shortestDistance) {
+                tmpmap.push( tmpword );
+            }
+        }
+        return tmpmap;
+     }
 }
