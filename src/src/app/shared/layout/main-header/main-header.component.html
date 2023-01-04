@@ -16,7 +16,48 @@
                     <li *ngFor="let net of testnets" value="{{net.shortName}}" (click)="selectValue(net)">
                         <button class="dropdown-item"><img src="{{net.imgUrl}}" class="m-1" /> {{net.name}}</button>
                     </li>
+
+                    <li><hr class="dropdown-divider text-white"></li>
+                    <li><h3 class="dropdown-header  text-white">Custom Networks</h3></li>
+                    
+                    <li *ngFor="let net of custom" value="{{net.shortName}}" (click)="selectValue(net)">
+                        <button class="dropdown-item"><img src="{{net.imgUrl}}" class="m-1" /> {{net.name}} <fa-icon [icon]="faTrash" class="m-1" style="position:absolute; right: 10px;" (click)="deleteNetwork(net)"></fa-icon></button>
+                    </li>
+
+                    <li value="new">
+                        <button class="dropdown-item" (click)="open(customNetModal)"><fa-icon [icon]="faPlus" class="m-2"></fa-icon> Add New</button>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
+
+
+
+  <!-- Modal -->
+  <ng-template #customNetModal let-modal class="bg-dark">
+      <div class="modal-content bg-dark border-light"> 
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="exampleModalLabel">New Custom Network</h5>
+          <button type="button" class="btn-close"aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <p>
+                Network Name: <br />
+                <input type="text" class="form-control border-secondary" [(ngModel)]="cstName">
+            </p>
+            <p>
+                RPC URL: <br />
+                <input type="text" value="http://localhost:8545" class="form-control border-secondary" [(ngModel)]="cstRpc">
+            </p>
+            <p>
+                Chain ID: <br />
+                <input type="number" class="form-control border-secondary" min="0" [(ngModel)]="cstChainId">
+            </p>
+        </div>
+        <div class="modal-footer  border-secondary">
+          <button type="button" class="btn" (click)="modal.dismiss()">Close</button>
+          <button type="button" class="btn" (click)="addNetwork(); modal.close()">Add</button>
+        </div>
+      </div>
+</ng-template>

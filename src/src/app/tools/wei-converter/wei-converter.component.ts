@@ -33,7 +33,6 @@ export class WeiConverterComponent implements OnInit {
    {
     this.wei = Web3.utils.toWei(String(this.ether), 'ether');
     this.gwei = Web3.utils.fromWei(String(this.wei), 'gwei');
-    console.log("..");
    }
 
   ngOnInit(): void {

@@ -10,7 +10,7 @@ export class DataService {
     public input: string = "";
     public lastResult: string = "";
     public results: ActionResult[] = [ ];
-    public network: Network = Network.Networks[0];
+    public network: Network = Network.getNetworks()[0];
     public actions: Action[] = [];
 
     addResult(actionName: string, value: string) {

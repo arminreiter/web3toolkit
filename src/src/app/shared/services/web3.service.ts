@@ -168,7 +168,6 @@ export class Web3Service {
             }
             else{
                balance = web3js.utils.toBN(bal);
-               console.log(balance);
             }
         });
 
@@ -182,14 +181,7 @@ export class Web3Service {
         if(amount.isNeg()) {
             result.push("Insufficient balance for account " + from);
             return result;
-        }
-
-        // console.log("balance: " + balance);
-        // console.log("amount: " + amount);
-        // console.log("gas: " + gas);
-        // console.log("gasPrice: " + gasPrice);
-        // console.log("gasWei: " + gasPriceWei);
-        
+        }      
 
         var signedTx = await web3js.eth.accounts.signTransaction({
             to: targetAddress,
