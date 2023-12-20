@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
@@ -12,17 +12,21 @@ export class GetBalanceComponent implements OnInit {
   delimiter: string = ", ";
   balances: string = "";
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
-  getBalances() {
-    Web3Service.getBalances(this.addresses, this.dataService.network.rpcUrl, this.delimiter).then( (result) => {
-      this.balances = result; 
-    }).catch(error => {
-      this.balances = String(error);
-    });
+  async getBalances() {
+    for await(const balance of Web3Service.getBalancesAsync(this.addresses, this.dataService.network.rpcUrl, this.delimiter)) {
+      this.balances += balance;
+      this.changeDetector.detectChanges();
+    }
+    // Web3Service.getBalances(this.addresses, this.dataService.network.rpcUrl, this.delimiter).then( (result) => {
+    //   this.balances = result; 
+    // }).catch(error => {
+    //   this.balances = String(error);
+    // });
   }
 
 }

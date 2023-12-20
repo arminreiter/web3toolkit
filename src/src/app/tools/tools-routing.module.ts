@@ -13,6 +13,7 @@ import { GetAddressFromKeyComponent } from './get-address-from-key/get-address-f
 import { GenerateKeypairComponent } from './generate-keypair/generate-keypair.component';
 import { IsValidSeedphraseComponent } from './is-valid-seedphrase/is-valid-seedphrase.component';
 import { IsValidAddressComponent } from './is-valid-address/is-valid-address.component';
+import { GetBalancesPerBlockComponent } from './get-balances-per-block/get-balances-per-block.component';
 
 const routes: Routes = [
     {
@@ -25,6 +26,7 @@ const routes: Routes = [
             { path: 'getaddrfromkey', component: GetAddressFromKeyComponent},
             { path: 'weiconverter', component: WeiConverterComponent },
             { path: 'getbalances', component: GetBalanceComponent },
+            { path: 'getbalancesperblock', component: GetBalancesPerBlockComponent },
             { path: 'drainfunds', component: DrainfundsComponent},
             { path: 'isvalidseed', component: IsValidSeedphraseComponent },
             { path: 'isvalidaddress', component: IsValidAddressComponent }

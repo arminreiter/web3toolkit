@@ -17,6 +17,7 @@ import { GetAddressFromKeyComponent } from './get-address-from-key/get-address-f
 import { GenerateKeypairComponent } from './generate-keypair/generate-keypair.component';
 import { IsValidSeedphraseComponent } from './is-valid-seedphrase/is-valid-seedphrase.component';
 import { IsValidAddressComponent } from './is-valid-address/is-valid-address.component';
+import { GetBalancesPerBlockComponent } from './get-balances-per-block/get-balances-per-block.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { IsValidAddressComponent } from './is-valid-address/is-valid-address.com
     GetAddressFromKeyComponent,
     GenerateKeypairComponent,
     IsValidSeedphraseComponent,
-    IsValidAddressComponent
+    IsValidAddressComponent,
+    GetBalancesPerBlockComponent
     
   ],
   imports: [

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlay, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Action } from '../shared/actions/action';
 import { DataService } from '../shared/services/data.service';
 
 @Component({
@@ -19,13 +20,22 @@ export class ActionsInuseComponent implements OnInit {
 
   async play() {
     for (var action of this.dataService.actions) {
-      try {
-        let result = await action.run(this.dataService.getInput());
-        this.dataService.addResult(action.title, result);
-      } catch (error) {
-        this.dataService.addResult(action.title, String(error));
-      }
+      await this.executeAction(action);
     }
+  }
+
+  private executeAction(action: Action): Promise<void> {
+    return new Promise(async (resolve) => {
+      setTimeout(async () => {
+        try {
+          let result = await action.run(this.dataService.getInput());
+          this.dataService.addResult(action.title, result);
+        } catch (error) {
+          this.dataService.addResult(action.title, String(error));
+        }
+        resolve();
+      });
+    });
   }
 
   clear() {
