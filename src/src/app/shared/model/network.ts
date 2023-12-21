@@ -12,7 +12,7 @@ export class Network {
         new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "assets/img/eCredits_logo.png", 63001, "test"),
         new Network("eth-rinkeby", "Ethereum Rinkeby", "https://rinkeby-light.eth.linkpool.io/", "assets/img/ethereum_logo.webp", 4, "test"),
         new Network("gns-test", "Gnosis Chiado Testnet", "https://rpc.chiadochain.net", "assets/img/gnosis_logo.png", 10200, "test"),
-        new Network("poly-main", "Polygon Mumbai Testnet", "https://polygon-mumbai.gateway.tenderly.co", "assets/img/polygon_matic_logo.svg", 80001, "test"),
+        new Network("poly-test", "Polygon Mumbai Testnet", "https://polygon-mumbai.gateway.tenderly.co", "assets/img/polygon_matic_logo.svg", 80001, "test"),
     ];
 
     private static CustomNetworks: Network[] = [ ];

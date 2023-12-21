@@ -28,10 +28,15 @@ Web3ToolKit is an open source tool to interact with the web3.
 
 network can be set via url param `net`:
 
-| network          | url param        |
-|------------------|------------------|
-| Ethereum         | ?net=eth         |
-| Gnosis           | ?net=gnosis      |
-| eCredits         | ?net=ecs         |
-| Ethereum Rinkeby | ?net=eth-rinkeby |
-| eCredits Testnet | ?net=ecs-test    |
+| network                | url param        |
+|------------------------|------------------|
+| Avalanche              | ?net=avax        |
+| eCredits               | ?net=ecs         |
+| Ethereum               | ?net=eth         |
+| Gnosis                 | ?net=gnosis      |
+| Polygon                | ?net=poly        |
+| Avalanche Fuji Testnet | ?net=avax-test   |
+| eCredits Testnet       | ?net=ecs-test    |
+| Ethereum Rinkeby       | ?net=eth-rinkeby |
+| Gnosis Chiado Testnet  | ?net=gnosis-test |
+| Polygon Mumbai Testnet | ?net=poly-test   |
