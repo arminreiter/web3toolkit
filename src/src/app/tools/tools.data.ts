@@ -12,6 +12,7 @@ export class ToolsData {
         ] },
         { module: Module.Wallet,        icon: faWallet, actions: [ 
           { name: "Get Balances", route: "/tools/getbalances", requiresConnection: true },
+          { name: "Get Balances per Block", route: "/tools/getbalancesperblock", requiresConnection: true },
           { name: "Drain Funds", route: "/tools/drainfunds", requiresConnection: true}
         ] },
         { module: Module.Utils,         icon: faCode, actions: [ 

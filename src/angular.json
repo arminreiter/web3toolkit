@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "web3toolkit:build:production"
+              "buildTarget": "web3toolkit:build:production"
             },
             "development": {
-              "browserTarget": "web3toolkit:build:development"
+              "buildTarget": "web3toolkit:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web3toolkit:build"
+            "buildTarget": "web3toolkit:build"
           }
         },
         "test": {
@@ -109,6 +109,5 @@
         }
       }
     }
-  },
-  "defaultProject": "web3toolkit"
+  }
 }

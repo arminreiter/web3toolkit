@@ -1,4 +1,3 @@
-import { formatNumber } from "@angular/common";
 import { ethers } from "ethers";
 import Web3 from "web3";
 import { Network } from "../model/network";
@@ -69,6 +68,16 @@ export class Web3Service {
         return result;
     }
 
+    static async *getPrivateKeysAsync(seedPhrase: string, amount: number, derivationPath: string = "m/44'/60'/0'/0/0") {
+        seedPhrase = seedPhrase.trim();
+      
+        for (var i = 0; i < amount; i++) {
+          var path = this.getPath(i, derivationPath);
+          var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
+          yield wallet.privateKey;
+        }
+      }
+
     static getPath(id: number, path:string = "m/44'/60'/0'/0/0") {
         path = path.substring(0, path.lastIndexOf('/')+1) + id;
         return path;
@@ -98,6 +107,38 @@ export class Web3Service {
         });
         return result;
     }
+
+    static async *getBalancesAsync(addresses: string, rpcUrl: string, delimiter: string = ": "): AsyncGenerator<string> {
+        var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+        var spadd = addresses.split("\n");
+      
+        for (let address of spadd) {
+          address = address.trim();
+          if (address.length > 0) {
+            try {
+              const bal = await web3js.eth.getBalance(address);
+              const formattedBal = Web3.utils.fromWei(bal);
+              yield `${address}${delimiter}${formattedBal}\n`;
+            } catch (error) {
+              yield(`Error fetching balance for address ${address}: ` + error + '\n');
+            }
+          }
+        }
+      }
+      
+    static async *getBalancesPerBlockAsync(address: string, rpcUrl: string, delimiter: string = ", ", startBlock: number, endBlock: number, iteration: number): AsyncGenerator<string> {
+        var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+        
+        for(let i = startBlock; i <= endBlock; i += iteration) {
+            try {
+              const bal = await web3js.eth.getBalance(address, i);
+              const formattedBal = Web3.utils.fromWei(bal);
+              yield `${i}${delimiter}${address}${delimiter}${formattedBal}\n`;
+            } catch (error) {
+              yield(`Error fetching balance for address ${address}: ` + error + '\n');
+            }
+        }
+      }
 
     static async sendTransaction(from: string, network:Network, receiver: string, amount: number) {
         var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
@@ -140,6 +181,13 @@ export class Web3Service {
         return result;
     }
 
+    
+    static async getLastBlockNumber(network:Network) : Promise<number> {
+        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
+        var block = await web3js.eth.getBlock("latest");
+        return block.number;
+    }
+
     static async getBlock(blockNumber:number, network:Network) : Promise<string> {
         var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
         var block = await web3js.eth.getBlock(blockNumber);
@@ -176,7 +224,7 @@ export class Web3Service {
         if(balance < web3js.utils.toBN(1)) { return result; }
 
         var gasPriceWei = web3js.utils.toWei(gasPrice.toString(), "Gwei");
-        var gasCosts = web3js.utils.toBN(gas * web3js.utils.toNumber(gasPriceWei));
+        var gasCosts = web3js.utils.toBN(gas * Number(web3js.utils.toNumber(gasPriceWei)));
          
         var amount = balance.sub(gasCosts);
 

@@ -7,11 +7,13 @@
 
 .overview {
     background-color: $dark;
+    color: $light;
     cursor: pointer;
     border: 1px solid $info;
     height: 100%;
 }
 
-.overview:hover {
+.overview:hover, .overview:hover h5 {
+    transition: all 0.5s ease-in-out;
     color: $info;
 }

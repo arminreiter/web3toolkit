@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class GetAddressFromSeedComponent implements OnInit {
   derivationPath: string = "m/44'/60'/0'/0/0";
   genAddresses: string = "";
 
-  constructor() { }
+  constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
