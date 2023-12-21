@@ -8,7 +8,7 @@ import { Web3Service } from 'src/app/shared/services/web3.service';
 })
 export class GenerateKeypairComponent implements OnInit {
   genKeyPairs: String = "";
-  nrOfKeyPairs: Number = 1;
+  nrOfKeyPairs: number = 1;
 
   constructor() { }
 

@@ -18,6 +18,7 @@ export class GetBalanceComponent implements OnInit {
   }
 
   async getBalances() {
+    this.balances = "";
     for await(const balance of Web3Service.getBalancesAsync(this.addresses, this.dataService.network.rpcUrl, this.delimiter)) {
       this.balances += balance;
       this.changeDetector.detectChanges();

@@ -3,11 +3,16 @@ export class Network {
     }
 
     private static Networks: Network[] = [
+        new Network("avax-main", "Avalanche", "https://api.avax.network/ext/bc/C/rpc", "assets/img/avalanche_avax_logo.svg", 43114),
+        new Network("ecs-main", "eCredits", "https://rpc.ecredits.com", "assets/img/eCredits_logo.png", 63000),
         new Network("eth-main", "Ethereum", "https://cloudflare-eth.com", "assets/img/ethereum_logo.webp"),
         new Network("gns-main", "Gnosis", "https://rpc.gnosischain.com", "assets/img/gnosis_logo.png", 100),
-        new Network("ecs-main", "eCredits", "https://rpc.ecredits.com", "assets/img/eCredits_logo.png", 63000),
+        new Network("poly-main", "Polygon", "https://polygon.llamarpc.com", "assets/img/polygon_matic_logo.svg", 137),
+        new Network("avax-test", "Avalanche Fuji Testnet", "https://api.avax-test.network/ext/bc/C/rpc", "assets/img/avalanche_avax_logo.svg", 43113, "test"),
+        new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "assets/img/eCredits_logo.png", 63001, "test"),
         new Network("eth-rinkeby", "Ethereum Rinkeby", "https://rinkeby-light.eth.linkpool.io/", "assets/img/ethereum_logo.webp", 4, "test"),
-        new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "assets/img/eCredits_logo.png", 63001, "test")
+        new Network("gns-test", "Gnosis Chiado Testnet", "https://rpc.chiadochain.net", "assets/img/gnosis_logo.png", 10200, "test"),
+        new Network("poly-main", "Polygon Mumbai Testnet", "https://polygon-mumbai.gateway.tenderly.co", "assets/img/polygon_matic_logo.svg", 80001, "test"),
     ];
 
     private static CustomNetworks: Network[] = [ ];

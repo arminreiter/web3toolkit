@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import 'assets/variables';
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap';
 
 .hide-if-empty:empty {
     display: none;
@@ -62,6 +61,10 @@ a {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.card-title, .card-header {
+    color: $light;
+}
+
 .bg-sidenav {
     border-right: 1px solid $secondary;
 }
@@ -84,6 +87,10 @@ a {
     background-color: $dark;
 }
 
+.avax-main, .avax-test {
+    background-color: #171818;
+}
+
 .eth-main, .eth-rinkeby {
     background-color: $dark;
 }
@@ -92,12 +99,16 @@ a {
     background-color: #278DE1;
 }
 
-.gns-main {
+.gns-main, .gns-test {
     background-color: #04795B;
 }
 
+.poly-main, .poly-test {
+    background-color: #120c1b;
+}
+
 .cst {
-    background-color: $info;
+    background-color: $dark;
 }
 
 .cursor-pointer {

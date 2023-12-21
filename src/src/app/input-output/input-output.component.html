@@ -1,15 +1,15 @@
-<div class="cardmx-0 my-1 alert-primary">
+<div class="card my-1">
   <div class="card-header d-flex justify-content-between fw-bold">
     <div>Input &amp; Results</div>
     <div>
       <button (click)="clear()" class="btn-icon p-0">
-        <fa-icon [icon]="faTrash"></fa-icon>
+        <fa-icon class="text-light" [icon]="faTrash"></fa-icon>
       </button>
     </div>
   </div>
 </div>
 
-<div class="form-floating my-1">
+<div class="form-floating my-1 ">
   <textarea class="form-control w-100 input" [(ngModel)]="dataService.input"></textarea>
   <label for="floatingInput">Input</label>
 </div>

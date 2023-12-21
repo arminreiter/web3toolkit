@@ -224,7 +224,7 @@ export class Web3Service {
         if(balance < web3js.utils.toBN(1)) { return result; }
 
         var gasPriceWei = web3js.utils.toWei(gasPrice.toString(), "Gwei");
-        var gasCosts = web3js.utils.toBN(gas * web3js.utils.toNumber(gasPriceWei));
+        var gasCosts = web3js.utils.toBN(gas * Number(web3js.utils.toNumber(gasPriceWei)));
          
         var amount = balance.sub(gasCosts);
 

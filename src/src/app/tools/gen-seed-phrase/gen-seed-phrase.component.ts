@@ -8,7 +8,7 @@ import { Web3Service } from 'src/app/shared/services/web3.service';
 })
 export class GenSeedPhraseComponent implements OnInit {
   genSeeds: String = "";
-  nrOfSeeds: Number = 1;
+  nrOfSeeds: number = 1;
 
   constructor() { }
 

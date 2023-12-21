@@ -7,19 +7,39 @@ $info:          #0dcaf0;
 $warning:       #ffc107;
 $danger:        #dc3545;
 $light:         #f8f9fa;
-$dark:          #212529;
+$dark:          #000007;
+
+
+// $white: #ffffff;
+// $primary:       #303c43; // 25408f or 0D6BF5
+// $secondary:     #0dcaf0;
+// $success:       #03b75f;
+// $info:          #fba536;
+// $warning:       #edce03;
+// $danger:        #fd011a;
+// $light:         #262b32;
+// $dark:          #131316;
 
 $theme-colors: (
-  primary: $primary,
-  secondary: $secondary,
-  success: $success,
-  info: $info,
-  warning: $warning,
-  danger: $danger,
-  light: $light,
-  dark: $dark
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "dark": $dark,
+  "light": $light, 
 );
-
+// $theme-colors: (
+//     "light":      #0f1314,
+//     "dark":       #000007,
+//     "primary":    #350a2c,
+//     "secondary":  #0054c9,
+//     "info":       #ff0000,
+//     "success":    #009763,
+//     "warning":    #d4cb00,
+//     "danger":     #df3700,
+// );
 /*
 // darker style
 $primary:       #00478f; // 25408f or 0D6BF5
