@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '16.x'
+  NODE_VERSION: '22.x'
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3.9.1
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
@@ -29,7 +29,7 @@ jobs:
         ng build
 
     - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: angular-app
         path: src/dist
@@ -40,13 +40,13 @@ jobs:
 
     steps:
     - name: Download artifact from build job
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.3.0
       with:
         name: angular-app
 
     - name: 'Deploy to Azure Static Website'
       id: deploy-to-static-web 
-      uses: TravisSpomer/deploy-to-azure-storage@v1.4.0
+      uses: TravisSpomer/deploy-to-azure-storage@v1.5.0
       with:
         source-path: web3toolkit
         sas-url: ${{ secrets.DEPLOY_SAS_URL }}
