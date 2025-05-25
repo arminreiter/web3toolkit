@@ -6,9 +6,10 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { ToolsData } from '../tools.data';
 
 @Component({
-  selector: 'w3tk-tools-sidebar',
-  templateUrl: './tools-sidebar.component.html',
-  styleUrls: ['./tools-sidebar.component.scss']
+    selector: 'w3tk-tools-sidebar',
+    templateUrl: './tools-sidebar.component.html',
+    styleUrls: ['./tools-sidebar.component.scss'],
+    standalone: false
 })
 export class ToolsSidebarComponent implements OnInit {
 

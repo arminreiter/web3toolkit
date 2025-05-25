@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-get-address-from-seed',
-  templateUrl: './get-address-from-seed.component.html',
-  styleUrls: ['./get-address-from-seed.component.scss']
+    selector: 'w3tk-get-address-from-seed',
+    templateUrl: './get-address-from-seed.component.html',
+    styleUrls: ['./get-address-from-seed.component.scss'],
+    standalone: false
 })
 export class GetAddressFromSeedComponent implements OnInit {
   seedPhrase: string = "";

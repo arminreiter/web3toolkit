@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-generate-keypair',
-  templateUrl: './generate-keypair.component.html',
-  styleUrls: ['./generate-keypair.component.scss']
+    selector: 'w3tk-generate-keypair',
+    templateUrl: './generate-keypair.component.html',
+    styleUrls: ['./generate-keypair.component.scss'],
+    standalone: false
 })
 export class GenerateKeypairComponent implements OnInit {
   genKeyPairs: String = "";

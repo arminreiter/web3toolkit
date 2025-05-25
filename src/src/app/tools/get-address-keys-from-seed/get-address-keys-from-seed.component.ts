@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-get-address-keys-from-seed',
-  templateUrl: './get-address-keys-from-seed.component.html',
-  styleUrls: ['./get-address-keys-from-seed.component.scss']
+    selector: 'w3tk-get-address-keys-from-seed',
+    templateUrl: './get-address-keys-from-seed.component.html',
+    styleUrls: ['./get-address-keys-from-seed.component.scss'],
+    standalone: false
 })
 export class GetAddressKeysFromSeedComponent implements OnInit {
   seedPhrase: string = "";

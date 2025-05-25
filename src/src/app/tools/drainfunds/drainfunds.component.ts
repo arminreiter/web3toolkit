@@ -3,9 +3,10 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-drainfunds',
-  templateUrl: './drainfunds.component.html',
-  styleUrls: ['./drainfunds.component.scss']
+    selector: 'w3tk-drainfunds',
+    templateUrl: './drainfunds.component.html',
+    styleUrls: ['./drainfunds.component.scss'],
+    standalone: false
 })
 export class DrainfundsComponent implements OnInit {
   input: string = "";

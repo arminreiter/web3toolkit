@@ -4,9 +4,10 @@ import { Action } from '../shared/actions/action';
 import { DataService } from '../shared/services/data.service';
 
 @Component({
-  selector: 'w3tk-actions-inuse',
-  templateUrl: './actions-inuse.component.html',
-  styleUrls: ['./actions-inuse.component.scss']
+    selector: 'w3tk-actions-inuse',
+    templateUrl: './actions-inuse.component.html',
+    styleUrls: ['./actions-inuse.component.scss'],
+    standalone: false
 })
 export class ActionsInuseComponent implements OnInit {
   faPlay = faPlay;

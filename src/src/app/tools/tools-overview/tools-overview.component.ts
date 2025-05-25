@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ToolsData } from '../tools.data';
 
 @Component({
-  selector: 'w3tk-tools-overview',
-  templateUrl: './tools-overview.component.html',
-  styleUrls: ['./tools-overview.component.scss']
+    selector: 'w3tk-tools-overview',
+    templateUrl: './tools-overview.component.html',
+    styleUrls: ['./tools-overview.component.scss'],
+    standalone: false
 })
 export class ToolsOverviewComponent implements OnInit {
   tools =  ToolsData.tools;
