@@ -5,7 +5,9 @@
           Enter public address below to get the balance (one address)
       </p>
       <p class="card-text">
-        <input type="text" class="form-control" [(ngModel)]="address"><br />
+        <input type="text" class="form-control" [(ngModel)]="address" placeholder="Address to check"><br />
+        Token Contract Address (optional): <br />
+        <input type="text" class="form-control" [(ngModel)]="tokenAddress" placeholder="Token contract address (leave empty for native currency)"><br />
         Delimiter: <br />
         <input type="text" class="form-control" [(ngModel)]="delimiter"><br />
 

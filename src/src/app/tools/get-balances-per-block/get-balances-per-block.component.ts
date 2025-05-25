@@ -9,6 +9,7 @@ import { Web3Service } from 'src/app/shared/services/web3.service';
 })
 export class GetBalancesPerBlockComponent implements OnInit {
   address: string = "";
+  tokenAddress: string = "";
   delimiter: string = ", ";
   startBlock: number = 0;
   endBlock: number = 0;
@@ -21,7 +22,6 @@ export class GetBalancesPerBlockComponent implements OnInit {
   }
 
   async getBalances() {
-
     if(this.endBlock == 0) {
       Web3Service.getLastBlockNumber(this.dataService.network).then((result) => {
         this.endBlock = result; 
@@ -31,7 +31,8 @@ export class GetBalancesPerBlockComponent implements OnInit {
     this.balances = "";
     for await(const balance of Web3Service.getBalancesPerBlockAsync(
       this.address, this.dataService.network.rpcUrl, this.delimiter, 
-      this.startBlock, this.endBlock, this.iteration)) {
+      this.startBlock, this.endBlock, this.iteration, 
+      this.tokenAddress || undefined)) {  // Pass undefined if tokenAddress is empty
       this.balances += balance;
       this.changeDetector.detectChanges();
     }

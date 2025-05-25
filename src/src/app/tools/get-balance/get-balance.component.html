@@ -7,6 +7,9 @@
       <p class="card-text">
         <textarea class="form-control font-code" rows="12" [(ngModel)]="addresses"></textarea><br />
 
+        Token Contract Address (optional): <br />
+        <input type="text" class="form-control" [(ngModel)]="tokenAddress" placeholder="Token contract address (leave empty for native currency)"><br />
+
         Delimiter: <br />
         <input type="text" class="form-control" [(ngModel)]="delimiter">
     </p>
