@@ -5,9 +5,10 @@ import { DataService } from '../../services/data.service';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'w3tk-main-header',
-  templateUrl: './main-header.component.html',
-  styleUrls: ['./main-header.component.scss']
+    selector: 'w3tk-main-header',
+    templateUrl: './main-header.component.html',
+    styleUrls: ['./main-header.component.scss'],
+    standalone: false
 })
 export class MainHeaderComponent implements OnInit {
 

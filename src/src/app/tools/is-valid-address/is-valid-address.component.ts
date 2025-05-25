@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-is-valid-address',
-  templateUrl: './is-valid-address.component.html',
-  styleUrls: ['./is-valid-address.component.scss']
+    selector: 'w3tk-is-valid-address',
+    templateUrl: './is-valid-address.component.html',
+    styleUrls: ['./is-valid-address.component.scss'],
+    standalone: false
 })
 export class IsValidAddressComponent implements OnInit {
   address: string = "";

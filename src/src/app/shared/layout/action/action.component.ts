@@ -4,9 +4,10 @@ import { Action } from '../../actions/action';
 import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: 'w3tk-action',
-  templateUrl: './action.component.html',
-  styleUrls: ['./action.component.scss']
+    selector: 'w3tk-action',
+    templateUrl: './action.component.html',
+    styleUrls: ['./action.component.scss'],
+    standalone: false
 })
 export class ActionComponent implements OnInit {
   @Input() action!:Action;

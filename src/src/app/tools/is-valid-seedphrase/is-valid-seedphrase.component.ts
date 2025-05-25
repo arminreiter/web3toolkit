@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-is-valid-seedphrase',
-  templateUrl: './is-valid-seedphrase.component.html',
-  styleUrls: ['./is-valid-seedphrase.component.scss']
+    selector: 'w3tk-is-valid-seedphrase',
+    templateUrl: './is-valid-seedphrase.component.html',
+    styleUrls: ['./is-valid-seedphrase.component.scss'],
+    standalone: false
 })
 export class IsValidSeedphraseComponent implements OnInit {
   seeds: string = "";

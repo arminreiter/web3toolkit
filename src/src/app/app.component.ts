@@ -3,9 +3,10 @@ import { DataService } from './shared/services/data.service';
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'w3tk-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'w3tk-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   title = 'web3toolkit';

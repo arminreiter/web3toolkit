@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import Web3 from 'web3';
 
 @Component({
-  selector: 'w3tk-wei-converter',
-  templateUrl: './wei-converter.component.html',
-  styleUrls: ['./wei-converter.component.scss']
+    selector: 'w3tk-wei-converter',
+    templateUrl: './wei-converter.component.html',
+    styleUrls: ['./wei-converter.component.scss'],
+    standalone: false
 })
 export class WeiConverterComponent implements OnInit {
   wei: string = "1";

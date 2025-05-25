@@ -3,9 +3,10 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-get-balances-per-block',
-  templateUrl: './get-balances-per-block.component.html',
-  styleUrls: ['./get-balances-per-block.component.scss']
+    selector: 'w3tk-get-balances-per-block',
+    templateUrl: './get-balances-per-block.component.html',
+    styleUrls: ['./get-balances-per-block.component.scss'],
+    standalone: false
 })
 export class GetBalancesPerBlockComponent implements OnInit {
   address: string = "";

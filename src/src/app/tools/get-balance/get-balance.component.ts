@@ -3,9 +3,10 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { Web3Service } from 'src/app/shared/services/web3.service';
 
 @Component({
-  selector: 'w3tk-get-balance',
-  templateUrl: './get-balance.component.html',
-  styleUrls: ['./get-balance.component.scss']
+    selector: 'w3tk-get-balance',
+    templateUrl: './get-balance.component.html',
+    styleUrls: ['./get-balance.component.scss'],
+    standalone: false
 })
 export class GetBalanceComponent implements OnInit {
   addresses: string = "";
