@@ -40,7 +40,24 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "crypto"
+              "crc-32",
+              "web3-eth-accounts",
+              "web3-core",
+              "web3-utils",
+              "web3-providers-http",
+              "web3-providers-ws",
+              "web3-providers-ipc",
+              "bn.js",
+              "buffer",
+              "crypto-js",
+              "ethereum-cryptography",
+              "secp256k1",
+              "scrypt-js",
+              "setimmediate",
+              "js-sha3",
+              "bech32",
+              "hash.js",
+              "aes-js"
             ],
             "browser": "src/main.ts"
           },
@@ -49,7 +66,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 },
                 {

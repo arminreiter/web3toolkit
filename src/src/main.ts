@@ -10,5 +10,10 @@ if (environment.production) {
   enableProdMode();
 }
 
+// fixes BigInt serialization issue
+(BigInt.prototype as any).toJSON = function() {
+  return this.toString();
+};
+
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
