@@ -10,8 +10,8 @@ export class Web3Service {
     }
 
     static isValidSeedPhrase(seed: string) : string {
-        var isvalid = ethers.utils.isValidMnemonic(seed);
-        if (isvalid) {
+        var isValid = ethers.utils.isValidMnemonic(seed);
+        if (isValid) {
             return "VALID";
         }
 
@@ -97,7 +97,7 @@ export class Web3Service {
             if(address.length > 0) {
                 promises.push(
                     web3js.eth.getBalance(address).then((bal) => {
-                    result += address + delimiter + Web3.utils.fromWei(bal) + "\n";
+                    result += address + delimiter + Web3.utils.fromWei(bal, 'ether') + "\n";
                     })
                 );
             }
@@ -142,13 +142,13 @@ export class Web3Service {
                 let balance;
                 if (tokenAddress && contract) {
                     // Get token balance
-                    balance = await contract.methods.balanceOf(address).call();
-                    const decimals = await contract.methods.decimals().call();
-                    balance = balance / Math.pow(10, decimals);
+                    const balanceRaw = await contract.methods['balanceOf'](address).call();
+                    const decimals = await contract.methods['decimals']().call();
+                    balance = Number(balanceRaw) / Math.pow(10, Number(decimals));
                 } else {
                     // Get native currency balance
                     balance = await web3js.eth.getBalance(address);
-                    balance = Web3.utils.fromWei(balance);
+                    balance = Web3.utils.fromWei(balance, 'ether');
                 }
                 yield `${address}${delimiter}${balance}\n`;
             } catch (error) {
@@ -158,7 +158,7 @@ export class Web3Service {
         }
     }
       
-    static async *getBalancesPerBlockAsync(address: string, rpcUrl: string, delimiter: string = ", ", startBlock: number, endBlock: number, iteration: number, tokenAddress?: string): AsyncGenerator<string> {
+    static async *getBalancesPerBlockAsync(address: string, rpcUrl: string, delimiter: string = ", ", startBlock: BigInt, endBlock: BigInt, iteration: number, tokenAddress?: string): AsyncGenerator<string> {
         var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
         
         // If tokenAddress is provided, create contract instance
@@ -183,18 +183,18 @@ export class Web3Service {
             contract = new web3js.eth.Contract(minABI, tokenAddress);
         }
 
-        for(let i = startBlock; i <= endBlock; i += iteration) {
+        for(let i = Number(startBlock); i <= Number(endBlock); i += iteration) {
             try {
                 let balance;
                 if (tokenAddress && contract) {
                     // Get token balance
-                    balance = await contract.methods.balanceOf(address).call({}, i);
-                    const decimals = await contract.methods.decimals().call();
-                    balance = balance / Math.pow(10, decimals);
+                    const balanceRaw = await contract.methods['balanceOf'](address).call({}, i);
+                    const decimals = await contract.methods['decimals']().call();
+                    balance = Number(balanceRaw) / Math.pow(10, Number(decimals));
                 } else {
                     // Get native currency balance
                     balance = await web3js.eth.getBalance(address, i);
-                    balance = Web3.utils.fromWei(balance);
+                    balance = Web3.utils.fromWei(balance, 'ether');
                 }
                 yield `${i}${delimiter}${address}${delimiter}${balance}\n`;
             } catch (error) {
@@ -245,7 +245,7 @@ export class Web3Service {
     }
 
     
-    static async getLastBlockNumber(network:Network) : Promise<number> {
+    static async getLastBlockNumber(network:Network) : Promise<BigInt> {
         var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
         var block = await web3js.eth.getBlock("latest");
         return block.number;
@@ -273,25 +273,23 @@ export class Web3Service {
         var from = this.getAddressFromPrivateKey(key);
 
         const nonce = await web3js.eth.getTransactionCount(from);
-        var balance = web3js.utils.toBN(0);
-        await web3js.eth.getBalance(from, function(error: any, bal: any) {
+        var balance = BigInt(0);
+        try {
+            const bal = await web3js.eth.getBalance(from);
+            balance = BigInt(bal);
+        }
+        catch(error: any) {
+            result = error.message;
+        }
 
-            if(error){
-               result = error;
-            }
-            else{
-               balance = web3js.utils.toBN(bal);
-            }
-        });
-
-        if(balance < web3js.utils.toBN(1)) { return result; }
+        if(balance < BigInt(1)) { return result; }
 
         var gasPriceWei = web3js.utils.toWei(gasPrice.toString(), "Gwei");
-        var gasCosts = web3js.utils.toBN(gas * Number(web3js.utils.toNumber(gasPriceWei)));
+        var gasCosts = BigInt(gas * Number(web3js.utils.toNumber(gasPriceWei)));
          
-        var amount = balance.sub(gasCosts);
+        var amount =  balance - gasCosts;
 
-        if(amount.isNeg()) {
+        if(amount < BigInt(0)) {
             result = "Insufficient balance for account " + from;
             return result;
         }      
@@ -307,14 +305,13 @@ export class Web3Service {
 
         var signed : string = signedTx.rawTransaction ?? "";
 
-        var tx = await web3js.eth.sendSignedTransaction(signed, function(error: any, hash: any) {
-            if(!error) {
-                result = hash + " - from: " + from + " to: " + targetAddress + " amount: " + amount;
-            }
-            else {
-                result = "ERROR - something went wrong with your transaction: " + error;
-            }
-        });
+        try {
+            var tx = await web3js.eth.sendSignedTransaction(signed);
+            result = tx.transactionHash + " - from: " + from + " to: " + targetAddress + " amount: " + amount;
+        }
+        catch(error: any) {
+            result = "ERROR - something went wrong with your transaction: " + error.message;
+        }
 
         return result;        
     }

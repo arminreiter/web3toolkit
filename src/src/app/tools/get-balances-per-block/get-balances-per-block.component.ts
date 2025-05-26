@@ -12,8 +12,8 @@ export class GetBalancesPerBlockComponent implements OnInit {
   address: string = "";
   tokenAddress: string = "";
   delimiter: string = ", ";
-  startBlock: number = 0;
-  endBlock: number = 0;
+  startBlock: BigInt = BigInt(0);
+  endBlock: BigInt = BigInt(0);
   iteration: number = 17280;
   balances: string = "";
 
@@ -23,7 +23,7 @@ export class GetBalancesPerBlockComponent implements OnInit {
   }
 
   async getBalances() {
-    if(this.endBlock == 0) {
+    if(this.endBlock == BigInt(0)) {
       Web3Service.getLastBlockNumber(this.dataService.network).then((result) => {
         this.endBlock = result; 
       });

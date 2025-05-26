@@ -1,4 +1,5 @@
-@import '../../../../assets/variables';
+@use '../../../../assets/variables' as *;
+
 .nav li span, .web3tklink {
     font-size: 0.75rem;
 }
