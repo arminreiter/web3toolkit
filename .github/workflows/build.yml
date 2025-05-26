@@ -48,5 +48,5 @@ jobs:
       id: deploy-to-static-web 
       uses: TravisSpomer/deploy-to-azure-storage@v1.5.0
       with:
-        source-path: web3toolkit
+        source-path: web3toolkit/browser
         sas-url: ${{ secrets.DEPLOY_SAS_URL }}
