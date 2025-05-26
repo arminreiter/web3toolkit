@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { ethers, Mnemonic, isAddress, Wallet, randomBytes, HDNodeWallet } from "ethers";
 import Web3 from "web3";
 import { AbiItem } from "web3-utils";
 import { Network } from "../model/network";
@@ -6,11 +6,11 @@ import { Network } from "../model/network";
 export class Web3Service {
 
     static isValidAddress(address: string) : boolean {
-        return ethers.utils.isAddress(address);
+        return isAddress(address);
     }
 
     static isValidSeedPhrase(seed: string) : string {
-        var isValid = ethers.utils.isValidMnemonic(seed);
+        var isValid = Mnemonic.isValidMnemonic(seed);
         if (isValid) {
             return "VALID";
         }
@@ -37,7 +37,7 @@ export class Web3Service {
         }
 
         try {
-            ethers.Wallet.fromMnemonic(seed);
+            Wallet.fromPhrase(seed);
         }
         catch(error) {
             return "INVALID - " + error;
@@ -46,9 +46,9 @@ export class Web3Service {
     }
 
     static genSeedPhrase() {
-        var rand = ethers.utils.randomBytes(16);
-        var result = ethers.utils.entropyToMnemonic(rand);
-        return result;
+        var rand = randomBytes(16);
+        var result = Mnemonic.fromEntropy(rand);
+        return result.phrase;;
     }
 
     static genKeyPair() {
@@ -57,12 +57,19 @@ export class Web3Service {
     }
 
     static getPrivateKeys(seedPhrase: string, amount: number, derivationPath:string = "m/44'/60'/0'/0/0"): string[] {
-        var result = [];
+
         seedPhrase = seedPhrase.trim();
+        
+        // Create master wallet once
+        const mnemonic = Mnemonic.fromPhrase(seedPhrase);
+        const seed = mnemonic.computeSeed();
+        const hdWallet = HDNodeWallet.fromSeed(seed);
+
+        const result: string[] = [];
 
         for (var i = 0; i < amount; i++) {
             var path = this.getPath(i, derivationPath);
-            var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
+            const wallet = hdWallet.derivePath(path);
             result.push(wallet.privateKey);
         }
 
@@ -74,7 +81,8 @@ export class Web3Service {
       
         for (var i = 0; i < amount; i++) {
           var path = this.getPath(i, derivationPath);
-          var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
+            const hdWallet = HDNodeWallet.fromPhrase(seedPhrase);
+            const wallet = hdWallet.derivePath(path);
           yield wallet.privateKey;
         }
       }
@@ -215,16 +223,22 @@ export class Web3Service {
     }
 
     static getAddresses(seedPhrase: string, amount:number, derivationPath:string = "m/44'/60'/0'/0/0") {
-        var result = "";
         seedPhrase = seedPhrase.trim();
+        
+        // Create master wallet once
+        const mnemonic = Mnemonic.fromPhrase(seedPhrase);
+        const seed = mnemonic.computeSeed();
+        const hdWallet = HDNodeWallet.fromSeed(seed);
+
+        const addresses: string[] = [];
 
         for (var i = 0; i < amount; i++) {
             var path = this.getPath(i, derivationPath);
-            var wallet = ethers.Wallet.fromMnemonic(seedPhrase, path);
-            result += wallet.address + "\n";
+            const wallet = hdWallet.derivePath(path);
+            addresses.push(wallet.address);
         }
 
-        return result.slice(0, -1);
+        return addresses.join("\n");
     }
 
     static getAddressFromPrivateKey(key: string) : string {
