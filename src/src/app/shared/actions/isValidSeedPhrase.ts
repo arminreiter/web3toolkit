@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { Mnemonic } from 'ethers';
 import { Action } from "../actions/action";
 import { ActionInput } from "../model/actioninput";
 import { Module } from "../model/module";
@@ -14,6 +14,6 @@ export class IsValidSeedPhrase extends Action {
 
     async run(input: ActionInput): Promise<string> {
         
-        return String(ethers.utils.isValidMnemonic(input.input));
+        return String( Mnemonic.isValidMnemonic(input.input));
     }
 }
