@@ -8,6 +8,7 @@ $warning:       #ffc107;
 $danger:        #dc3545;
 $light:         #f8f9fa;
 $dark:          #000007;
+$white:         #ffffff;
 
 
 // $white: #ffffff;
@@ -19,6 +20,10 @@ $dark:          #000007;
 // $danger:        #fd011a;
 // $light:         #262b32;
 // $dark:          #131316;
+
+$gray-900: $dark !default;
+$body-bg: $white !default;
+$body-color: $dark !default;
 
 $theme-colors: (
   "primary": $primary,
