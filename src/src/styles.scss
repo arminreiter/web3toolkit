@@ -1,19 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-@use 'assets/variables';
+@use 'assets/variables' as *;
 
 /* Importing Bootstrap SCSS file. */
-@use 'bootstrap/scss/bootstrap';
+@use 'bootstrap/scss/bootstrap' with (
+  $theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "dark": $dark,
+    "light": $light,
+  )
+);
 
 .hide-if-empty:empty {
     display: none;
 }
 
 html {
-    background-color: bootstrap.$dark;
+    background-color: $dark;
 }
 
 body {
-    color: bootstrap.$light;
+    color: $light;
 }
 
 a {
@@ -21,24 +32,24 @@ a {
 }
 
 ::-moz-selection { /* Code for Firefox */
-    color: bootstrap.$info;
-    background: bootstrap.$dark;
+    color: $info;
+    background: $dark;
 }
   
 ::selection {
-    color: bootstrap.$dark;
-    background: bootstrap.$info;
+    color: $dark;
+    background: $info;
 }
 
 .btn {
-    background-color: bootstrap.$dark;
-    border-color: bootstrap.$info;
-    color: bootstrap.$light;
+    background-color: $dark;
+    border-color: $info;
+    color: $light;
 }
 
 .btn:hover, .btn:focus, .btn:active {
-    background-color: bootstrap.$info;
-    color: bootstrap.$dark;
+    background-color: $info;
+    color: $dark;
     box-shadow: none;
 }
 
@@ -62,11 +73,11 @@ a {
 }
 
 .card-title, .card-header {
-    color: bootstrap.$light;
+    color: $light;
 }
 
 .bg-sidenav {
-    border-right: 1px solid bootstrap.$secondary;
+    border-right: 1px solid $secondary;
 }
 
 .font-code {
@@ -80,11 +91,11 @@ a {
 }
 
 #action-main {
-    background-color: bootstrap.$secondary;
+    background-color: $secondary;
 }
 
 #io-col {
-    background-color: bootstrap.$dark;
+    background-color: $dark;
 }
 
 .avax-main, .avax-test {
@@ -92,7 +103,7 @@ a {
 }
 
 .eth-main, .eth-rinkeby {
-    background-color: bootstrap.$dark;
+    background-color: $dark;
 }
 
 .ecs-main, .ecs-test {
@@ -108,7 +119,7 @@ a {
 }
 
 .cst {
-    background-color: bootstrap.$dark;
+    background-color: $dark;
 }
 
 .cursor-pointer {
@@ -116,34 +127,34 @@ a {
 }
 
 .form-control {
-    background-color: bootstrap.$dark;
-    color: bootstrap.$white;
+    background-color: $dark;
+    color: $white;
 }
 
 .form-control:focus {
     background-color: black;
-    color: bootstrap.$white;
+    color: $white;
     box-shadow: none;
-    border-color: bootstrap.$light;
+    border-color: $light;
 }
 
 .form-control:disabled {
-    background-color: bootstrap.$secondary;
+    background-color: $secondary;
 }
 
 .form-floating > .form-control:focus ~ label {
-    color: bootstrap.$light;
+    color: $light;
 }
 
 .nav-link {
     cursor: pointer;
-    color: bootstrap.$light;
+    color: $light;
     border: none;
-    background-color: bootstrap.$dark;
+    background-color: $dark;
 }
 
 .nav-link:hover, .nav-link:focus {
-    color: bootstrap.$info;
+    color: $info;
 }
 
 /* sidebars */
@@ -151,14 +162,14 @@ a {
 
 .accordion, .accordion-item, .accordion-header, .accordion-button, .accordion-body, .accordion-button:not(.collapsed) {
     text-decoration: none;
-    background-color: bootstrap.$dark;
-    color: bootstrap.$light !important;
+    background-color: $dark;
+    color: $light !important;
     padding: 0.25rem 0px;
     border: none;
 
     .nav-link {
         padding: 0.25rem 0rem 0.25rem 2rem;
-        background-color: bootstrap.$dark;
+        background-color: $dark;
         width: 100%;
         text-align: left;
     }
