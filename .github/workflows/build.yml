@@ -44,6 +44,11 @@ jobs:
       with:
         name: angular-app
 
+    - name: Inject Plausible script into index.html
+      run: |
+        sed -i 's|</head>|<script defer data-domain="web3toolkit.app" src="https://wal.a31.at/js/script.outbound-links.js"></script></head>|' web3toolkit/browser/index.html
+
+        
     - name: 'Deploy to Azure Static Website'
       id: deploy-to-static-web 
       uses: TravisSpomer/deploy-to-azure-storage@v1.5.0
