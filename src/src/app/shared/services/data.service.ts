@@ -23,8 +23,10 @@ export class DataService {
     }
 
     removeAction(id: number) {
-        var index = this.actions.findIndex((a) => a.id == id);
-        this.actions.splice(index, 1);
+        const index = this.actions.findIndex(a => a.id == id);
+        if (index !== -1) {
+            this.actions.splice(index, 1);
+        }
     }
 
     getInput() : ActionInput {
