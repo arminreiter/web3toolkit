@@ -4,7 +4,6 @@ import { Play, Trash2 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { ActionCard } from './layout/ActionCard';
 import { Action } from '@/lib/actions/action';
-import { Card, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export function ActionsInUse() {
@@ -38,23 +37,26 @@ export function ActionsInUse() {
 
   return (
     <>
-      <Card className="mb-1 bg-primary/10">
-        <CardHeader className="flex flex-row items-center justify-between py-2 px-3 font-bold">
-          <div>Actions</div>
-          <div className="flex gap-1">
-            <Button variant="ghost" size="icon" onClick={clear} className="h-7 w-7">
-              <Trash2 className="h-4 w-4" />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={play} className="h-7 w-7 text-green-500">
-              <Play className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardHeader>
-      </Card>
-      <div>
+      <div className="flex items-center justify-between px-3 py-2.5 mb-2 rounded-lg bg-primary/5 border border-primary/10">
+        <span className="text-xs font-semibold uppercase tracking-wider text-primary">Actions</span>
+        <div className="flex gap-1">
+          <Button variant="ghost" size="icon-xs" onClick={clear} className="text-muted-foreground hover:text-destructive">
+            <Trash2 className="h-3.5 w-3.5" />
+          </Button>
+          <Button variant="ghost" size="icon-xs" onClick={play} className="text-emerald-400 hover:text-emerald-300">
+            <Play className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col gap-1">
         {actions.map((action) => (
           <ActionCard key={action.id} action={action} />
         ))}
+        {actions.length === 0 && (
+          <div className="text-center py-8 text-sm text-muted-foreground/60">
+            Add operations from the sidebar
+          </div>
+        )}
       </div>
     </>
   );

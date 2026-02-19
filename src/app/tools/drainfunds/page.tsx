@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import { Web3Service } from '@/lib/services/web3.service';
 import { useAppStore } from '@/lib/store';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 export default function DrainFundsPage() {
   const network = useAppStore((s) => s.network);
@@ -52,40 +53,47 @@ export default function DrainFundsPage() {
   };
 
   return (
-    <Card>
-      <CardHeader><h5>Drain Funds</h5></CardHeader>
-      <CardContent className="space-y-4">
-        <p>
-          Enter one or multiple seed phrases or private keys as well as a target address which will receive the funds.
-          Press the &apos;Drain Funds&apos; button and all funds will be transfered from seed phrase/private key to the target address.
-        </p>
-        <Textarea className="font-code" rows={2} value={input} onChange={(e) => setInput(e.target.value)} />
+    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+      <CardContent className="pt-6 space-y-5">
+        <div>
+          <h3 className="text-lg font-semibold mb-1">Drain Funds</h3>
+          <p className="text-sm text-muted-foreground">
+            Transfer all funds from seed phrases or private keys to a target address.
+          </p>
+        </div>
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Seed phrases or private keys (one per line)</Label>
+          <Textarea className="font-code" rows={2} value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter seed phrases or private keys..." />
+        </div>
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm">Number of derived addresses:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Number of derived addresses</Label>
             <Input type="number" max={100} min={1} value={nrOfAddresses} onChange={(e) => setNrOfAddresses(Number(e.target.value))} />
           </div>
-          <div>
-            <label className="text-sm">Derivation path:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Derivation path</Label>
             <Input type="text" value={derivationPath} onChange={(e) => setDerivationPath(e.target.value)} />
           </div>
         </div>
-        <div>
-          <label className="text-sm">Target Address:</label>
-          <Input type="text" value={targetAddress} onChange={(e) => setTargetAddress(e.target.value)} />
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Target Address</Label>
+          <Input type="text" value={targetAddress} onChange={(e) => setTargetAddress(e.target.value)} placeholder="Address to receive funds" />
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm">Gas:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Gas</Label>
             <Input type="number" value={gas} onChange={(e) => setGas(Number(e.target.value))} />
           </div>
-          <div>
-            <label className="text-sm">Gas Price (Gwei):</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Gas Price (Gwei)</Label>
             <Input type="number" value={gasPrice} onChange={(e) => setGasPrice(Number(e.target.value))} />
           </div>
         </div>
         <Button onClick={drainFunds}>Drain Funds</Button>
-        <Textarea className="font-code" rows={20} disabled value={output} />
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Output</Label>
+          <Textarea className="font-code" rows={20} disabled value={output} placeholder="Transaction results will appear here..." />
+        </div>
       </CardContent>
     </Card>
   );

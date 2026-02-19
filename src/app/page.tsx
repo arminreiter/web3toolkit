@@ -1,59 +1,105 @@
 'use client';
 
 import Link from 'next/link';
-import { Wrench, Bot, CircleHelp } from 'lucide-react';
+import { Wrench, Bot, CircleHelp, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+
+const features = [
+  {
+    href: '/tools',
+    icon: Wrench,
+    title: 'Tools',
+    description: 'Generate seed phrases, derive keys, check balances, convert wei, and more.',
+    gradient: 'from-primary/20 to-primary/5',
+    iconColor: 'text-primary',
+  },
+  {
+    href: '/automator',
+    icon: Bot,
+    title: 'Automator',
+    description: 'Chain operations together — generate seeds, derive keys, and get addresses in one flow.',
+    gradient: 'from-accent/20 to-accent/5',
+    iconColor: 'text-accent',
+  },
+  {
+    href: '/about',
+    icon: CircleHelp,
+    title: 'About',
+    description: 'Learn how Web3ToolKit works and explore sample workflows.',
+    gradient: 'from-emerald-500/20 to-emerald-500/5',
+    iconColor: 'text-emerald-400',
+  },
+];
 
 export default function Home() {
   return (
-    <div className="px-[15%]">
-      <div className="p-6 text-center">
-        <h1>
-          <img src="/img/w3tk_logo.png" className="p-4 inline" style={{ height: '100px', width: 'auto' }} alt="Web3ToolKit" /> Web3ToolKit
-        </h1>
-        <hr className="border-border" />
+    <div className="min-h-screen flex flex-col">
+      {/* Hero section with mesh gradient */}
+      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-16 bg-mesh overflow-hidden">
+        {/* Dot grid overlay */}
+        <div className="absolute inset-0 bg-dot-grid opacity-30" />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-3xl mx-auto text-center stagger-children">
+          {/* Logo */}
+          <div className="mb-8">
+            <div className="inline-block relative">
+              <img
+                src="/img/w3tk_logo.png"
+                className="h-20 w-auto mx-auto"
+                alt="Web3ToolKit"
+              />
+              <div className="absolute inset-0 bg-primary/15 blur-3xl rounded-full scale-150" />
+            </div>
+          </div>
+
+          {/* Title */}
+          <h1 className="text-5xl font-bold tracking-tight mb-4">
+            Web3
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_6s_ease_infinite]">
+              ToolKit
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="text-lg text-muted-foreground max-w-lg mx-auto mb-12 leading-relaxed">
+            A powerful suite of blockchain utilities for EVM-compatible chains.
+            Keys, wallets, balances, and automation — all in your browser.
+          </p>
+
+          {/* Feature cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+            {features.map((feature) => (
+              <Link key={feature.href} href={feature.href} className="no-underline group">
+                <Card className="h-full border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_-8px_rgba(129,140,248,0.15)] overflow-hidden">
+                  <CardContent className="pt-6 relative">
+                    {/* Gradient blob */}
+                    <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${feature.gradient} rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 opacity-60`} />
+
+                    <div className="relative">
+                      <div className={`inline-flex items-center justify-center w-10 h-10 rounded-lg bg-secondary mb-4 ${feature.iconColor}`}>
+                        <feature.icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="text-base font-semibold mb-2 text-foreground">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">{feature.description}</p>
+                      <div className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        Explore <ArrowRight className="h-3 w-3" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="px-6">
-        <h2>...a toolkit for the web3</h2>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
-        <Link href="/tools" className="no-underline">
-          <Card className="cursor-pointer h-full hover:border-accent transition-colors">
-            <CardContent className="pt-6">
-              <Wrench className="h-16 w-16 mx-auto mb-4" />
-              <h5 className="text-foreground font-semibold">Tools</h5>
-              <p className="text-muted-foreground">A set of easy to use tools. Generate a new seed phrase, get a block from the blockchain or convert wei to eth.</p>
-            </CardContent>
-          </Card>
-        </Link>
-        <Link href="/automator" className="no-underline">
-          <Card className="cursor-pointer h-full hover:border-accent transition-colors">
-            <CardContent className="pt-6">
-              <Bot className="h-16 w-16 mx-auto mb-4" />
-              <h5 className="text-foreground font-semibold">Automator</h5>
-              <p className="text-muted-foreground">Allows you to add multiple operations to your flow and execute them in a row. You can e.g. generate a seed phrase, derive 20 private keys and get the public keys of each private key.</p>
-            </CardContent>
-          </Card>
-        </Link>
-        <Link href="/about" className="no-underline">
-          <Card className="cursor-pointer h-full hover:border-accent transition-colors">
-            <CardContent className="pt-6">
-              <CircleHelp className="h-16 w-16 mx-auto mb-4" />
-              <h5 className="text-foreground font-semibold">About</h5>
-              <p className="text-muted-foreground">Want to know more about Web3Toolkit? Check out the about section.</p>
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
-
-      <div className="p-6" />
-      <hr className="border-border" />
-      <div className="px-6">
-        <p>This tool is still under development. More actions and features as well as responsiveness are planned for the future.</p>
-        <p>You can contact me via: dev [at] w3tk.app</p>
-      </div>
+      {/* Footer */}
+      <footer className="border-t border-border/50 py-6 px-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          Open source blockchain toolkit. Contact: dev [at] w3tk.app
+        </p>
+      </footer>
     </div>
   );
 }

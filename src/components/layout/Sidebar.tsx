@@ -30,31 +30,33 @@ export function Sidebar() {
   };
 
   return (
-    <div className="px-3 pt-3 text-foreground h-full flex flex-col">
-      <div className="whitespace-nowrap text-center">Operations</div>
-      <hr className="border-border my-2" />
+    <div className="px-3 pt-4 text-foreground h-full flex flex-col bg-[#080d18]">
+      <div className="text-xs uppercase tracking-widest text-center text-muted-foreground font-medium mb-1">Operations</div>
+      <div className="mx-2 h-px bg-gradient-to-r from-transparent via-border to-transparent mb-2" />
       <Accordion type="multiple" defaultValue={modules.map((m) => m.module)} className="grow overflow-y-auto">
         {modules.map((mod) => (
-          <AccordionItem key={mod.module} value={mod.module}>
-            <AccordionTrigger className="py-1 text-sm">
-              <span className="flex items-center gap-2">
-                <mod.icon className="h-4 w-4" /> {mod.module}
+          <AccordionItem key={mod.module} value={mod.module} className="border-border/50">
+            <AccordionTrigger className="py-2 text-sm hover:no-underline">
+              <span className="flex items-center gap-2 text-muted-foreground">
+                <mod.icon className="h-3.5 w-3.5" /> <span className="text-xs font-medium uppercase tracking-wide">{mod.module}</span>
               </span>
             </AccordionTrigger>
             <AccordionContent>
-              {getActions(mod.module).map((action) => (
-                <button
-                  key={action.id}
-                  onClick={() => handleAddAction(action)}
-                  className="block w-full text-left py-1 pl-6 text-sm text-foreground hover:text-accent cursor-pointer bg-transparent border-0"
-                  title={action.description}
-                >
-                  {action.title}
-                  {action.requiresConnection && (
-                    <img src="/img/circle.svg" className="p-2 float-right" title="This action requires an active internet connection." alt="requires connection" />
-                  )}
-                </button>
-              ))}
+              <div className="flex flex-col gap-0.5">
+                {getActions(mod.module).map((action) => (
+                  <button
+                    key={action.id}
+                    onClick={() => handleAddAction(action)}
+                    className="block w-full text-left py-1.5 pl-6 pr-2 text-[0.8rem] text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors duration-150 cursor-pointer bg-transparent border-0"
+                    title={action.description}
+                  >
+                    {action.title}
+                    {action.requiresConnection && (
+                      <span className="float-right inline-block w-1.5 h-1.5 rounded-full bg-accent mt-1.5" title="Requires internet connection" />
+                    )}
+                  </button>
+                ))}
+              </div>
             </AccordionContent>
           </AccordionItem>
         ))}

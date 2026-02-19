@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { Web3Service } from '@/lib/services/web3.service';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 export default function GetAddrFromSeedPage() {
   const [seedPhrase, setSeedPhrase] = useState('');
@@ -22,23 +23,31 @@ export default function GetAddrFromSeedPage() {
   };
 
   return (
-    <Card>
-      <CardHeader><h5>Get public addresses from seed phrase</h5></CardHeader>
-      <CardContent className="space-y-4">
-        <p>Enter a seed phrase and derive as much public addresses as you want.</p>
-        <Textarea className="font-code" rows={2} value={seedPhrase} onChange={(e) => setSeedPhrase(e.target.value)} />
+    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+      <CardContent className="pt-6 space-y-5">
+        <div>
+          <h3 className="text-lg font-semibold mb-1">Get Addresses from Seed</h3>
+          <p className="text-sm text-muted-foreground">Enter a seed phrase to derive public addresses.</p>
+        </div>
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Seed phrase</Label>
+          <Textarea className="font-code" rows={2} value={seedPhrase} onChange={(e) => setSeedPhrase(e.target.value)} placeholder="Enter your seed phrase..." />
+        </div>
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm">Number of derived addresses:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Number of addresses</Label>
             <Input type="number" max={100} min={1} value={nrOfAddresses} onChange={(e) => setNrOfAddresses(Number(e.target.value))} />
           </div>
-          <div>
-            <label className="text-sm">Derivation path:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Derivation path</Label>
             <Input type="text" value={derivationPath} onChange={(e) => setDerivationPath(e.target.value)} />
           </div>
         </div>
         <Button onClick={getAddresses}>Get Addresses</Button>
-        <Textarea className="font-code" rows={20} disabled value={genAddresses} />
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Output</Label>
+          <Textarea className="font-code" rows={20} disabled value={genAddresses} placeholder="Derived addresses will appear here..." />
+        </div>
       </CardContent>
     </Card>
   );

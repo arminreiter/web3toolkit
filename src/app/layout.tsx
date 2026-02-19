@@ -1,10 +1,29 @@
 import type { Metadata } from 'next';
+import { Syne, Outfit, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Sidenav } from '@/components/layout/Sidenav';
 import { NetworkFromUrl } from '@/components/NetworkFromUrl';
 import { BigIntPolyfill } from '@/components/BigIntPolyfill';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Suspense } from 'react';
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-code',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Web3ToolKit',
@@ -29,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${syne.variable} ${outfit.variable} ${jetbrainsMono.variable}`}>
       <body>
         <ThemeProvider>
           <BigIntPolyfill />
@@ -37,12 +56,10 @@ export default function RootLayout({
             <NetworkFromUrl />
           </Suspense>
           <div className="flex min-h-screen">
-            <div className="w-[6.5rem] shrink-0 border-r border-border">
-              <Sidenav />
-            </div>
-            <div className="grow overflow-auto">
+            <Sidenav />
+            <main className="grow overflow-auto">
               {children}
-            </div>
+            </main>
           </div>
         </ThemeProvider>
       </body>

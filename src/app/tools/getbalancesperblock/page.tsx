@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import { Web3Service } from '@/lib/services/web3.service';
 import { useAppStore } from '@/lib/store';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 export default function GetBalancesPerBlockPage() {
   const network = useAppStore((s) => s.network);
@@ -41,35 +42,45 @@ export default function GetBalancesPerBlockPage() {
   };
 
   return (
-    <Card>
-      <CardHeader><h5>Get Balances from Address per Block</h5></CardHeader>
-      <CardContent className="space-y-4">
-        <p>Enter public address below to get the balance (one address)</p>
-        <Input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address to check" />
+    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+      <CardContent className="pt-6 space-y-5">
         <div>
-          <label className="text-sm">Token Contract Address (optional):</label>
-          <Input type="text" value={tokenAddress} onChange={(e) => setTokenAddress(e.target.value)} placeholder="Token contract address (leave empty for native currency)" />
+          <h3 className="text-lg font-semibold mb-1">Balances Per Block</h3>
+          <p className="text-sm text-muted-foreground">Query balance history for a single address across block ranges.</p>
         </div>
-        <div>
-          <label className="text-sm">Delimiter:</label>
-          <Input type="text" value={delimiter} onChange={(e) => setDelimiter(e.target.value)} />
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Address</Label>
+          <Input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address to check" />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Token Contract Address (optional)</Label>
+            <Input type="text" value={tokenAddress} onChange={(e) => setTokenAddress(e.target.value)} placeholder="Leave empty for native currency" />
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Delimiter</Label>
+            <Input type="text" value={delimiter} onChange={(e) => setDelimiter(e.target.value)} />
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <div>
-            <label className="text-sm">Start Block:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Start Block</Label>
             <Input type="number" min={1} value={startBlock} onChange={(e) => setStartBlock(Number(e.target.value))} />
           </div>
-          <div>
-            <label className="text-sm">End Block:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">End Block</Label>
             <Input type="number" min={1} value={endBlock} onChange={(e) => setEndBlock(Number(e.target.value))} />
           </div>
-          <div>
-            <label className="text-sm">Iteration:</label>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Iteration</Label>
             <Input type="number" min={1} value={iteration} onChange={(e) => setIteration(Number(e.target.value))} />
           </div>
         </div>
         <Button onClick={getBalances}>Get Balances</Button>
-        <Textarea className="font-code" rows={12} disabled value={balances} />
+        <div className="space-y-1.5">
+          <Label className="text-xs text-muted-foreground">Output</Label>
+          <Textarea className="font-code" rows={12} disabled value={balances} placeholder="Balance history will appear here..." />
+        </div>
       </CardContent>
     </Card>
   );

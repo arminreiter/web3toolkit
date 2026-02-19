@@ -2,7 +2,6 @@
 
 import { Trash2 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
-import { Card, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -15,32 +14,29 @@ export function InputOutput() {
 
   return (
     <>
-      <Card className="my-1">
-        <CardHeader className="flex flex-row items-center justify-between py-2 px-3 font-bold">
-          <div>Input &amp; Results</div>
-          <div>
-            <Button variant="ghost" size="icon" onClick={clear} className="h-7 w-7">
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardHeader>
-      </Card>
+      <div className="flex items-center justify-between px-3 py-2.5 mb-2 rounded-lg bg-secondary/50 border border-border/50">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Input & Results</span>
+        <Button variant="ghost" size="icon-xs" onClick={clear} className="text-muted-foreground hover:text-destructive">
+          <Trash2 className="h-3.5 w-3.5" />
+        </Button>
+      </div>
 
-      <div className="my-1 space-y-1">
-        <Label htmlFor="floatingInput">Input</Label>
+      <div className="space-y-1 mb-3">
+        <Label htmlFor="floatingInput" className="text-xs text-muted-foreground">Input</Label>
         <Textarea
-          className="w-full min-h-[80px]"
+          className="w-full min-h-[80px] font-code"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           id="floatingInput"
+          placeholder="Enter input data..."
         />
       </div>
 
       {results.map((res, idx) => (
-        <div key={idx} className="mb-1 space-y-1">
-          <Label>{res.actionName}</Label>
+        <div key={idx} className="mb-2 space-y-1">
+          <Label className="text-xs text-primary">{res.actionName}</Label>
           <Textarea
-            className="w-full"
+            className="w-full font-code"
             style={{ height: '100%' }}
             rows={res.result.split('\n').length}
             readOnly

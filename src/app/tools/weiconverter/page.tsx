@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
 import Web3 from 'web3';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function WeiConverterPage() {
   const [wei, setWei] = useState('1');
@@ -36,21 +37,25 @@ export default function WeiConverterPage() {
   };
 
   return (
-    <Card>
-      <CardHeader><h5>Wei converter</h5></CardHeader>
-      <CardContent className="space-y-4">
-        <p>Converts Wei to Gwei and Ether</p>
+    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+      <CardContent className="pt-6 space-y-5">
         <div>
-          <label className="text-sm">Wei:</label>
-          <Input type="number" value={wei} onChange={(e) => fwei(e.target.value)} />
+          <h3 className="text-lg font-semibold mb-1">Wei Converter</h3>
+          <p className="text-sm text-muted-foreground">Convert between Wei, Gwei, and Ether denominations.</p>
         </div>
-        <div>
-          <label className="text-sm">Gwei:</label>
-          <Input type="number" value={gwei} onChange={(e) => fgwei(e.target.value)} />
-        </div>
-        <div>
-          <label className="text-sm">Ether:</label>
-          <Input type="number" value={ether} onChange={(e) => fether(e.target.value)} />
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Wei</Label>
+            <Input type="number" value={wei} onChange={(e) => fwei(e.target.value)} className="font-code" />
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Gwei</Label>
+            <Input type="number" value={gwei} onChange={(e) => fgwei(e.target.value)} className="font-code" />
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Ether</Label>
+            <Input type="number" value={ether} onChange={(e) => fether(e.target.value)} className="font-code" />
+          </div>
         </div>
       </CardContent>
     </Card>

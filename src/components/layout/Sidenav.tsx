@@ -15,18 +15,29 @@ export function Sidenav() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col shrink-0 h-full">
+    <nav className="w-[4.5rem] shrink-0 h-screen sticky top-0 flex flex-col bg-[#080d18] border-r border-border">
+      {/* Logo */}
       <Link
         href="/"
-        className="block pb-4 pt-2 text-center border-b border-border text-foreground no-underline"
-        title="web3toolkit"
-        style={{ fontSize: '0.75rem' }}
+        className="flex flex-col items-center justify-center py-4 text-foreground no-underline group"
+        title="Web3ToolKit"
       >
-        <img src="/img/favicon.png" className="mb-2" style={{ height: '36px' }} alt="Web3ToolKit" />
-        <br />
-        <span className="font-bold">Web3ToolKit</span>
+        <div className="relative">
+          <img
+            src="/img/favicon.png"
+            className="h-8 w-8 transition-transform duration-300 group-hover:scale-110"
+            alt="Web3ToolKit"
+          />
+          <div className="absolute inset-0 rounded-full bg-primary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+        <span className="text-[0.6rem] font-medium tracking-wider uppercase text-muted-foreground mt-1.5">W3TK</span>
       </Link>
-      <ul className="flex flex-col mb-auto text-center list-none p-0 m-0">
+
+      {/* Separator */}
+      <div className="mx-3 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+      {/* Nav items */}
+      <ul className="flex flex-col gap-1 p-2 mt-2 list-none m-0">
         {navItems.map((item) => {
           const isActive = item.href === '/'
             ? pathname === '/'
@@ -35,17 +46,29 @@ export function Sidenav() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`block py-3 border-b border-border text-foreground no-underline hover:text-accent ${isActive ? 'text-accent' : ''}`}
+                className={`relative flex flex-col items-center gap-1 py-2.5 px-1 rounded-lg text-center no-underline transition-all duration-200
+                  ${isActive
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  }`}
                 title={item.label}
               >
-                <item.icon className="h-4 w-4 mx-auto" />
-                <br />
-                <span style={{ fontSize: '0.75rem' }}>{item.label}</span>
+                {isActive && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full bg-gradient-to-b from-primary to-accent" />
+                )}
+                <item.icon className="h-[18px] w-[18px]" strokeWidth={isActive ? 2.2 : 1.8} />
+                <span className="text-[0.6rem] font-medium leading-none">{item.label}</span>
               </Link>
             </li>
           );
         })}
       </ul>
-    </div>
+
+      {/* Spacer */}
+      <div className="grow" />
+
+      {/* Bottom accent line */}
+      <div className="mx-3 mb-4 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+    </nav>
   );
 }

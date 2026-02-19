@@ -10,13 +10,15 @@ export default function ToolsLayout({
 }) {
   return (
     <div className="flex">
-      <div className="w-[220px] min-w-[220px] border-r border-border min-h-screen">
+      <div className="w-[210px] min-w-[210px] border-r border-border min-h-screen">
         <ToolsSidebar />
       </div>
       <div className="grow h-screen flex flex-col">
         <MainHeader />
-        <div className="grow p-4 overflow-y-auto">
-          {children}
+        <div className="grow p-6 overflow-y-auto bg-mesh">
+          <div className="max-w-4xl animate-fade-up">
+            {children}
+          </div>
         </div>
       </div>
     </div>

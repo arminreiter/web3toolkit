@@ -3,7 +3,6 @@
 import { Play, Trash2 } from 'lucide-react';
 import { Action } from '@/lib/actions/action';
 import { useAppStore } from '@/lib/store';
-import { Card, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 interface ActionCardProps {
@@ -28,19 +27,16 @@ export function ActionCard({ action }: ActionCardProps) {
   };
 
   return (
-    <Card className="mb-1 rounded">
-      <CardHeader className="flex flex-row items-center justify-between py-2 px-3">
-        <div className="text-sm">{action.title}</div>
-        <div className="flex gap-1">
-          <Button variant="ghost" size="icon" onClick={handleRemove} className="h-7 w-7">
-            <Trash2 className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="icon" onClick={handleRun} className="h-7 w-7 text-green-500">
-            <Play className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardHeader>
-      <div className="hide-if-empty" />
-    </Card>
+    <div className="flex items-center justify-between px-3 py-2 rounded-lg border border-border/50 bg-card/50 hover:border-border transition-colors duration-150">
+      <span className="text-sm text-foreground">{action.title}</span>
+      <div className="flex gap-0.5">
+        <Button variant="ghost" size="icon-xs" onClick={handleRemove} className="text-muted-foreground hover:text-destructive">
+          <Trash2 className="h-3.5 w-3.5" />
+        </Button>
+        <Button variant="ghost" size="icon-xs" onClick={handleRun} className="text-emerald-400 hover:text-emerald-300">
+          <Play className="h-3.5 w-3.5" />
+        </Button>
+      </div>
+    </div>
   );
 }
