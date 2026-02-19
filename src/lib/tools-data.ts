@@ -41,6 +41,8 @@ export const tools: ToolCategory[] = [
     actions: [
       { name: "Get Block", route: "/tools/getblock", requiresConnection: true },
       { name: "Get Transaction", route: "/tools/gettransaction", requiresConnection: true },
+      { name: "ERC-20 Token Info", route: "/tools/tokeninfo", requiresConnection: true },
+      { name: "ENS Resolver", route: "/tools/ensresolver", requiresConnection: true },
     ],
   },
   {

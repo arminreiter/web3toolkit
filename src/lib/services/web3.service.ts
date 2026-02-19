@@ -1,9 +1,12 @@
-import { ethers, Mnemonic, isAddress, Wallet, randomBytes, HDNodeWallet, JsonRpcProvider, Contract, formatUnits, parseUnits, computeAddress } from "ethers";
+import { ethers, Mnemonic, isAddress, Wallet, randomBytes, HDNodeWallet, JsonRpcProvider, Contract, formatUnits, parseUnits, computeAddress, Network as EthersNetwork } from "ethers";
 import { Network } from "../models/network";
 
 const ERC20_ABI = [
     "function balanceOf(address) view returns (uint256)",
-    "function decimals() view returns (uint8)"
+    "function decimals() view returns (uint8)",
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function totalSupply() view returns (uint256)",
 ];
 
 export class Web3Service {
@@ -294,6 +297,109 @@ export class Web3Service {
         return result;
     }
 
+
+    static async getTokenInfo(tokenAddress: string, network: Network): Promise<{
+        name: string;
+        symbol: string;
+        decimals: number;
+        totalSupply: string;
+    }> {
+        const provider = new JsonRpcProvider(network.rpcUrl);
+        const contract = new Contract(tokenAddress, ERC20_ABI, provider);
+
+        const [name, symbol, decimals, totalSupply] = await Promise.all([
+            contract.name() as Promise<string>,
+            contract.symbol() as Promise<string>,
+            contract.decimals() as Promise<bigint>,
+            contract.totalSupply() as Promise<bigint>,
+        ]);
+
+        return {
+            name,
+            symbol,
+            decimals: Number(decimals),
+            totalSupply: formatUnits(totalSupply, Number(decimals)),
+        };
+    }
+
+    private static readonly ETH_MAINNET_RPC = "https://ethereum-rpc.publicnode.com";
+
+    private static getEnsProvider(): JsonRpcProvider {
+        const network = EthersNetwork.from("mainnet");
+        return new JsonRpcProvider(this.ETH_MAINNET_RPC, network, { staticNetwork: network });
+    }
+
+    static async resolveENS(ensName: string): Promise<Record<string, string>> {
+        const provider = this.getEnsProvider();
+        const result: Record<string, string> = {};
+
+        const address = await provider.resolveName(ensName);
+        if (!address) {
+            throw new Error(`No address found for "${ensName}"`);
+        }
+        result['Address'] = address;
+
+        const resolver = await provider.getResolver(ensName);
+        if (resolver) {
+            const textKeys = [
+                'avatar', 'email', 'url', 'description',
+                'com.twitter', 'com.github', 'com.discord',
+                'org.telegram',
+            ];
+            const textResults = await Promise.allSettled(
+                textKeys.map((key) => resolver.getText(key))
+            );
+            for (let i = 0; i < textKeys.length; i++) {
+                const r = textResults[i];
+                if (r.status === 'fulfilled' && r.value) {
+                    result[textKeys[i]] = r.value;
+                }
+            }
+
+            try {
+                const contentHash = await resolver.getContentHash();
+                if (contentHash) result['Content Hash'] = contentHash;
+            } catch {}
+        }
+
+        return result;
+    }
+
+    static async lookupENS(address: string): Promise<Record<string, string>> {
+        const provider = this.getEnsProvider();
+        const result: Record<string, string> = {};
+
+        const name = await provider.lookupAddress(address);
+        if (!name) {
+            throw new Error(`No ENS name found for "${address}"`);
+        }
+        result['ENS Name'] = name;
+
+        const resolved = await provider.resolveName(name);
+        if (resolved) {
+            result['Resolved Address'] = resolved;
+        }
+
+        const resolver = await provider.getResolver(name);
+        if (resolver) {
+            const textKeys = [
+                'avatar', 'email', 'url', 'description',
+                'com.twitter', 'com.github', 'com.discord',
+                'org.telegram',
+            ];
+            const textResults = await Promise.allSettled(
+                textKeys.map((key) => resolver.getText(key))
+            );
+            for (let i = 0; i < textKeys.length; i++) {
+                const r = textResults[i];
+                if (r.status === 'fulfilled' && r.value) {
+                    result[textKeys[i]] = r.value;
+                }
+            }
+        }
+
+        return result;
+    }
 
     // ============================= helper ==================================================
     // https://www.tutorialspoint.com/levenshtein-distance-in-javascript
