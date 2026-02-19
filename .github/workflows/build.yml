@@ -1,4 +1,4 @@
-# build angular app using node.js, then deploy to azure static website
+# build Next.js app, then deploy to azure static website
 on:
   push:
     branches:
@@ -12,27 +12,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
 
     - name: Set up Node.js
-      uses: actions/setup-node@v3.9.1
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        cache-dependency-path: src/package-lock.json
+        cache: 'pnpm'
 
-    - name: npm install, build, and test
-      working-directory: src
+    - name: Install dependencies and build
       run: |
-        npm install -g @angular/cli
-        npm install 
-        ng build
+        pnpm install --frozen-lockfile
+        pnpm run build
 
     - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v4.6.2
+      uses: actions/upload-artifact@v4
       with:
-        name: angular-app
-        path: src/dist
+        name: nextjs-app
+        path: out
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,18 +42,17 @@ jobs:
 
     steps:
     - name: Download artifact from build job
-      uses: actions/download-artifact@v4.3.0
+      uses: actions/download-artifact@v4
       with:
-        name: angular-app
+        name: nextjs-app
 
-    - name: Inject Plausible script into index.html
+    - name: Inject Plausible script into all HTML files
       run: |
-        sed -i 's|</head>|<script defer data-domain="web3toolkit.app" src="https://wal.a31.at/js/script.outbound-links.js"></script></head>|' web3toolkit/browser/index.html
+        find . -name '*.html' -exec sed -i 's|</head>|<script defer data-domain="web3toolkit.app" src="https://wal.a31.at/js/script.outbound-links.js"></script></head>|' {} +
 
-        
     - name: 'Deploy to Azure Static Website'
-      id: deploy-to-static-web 
+      id: deploy-to-static-web
       uses: TravisSpomer/deploy-to-azure-storage@v1.5.0
       with:
-        source-path: web3toolkit/browser
+        source-path: .
         sas-url: ${{ secrets.DEPLOY_SAS_URL }}

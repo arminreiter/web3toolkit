@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar-background: var(--sidebar-background);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Dark-only app — original Bootstrap colors:
+   primary: #0D6BF5, secondary: #3e4246, info/accent: #0dcaf0,
+   dark: #000007, light: #f8f9fa */
+:root {
+  --radius: 0.5rem;
+  --background: #000007;
+  --foreground: #f8f9fa;
+  --card: #000007;
+  --card-foreground: #f8f9fa;
+  --popover: #000007;
+  --popover-foreground: #f8f9fa;
+  --primary: #0D6BF5;
+  --primary-foreground: #ffffff;
+  --secondary: #3e4246;
+  --secondary-foreground: #f8f9fa;
+  --muted: #3e4246;
+  --muted-foreground: #9ca3af;
+  --accent: #0dcaf0;
+  --accent-foreground: #000007;
+  --destructive: #dc3545;
+  --destructive-foreground: #ffffff;
+  --border: #3e4246;
+  --input: #3e4246;
+  --ring: #0D6BF5;
+  --sidebar-background: #000007;
+  --sidebar-foreground: #f8f9fa;
+  --sidebar-primary: #0D6BF5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #3e4246;
+  --sidebar-accent-foreground: #f8f9fa;
+  --sidebar-border: #3e4246;
+  --sidebar-ring: #0D6BF5;
+}
+
+.dark {
+  --background: #000007;
+  --foreground: #f8f9fa;
+  --card: #000007;
+  --card-foreground: #f8f9fa;
+  --popover: #000007;
+  --popover-foreground: #f8f9fa;
+  --primary: #0D6BF5;
+  --primary-foreground: #ffffff;
+  --secondary: #3e4246;
+  --secondary-foreground: #f8f9fa;
+  --muted: #3e4246;
+  --muted-foreground: #9ca3af;
+  --accent: #0dcaf0;
+  --accent-foreground: #000007;
+  --destructive: #dc3545;
+  --destructive-foreground: #ffffff;
+  --border: #3e4246;
+  --input: #3e4246;
+  --ring: #0D6BF5;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom utilities */
+.hide-if-empty:empty {
+  display: none;
+}
+
+::selection {
+  color: #000007;
+  background: #0dcaf0;
+}
+
+.font-code {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: small;
+}
