@@ -34,10 +34,6 @@ export default function ImportWalletPage() {
       const parsed = JSON.parse(json);
 
       if (parsed.crypto || parsed.Crypto) {
-        if (!password) {
-          setOutput('Error: This keystore file is encrypted. Please enter the decryption password.');
-          return;
-        }
         const wallet = await Web3Service.importWalletFromJson(json, password);
         setOutput(`Address:     ${wallet.address}\nPrivate Key: ${wallet.privateKey}`);
       } else {
@@ -58,7 +54,7 @@ export default function ImportWalletPage() {
   };
 
   return (
-    <ToolCard title="Import Wallet from JSON" description="Import a wallet from a V3 keystore JSON file (e.g. created by geth). Enter the password to decrypt.">
+    <ToolCard title="Import Wallet from JSON" description="Import a wallet from a V3 keystore JSON file (e.g. created by geth). Enter the password to decrypt, or leave empty if the keystore has no password.">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label className="text-sm text-muted-foreground">Keystore JSON</Label>
@@ -69,7 +65,7 @@ export default function ImportWalletPage() {
         </div>
         <Textarea className="font-code" rows={12} value={json} onChange={(e) => setJson(e.target.value)} placeholder="Paste your keystore JSON here or load a file..." />
       </div>
-      <FormField label="Password" type="password" value={password} onChange={setPassword} placeholder="Decryption password" />
+      <FormField label="Password (optional)" type="password" value={password} onChange={setPassword} placeholder="Leave empty if keystore has no password" />
       <LoadingButton loading={loading} loadingText="Decrypting..." onClick={importWallet}>Import Wallet</LoadingButton>
       <OutputDisplay value={output} rows={4} placeholder="Address and private key will appear here..." />
     </ToolCard>

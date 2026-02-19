@@ -24,6 +24,7 @@ export const tools: ToolCategory[] = [
       { name: "Get Addresses from Private Key", route: "/tools/getaddrfromkey", requiresConnection: false },
       { name: "Get Address and Keys from Seed Phrase", route: "/tools/getaddrkeysfromseed", requiresConnection: false },
       { name: "Import Wallet from JSON", route: "/tools/importwallet", requiresConnection: false },
+      { name: "Export Wallet to JSON", route: "/tools/exportwallet", requiresConnection: false },
     ],
   },
   {

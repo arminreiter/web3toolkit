@@ -182,8 +182,9 @@ export class Web3Service {
                     balance = formatUnits(bal, 'ether');
                 }
                 yield `${i}${delimiter}${address}${delimiter}${balance}\n`;
-            } catch (error) {
-                yield(`Error fetching balance for address ${address}: ` + error + '\n');
+            } catch (error: any) {
+                const msg = this.formatRpcError(error);
+                yield `Error at block ${i} for ${address}: ${msg}\n`;
             }
         }
     }
@@ -212,6 +213,11 @@ export class Web3Service {
         return { address: wallet.address, privateKey: wallet.privateKey };
     }
 
+    static async exportWalletToJson(privateKey: string, password: string = ''): Promise<string> {
+        const wallet = new Wallet(privateKey);
+        return wallet.encrypt(password);
+    }
+
     static getAddressFromPrivateKey(key: string) : string {
         return computeAddress(key);
     }
@@ -233,6 +239,107 @@ export class Web3Service {
         const provider = new JsonRpcProvider(network.rpcUrl);
         const blockNumber = await provider.getBlockNumber();
         return BigInt(blockNumber);
+    }
+
+    static async getBlockByTimestamp(provider: JsonRpcProvider, targetTimestamp: number): Promise<number> {
+        const latestBlock = await provider.getBlock('latest');
+        if (!latestBlock) throw new Error('Could not fetch latest block');
+
+        if (targetTimestamp >= latestBlock.timestamp) return latestBlock.number;
+        const genesisBlock = await provider.getBlock(0);
+        if (genesisBlock && targetTimestamp <= genesisBlock.timestamp) return 0;
+
+        let lo = 0;
+        let hi = latestBlock.number;
+
+        while (lo < hi) {
+            const mid = Math.floor((lo + hi) / 2);
+            const block = await provider.getBlock(mid);
+            if (!block) { lo = mid + 1; continue; }
+
+            if (block.timestamp < targetTimestamp) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo;
+    }
+
+    static async *getBalancesPerDatetimeAsync(
+        address: string,
+        rpcUrl: string,
+        delimiter: string = ", ",
+        startTimestamp: number,
+        endTimestamp: number,
+        intervalSeconds: number,
+        tokenAddress?: string,
+        useUtc: boolean = true
+    ): AsyncGenerator<string> {
+        const provider = new JsonRpcProvider(rpcUrl);
+
+        let contract: Contract | undefined = undefined;
+        if (tokenAddress) {
+            contract = new Contract(tokenAddress, ERC20_ABI, provider);
+        }
+
+        let lastBlockNum = await this.getBlockByTimestamp(provider, startTimestamp);
+
+        for (let ts = startTimestamp; ts <= endTimestamp; ts += intervalSeconds) {
+            try {
+                let blockNum: number;
+                if (ts === startTimestamp) {
+                    blockNum = lastBlockNum;
+                } else {
+                    // Narrow binary search from last known block
+                    const estimatedJump = Math.max(1, Math.floor(intervalSeconds / 12));
+                    const latestBlock = await provider.getBlock('latest');
+                    const maxBlock = latestBlock ? latestBlock.number : lastBlockNum + estimatedJump * 2;
+
+                    let lo = lastBlockNum;
+                    let hi = Math.min(lastBlockNum + estimatedJump * 2, maxBlock);
+
+                    // Expand hi if its timestamp is still before target
+                    let hiBlock = await provider.getBlock(hi);
+                    while (hiBlock && hiBlock.timestamp < ts && hi < maxBlock) {
+                        lo = hi;
+                        hi = Math.min(hi * 2, maxBlock);
+                        hiBlock = await provider.getBlock(hi);
+                    }
+
+                    while (lo < hi) {
+                        const mid = Math.floor((lo + hi) / 2);
+                        const midBlock = await provider.getBlock(mid);
+                        if (!midBlock) { lo = mid + 1; continue; }
+                        if (midBlock.timestamp < ts) {
+                            lo = mid + 1;
+                        } else {
+                            hi = mid;
+                        }
+                    }
+                    blockNum = lo;
+                }
+
+                lastBlockNum = blockNum;
+
+                let balance: string;
+                if (tokenAddress && contract) {
+                    const balanceRaw: bigint = await contract.balanceOf(address, { blockTag: blockNum });
+                    const decimals: bigint = await contract.decimals();
+                    balance = formatUnits(balanceRaw, Number(decimals));
+                } else {
+                    const bal = await provider.getBalance(address, blockNum);
+                    balance = formatUnits(bal, 'ether');
+                }
+
+                const dt = this.formatTimestamp(ts, useUtc);
+                yield `${dt}${delimiter}${blockNum}${delimiter}${address}${delimiter}${balance}\n`;
+            } catch (error: any) {
+                const dt = this.formatTimestamp(ts, useUtc);
+                const msg = this.formatRpcError(error);
+                yield `Error at ${dt} for ${address}: ${msg}\n`;
+            }
+        }
     }
 
     static async getBlock(blockNumber:number, network:Network) : Promise<string> {
@@ -402,6 +509,32 @@ export class Web3Service {
     }
 
     // ============================= helper ==================================================
+    private static formatRpcError(error: any): string {
+        const msg = error?.message || String(error);
+        if (msg.includes('missing trie node') || msg.includes('is not available')) {
+            return 'Historical state not available — this RPC node is not an archive node.';
+        }
+        if (msg.includes('header not found')) {
+            return 'Block not found — the RPC node may not have this block range.';
+        }
+        // Extract the inner RPC message if present
+        const innerMatch = msg.match(/"message":\s*"([^"]+)"/);
+        if (innerMatch) return innerMatch[1];
+        return msg;
+    }
+
+    private static formatTimestamp(timestampSecs: number, useUtc: boolean = true): string {
+        const d = new Date(timestampSecs * 1000);
+        const dd = String(useUtc ? d.getUTCDate() : d.getDate()).padStart(2, '0');
+        const mm = String((useUtc ? d.getUTCMonth() : d.getMonth()) + 1).padStart(2, '0');
+        const yyyy = useUtc ? d.getUTCFullYear() : d.getFullYear();
+        const hh = String(useUtc ? d.getUTCHours() : d.getHours()).padStart(2, '0');
+        const min = String(useUtc ? d.getUTCMinutes() : d.getMinutes()).padStart(2, '0');
+        const ss = String(useUtc ? d.getUTCSeconds() : d.getSeconds()).padStart(2, '0');
+        const suffix = useUtc ? ' UTC' : '';
+        return `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}${suffix}`;
+    }
+
     // https://www.tutorialspoint.com/levenshtein-distance-in-javascript
     static levenshteinDistance (str1 = '', str2 = '')  {
         const track = Array(str2.length + 1).fill(null).map(() =>
