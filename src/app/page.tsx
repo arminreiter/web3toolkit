@@ -1,8 +1,5 @@
-'use client';
-
 import Link from 'next/link';
 import { Wrench, Bot, CircleHelp, ArrowRight } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 
 const features = [
   {
@@ -10,84 +7,92 @@ const features = [
     icon: Wrench,
     title: 'Tools',
     description: 'Generate seed phrases, derive keys, check balances, convert wei, and more.',
-    gradient: 'from-primary/20 to-primary/5',
+    accentColor: 'rgba(13, 202, 240, 0.5)',
     iconColor: 'text-primary',
+    borderHover: 'hover:border-primary/30',
   },
   {
     href: '/automator',
     icon: Bot,
     title: 'Automator',
     description: 'Chain operations together — generate seeds, derive keys, and get addresses in one flow.',
-    gradient: 'from-accent/20 to-accent/5',
-    iconColor: 'text-accent',
+    accentColor: 'rgba(13, 202, 240, 0.5)',
+    iconColor: 'text-primary',
+    borderHover: 'hover:border-primary/30',
   },
   {
     href: '/about',
     icon: CircleHelp,
     title: 'About',
     description: 'Learn how Web3ToolKit works and explore sample workflows.',
-    gradient: 'from-emerald-500/20 to-emerald-500/5',
-    iconColor: 'text-emerald-400',
+    accentColor: 'rgba(13, 202, 240, 0.5)',
+    iconColor: 'text-primary',
+    borderHover: 'hover:border-primary/30',
   },
 ];
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Hero section with mesh gradient */}
-      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-16 bg-mesh overflow-hidden">
-        {/* Dot grid overlay */}
-        <div className="absolute inset-0 bg-dot-grid opacity-30" />
+    <div className="min-h-screen flex flex-col noise-overlay">
+      {/* Hero section */}
+      <div className="relative flex-1 flex flex-col items-center justify-center px-5 sm:px-8 py-16 sm:py-24 overflow-hidden">
+        {/* Background layers */}
+        <div className="absolute inset-0 bg-mesh" />
+        <div className="absolute inset-0 bg-dot-grid opacity-20" />
+
+        {/* Radial spotlight from center */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-primary/[0.04] rounded-full blur-[120px]" />
 
         {/* Content */}
-        <div className="relative z-10 max-w-3xl mx-auto text-center stagger-children">
+        <div className="relative z-10 max-w-4xl mx-auto text-center stagger-children">
           {/* Logo */}
-          <div className="mb-8">
+          <div className="mb-10 sm:mb-12">
             <div className="inline-block relative">
               <img
                 src="/img/w3tk_logo.png"
-                className="h-20 w-auto mx-auto"
+                className="h-20 sm:h-28 w-auto mx-auto relative z-10"
                 alt="Web3ToolKit"
               />
-              <div className="absolute inset-0 bg-primary/15 blur-3xl rounded-full scale-150" />
+              <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-[2]" />
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="text-5xl font-bold tracking-tight mb-4">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
             Web3
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_6s_ease_infinite]">
+            <span className="text-primary">
               ToolKit
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg text-muted-foreground max-w-lg mx-auto mb-12 leading-relaxed">
-            A powerful suite of blockchain utilities for EVM-compatible chains.
+          <p className="text-xl sm:text-2xl text-muted-foreground max-w-xl mx-auto mb-14 sm:mb-18 leading-relaxed">
+            Blockchain utilities for EVM-compatible chains.
             Keys, wallets, balances, and automation — all in your browser.
           </p>
 
           {/* Feature cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-7 text-left">
             {features.map((feature) => (
               <Link key={feature.href} href={feature.href} className="no-underline group">
-                <Card className="h-full border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_-8px_rgba(129,140,248,0.15)] overflow-hidden">
-                  <CardContent className="pt-6 relative">
-                    {/* Gradient blob */}
-                    <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${feature.gradient} rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 opacity-60`} />
+                <div className={`h-full rounded-xl border border-border/40 bg-card/60 backdrop-blur-sm p-8 transition-all duration-400 ${feature.borderHover} card-hover-glow overflow-hidden relative`}>
+                  {/* Top accent glow */}
+                  <div
+                    className="absolute -top-12 -right-12 w-36 h-36 rounded-full blur-[50px] opacity-0 group-hover:opacity-40 transition-opacity duration-500"
+                    style={{ background: feature.accentColor }}
+                  />
 
-                    <div className="relative">
-                      <div className={`inline-flex items-center justify-center w-10 h-10 rounded-lg bg-secondary mb-4 ${feature.iconColor}`}>
-                        <feature.icon className="h-5 w-5" />
-                      </div>
-                      <h3 className="text-base font-semibold mb-2 text-foreground">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">{feature.description}</p>
-                      <div className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        Explore <ArrowRight className="h-3 w-3" />
-                      </div>
+                  <div className="relative">
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-secondary/80 mb-5 ${feature.iconColor}`}>
+                      <feature.icon className="h-6 w-6" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <h3 className="text-xl font-semibold mb-3 text-foreground">{feature.title}</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed mb-6">{feature.description}</p>
+                    <div className="flex items-center gap-2 text-base font-medium text-primary opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300">
+                      Explore <ArrowRight className="h-4 w-4" />
+                    </div>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
@@ -95,9 +100,9 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 py-6 px-6 text-center">
-        <p className="text-sm text-muted-foreground">
-          Open source blockchain toolkit. Contact: dev [at] w3tk.app
+      <footer className="relative z-10 border-t border-border/30 py-7 px-6 text-center">
+        <p className="text-sm text-muted-foreground/70">
+          Open source blockchain toolkit &middot; dev [at] w3tk.app
         </p>
       </footer>
     </div>

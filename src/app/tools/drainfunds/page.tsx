@@ -1,12 +1,9 @@
 'use client';
+
 import { useState } from 'react';
 import { Web3Service } from '@/lib/services/web3.service';
 import { useAppStore } from '@/lib/store';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { ToolCard, FormField, SeedDerivationFields, OutputDisplay, LoadingButton } from '@/components/tools';
 
 export default function DrainFundsPage() {
   const network = useAppStore((s) => s.network);
@@ -17,6 +14,7 @@ export default function DrainFundsPage() {
   const [gas, setGas] = useState(21000);
   const [gasPrice, setGasPrice] = useState(10);
   const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const drain = async (key: string) => {
     const tmpResult = await Web3Service.drainFunds(key, targetAddress, network, gas, gasPrice);
@@ -26,6 +24,7 @@ export default function DrainFundsPage() {
   };
 
   const drainFunds = async () => {
+    setLoading(true);
     setOutput('');
     try {
       if (!Web3Service.isValidAddress(targetAddress)) {
@@ -49,52 +48,30 @@ export default function DrainFundsPage() {
       }
     } catch (error) {
       setOutput(String(error));
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
-      <CardContent className="pt-6 space-y-5">
-        <div>
-          <h3 className="text-lg font-semibold mb-1">Drain Funds</h3>
-          <p className="text-sm text-muted-foreground">
-            Transfer all funds from seed phrases or private keys to a target address.
-          </p>
-        </div>
-        <div className="space-y-1.5">
-          <Label className="text-xs text-muted-foreground">Seed phrases or private keys (one per line)</Label>
-          <Textarea className="font-code" rows={2} value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter seed phrases or private keys..." />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Number of derived addresses</Label>
-            <Input type="number" max={100} min={1} value={nrOfAddresses} onChange={(e) => setNrOfAddresses(Number(e.target.value))} />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Derivation path</Label>
-            <Input type="text" value={derivationPath} onChange={(e) => setDerivationPath(e.target.value)} />
-          </div>
-        </div>
-        <div className="space-y-1.5">
-          <Label className="text-xs text-muted-foreground">Target Address</Label>
-          <Input type="text" value={targetAddress} onChange={(e) => setTargetAddress(e.target.value)} placeholder="Address to receive funds" />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Gas</Label>
-            <Input type="number" value={gas} onChange={(e) => setGas(Number(e.target.value))} />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Gas Price (Gwei)</Label>
-            <Input type="number" value={gasPrice} onChange={(e) => setGasPrice(Number(e.target.value))} />
-          </div>
-        </div>
-        <Button onClick={drainFunds}>Drain Funds</Button>
-        <div className="space-y-1.5">
-          <Label className="text-xs text-muted-foreground">Output</Label>
-          <Textarea className="font-code" rows={20} disabled value={output} placeholder="Transaction results will appear here..." />
-        </div>
-      </CardContent>
-    </Card>
+    <ToolCard title="Drain Funds" description="Transfer all funds from seed phrases or private keys to a target address.">
+      <SeedDerivationFields
+        seedPhrase={input}
+        onSeedPhraseChange={setInput}
+        nrOfAddresses={nrOfAddresses}
+        onNrOfAddressesChange={setNrOfAddresses}
+        derivationPath={derivationPath}
+        onDerivationPathChange={setDerivationPath}
+        seedLabel="Seed phrases or private keys (one per line)"
+        seedPlaceholder="Enter seed phrases or private keys..."
+      />
+      <FormField label="Target Address" value={targetAddress} onChange={setTargetAddress} placeholder="Address to receive funds" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <FormField label="Gas" type="number" value={gas} onChange={(v) => setGas(Number(v))} />
+        <FormField label="Gas Price (Gwei)" type="number" value={gasPrice} onChange={(v) => setGasPrice(Number(v))} />
+      </div>
+      <LoadingButton loading={loading} loadingText="Processing..." onClick={drainFunds}>Drain Funds</LoadingButton>
+      <OutputDisplay value={output} placeholder="Transaction results will appear here..." />
+    </ToolCard>
   );
 }

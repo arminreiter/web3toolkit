@@ -1,61 +1,46 @@
 'use client';
+
 import { useState } from 'react';
 import { Web3Service } from '@/lib/services/web3.service';
 import { useAppStore } from '@/lib/store';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { ToolCard, FormField, OutputDisplay, LoadingButton } from '@/components/tools';
 
 export default function GetBalancesPage() {
   const network = useAppStore((s) => s.network);
   const [addresses, setAddresses] = useState('');
   const [tokenAddress, setTokenAddress] = useState('');
   const [delimiter, setDelimiter] = useState(', ');
-  const [balances, setBalances] = useState('');
+  const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getBalances = async () => {
-    setBalances('');
+    setLoading(true);
+    setOutput('');
     let result = '';
-    for await (const balance of Web3Service.getBalancesAsync(
-      addresses,
-      network.rpcUrl,
-      delimiter,
-      tokenAddress || undefined
-    )) {
-      result += balance;
-      setBalances(result);
+    try {
+      for await (const balance of Web3Service.getBalancesAsync(
+        addresses,
+        network.rpcUrl,
+        delimiter,
+        tokenAddress || undefined
+      )) {
+        result += balance;
+        setOutput(result);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
-      <CardContent className="pt-6 space-y-5">
-        <div>
-          <h3 className="text-lg font-semibold mb-1">Get Balances</h3>
-          <p className="text-sm text-muted-foreground">Query balances for one or more public addresses (one per line).</p>
-        </div>
-        <div className="space-y-1.5">
-          <Label className="text-xs text-muted-foreground">Addresses</Label>
-          <Textarea className="font-code" rows={12} value={addresses} onChange={(e) => setAddresses(e.target.value)} placeholder="Enter addresses (one per line)..." />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Token Contract Address (optional)</Label>
-            <Input type="text" value={tokenAddress} onChange={(e) => setTokenAddress(e.target.value)} placeholder="Leave empty for native currency" />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Delimiter</Label>
-            <Input type="text" value={delimiter} onChange={(e) => setDelimiter(e.target.value)} />
-          </div>
-        </div>
-        <Button onClick={getBalances}>Get Balances</Button>
-        <div className="space-y-1.5">
-          <Label className="text-xs text-muted-foreground">Output</Label>
-          <Textarea className="font-code" rows={12} disabled value={balances} placeholder="Balances will appear here..." />
-        </div>
-      </CardContent>
-    </Card>
+    <ToolCard title="Get Balances" description="Query balances for one or more public addresses (one per line).">
+      <FormField label="Addresses" multiline value={addresses} onChange={setAddresses} placeholder="Enter addresses (one per line)..." rows={12} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <FormField label="Token Contract Address (optional)" value={tokenAddress} onChange={setTokenAddress} placeholder="Leave empty for native currency" />
+        <FormField label="Delimiter" value={delimiter} onChange={setDelimiter} />
+      </div>
+      <LoadingButton loading={loading} loadingText="Fetching..." onClick={getBalances}>Get Balances</LoadingButton>
+      <OutputDisplay value={output} rows={12} placeholder="Balances will appear here..." />
+    </ToolCard>
   );
 }

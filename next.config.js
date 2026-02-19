@@ -6,12 +6,6 @@ const nextConfig = {
   },
   turbopack: {
     resolveAlias: {
-      crypto: 'crypto-browserify',
-      stream: 'stream-browserify',
-      assert: 'assert/',
-      http: 'stream-http',
-      https: 'https-browserify',
-      os: 'os-browserify/browser',
       buffer: 'buffer/',
     },
   },

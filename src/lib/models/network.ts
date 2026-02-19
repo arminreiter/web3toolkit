@@ -3,16 +3,22 @@ export class Network {
     }
 
     private static Networks: Network[] = [
+        new Network("arb-main", "Arbitrum", "https://arb1.arbitrum.io/rpc", "/img/arbitrum_logo.png", 42161),
         new Network("avax-main", "Avalanche", "https://api.avax.network/ext/bc/C/rpc", "/img/avalanche_avax_logo.svg", 43114),
-        new Network("ecs-main", "eCredits", "https://rpc.ecredits.com", "/img/eCredits_logo.png", 63000),
-        new Network("eth-main", "Ethereum", "https://cloudflare-eth.com", "/img/ethereum_logo.webp"),
+        new Network("base-main", "Base", "https://mainnet.base.org", "/img/base_logo.png", 8453),
+        new Network("bnb-main", "BNB Chain", "https://bsc-dataseed.binance.org", "/img/bnb_logo.png", 56),
+        new Network("eth-main", "Ethereum", "https://cloudflare-eth.com", "/img/ethereum_logo.webp", 1),
         new Network("gns-main", "Gnosis", "https://rpc.gnosischain.com", "/img/gnosis_logo.png", 100),
+        new Network("op-main", "Optimism", "https://mainnet.optimism.io", "/img/optimism_logo.png", 10),
         new Network("poly-main", "Polygon", "https://polygon.llamarpc.com", "/img/polygon_matic_logo.svg", 137),
+        new Network("arb-test", "Arbitrum Sepolia", "https://sepolia-rollup.arbitrum.io/rpc", "/img/arbitrum_logo.png", 421614, "test"),
         new Network("avax-test", "Avalanche Fuji Testnet", "https://api.avax-test.network/ext/bc/C/rpc", "/img/avalanche_avax_logo.svg", 43113, "test"),
-        new Network("ecs-test", "eCredits Testnet", "https://rpc.tst.ecredits.com", "/img/eCredits_logo.png", 63001, "test"),
-        new Network("eth-rinkeby", "Ethereum Rinkeby", "https://rinkeby-light.eth.linkpool.io/", "/img/ethereum_logo.webp", 4, "test"),
+        new Network("base-test", "Base Sepolia", "https://sepolia.base.org", "/img/base_logo.png", 84532, "test"),
+        new Network("bnb-test", "BNB Testnet", "https://data-seed-prebsc-1-s1.binance.org:8545", "/img/bnb_logo.png", 97, "test"),
+        new Network("eth-test", "Ethereum Sepolia", "https://rpc.sepolia.org", "/img/ethereum_logo.webp", 11155111, "test"),
         new Network("gns-test", "Gnosis Chiado Testnet", "https://rpc.chiadochain.net", "/img/gnosis_logo.png", 10200, "test"),
-        new Network("poly-test", "Polygon Mumbai Testnet", "https://polygon-mumbai.gateway.tenderly.co", "/img/polygon_matic_logo.svg", 80001, "test"),
+        new Network("op-test", "Optimism Sepolia", "https://sepolia.optimism.io", "/img/optimism_logo.png", 11155420, "test"),
+        new Network("poly-test", "Polygon Amoy Testnet", "https://rpc-amoy.polygon.technology", "/img/polygon_matic_logo.svg", 80002, "test"),
     ];
 
     private static CustomNetworks: Network[] = [ ];
@@ -59,7 +65,7 @@ export class Network {
     }
 
     public static removeCustomNetwork(net: Network) {
-        this.CustomNetworks = this.CustomNetworks.filter(element => element.name != net.name && element.chainId != net.chainId && element.rpcUrl != net.rpcUrl);
+        this.CustomNetworks = this.CustomNetworks.filter(element => !(element.name === net.name && element.rpcUrl === net.rpcUrl && element.chainId === net.chainId));
         localStorage.setItem("customNetworks", btoa(JSON.stringify(this.CustomNetworks)));
     }
 }

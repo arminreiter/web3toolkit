@@ -28,15 +28,15 @@ export default function AboutPage() {
 
   return (
     <div className="h-full overflow-y-auto bg-mesh">
-      <div className="max-w-4xl mx-auto px-8 py-8 stagger-children">
+      <div className="max-w-4xl mx-auto px-5 sm:px-8 py-8 sm:py-10 stagger-children">
         {/* Header */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-1">About</h2>
-          <p className="text-sm text-muted-foreground">Learn about Web3ToolKit and try sample workflows</p>
+          <h2 className="text-2xl font-semibold mb-1.5">About</h2>
+          <p className="text-base text-muted-foreground">Learn about Web3ToolKit and try sample workflows</p>
         </div>
 
         {/* Hero card */}
-        <Card className="border-border/50 bg-card/50 backdrop-blur-sm mb-8 overflow-hidden">
+        <Card className="border-border/40 bg-card/70 backdrop-blur-sm mb-8 overflow-hidden">
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 items-center">
               <div className="text-center md:text-left">
@@ -46,11 +46,11 @@ export default function AboutPage() {
                 </div>
               </div>
               <div>
-                <p className="text-muted-foreground leading-relaxed mb-4">
+                <p className="text-base text-muted-foreground leading-relaxed mb-4">
                   Web3ToolKit is an open-source tool that helps interact with the web3. Connect to different EVM networks and
                   perform actions like generating seed phrases, deriving private keys and public addresses, or checking address validity. Most operations work offline.
                   Actions that require an internet connection are marked with
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent mx-1.5 align-middle" />.
+                  <span className="inline-block w-2 h-2 rounded-full bg-accent mx-1.5 align-middle" />.
                 </p>
                 <a href="https://github.com/arminreiter/web3toolkit" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="sm" className="gap-2">
@@ -65,12 +65,12 @@ export default function AboutPage() {
         </Card>
 
         {/* Sample workflows */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {/* Address Generation */}
-          <Card className="border-border/50 bg-card/50 backdrop-blur-sm group hover:border-primary/30 transition-colors duration-300">
+          <Card className="border-border/40 bg-card/70 backdrop-blur-sm group hover:border-primary/30 transition-colors duration-300">
             <CardContent className="pt-6">
-              <h4 className="font-semibold mb-3 text-foreground">Address Generation</h4>
-              <ol className="text-sm text-muted-foreground space-y-1.5 mb-4 list-decimal list-inside">
+              <h4 className="text-lg font-semibold mb-3 text-foreground">Address Generation</h4>
+              <ol className="text-base text-muted-foreground space-y-2 mb-4 list-decimal list-inside">
                 <li>Generate Seed Phrase</li>
                 <li>Derive Private Keys</li>
                 <li>Get Public Addresses</li>
@@ -83,10 +83,10 @@ export default function AboutPage() {
           </Card>
 
           {/* Balance Report */}
-          <Card className="border-border/50 bg-card/50 backdrop-blur-sm group hover:border-accent/30 transition-colors duration-300">
+          <Card className="border-border/40 bg-card/70 backdrop-blur-sm group hover:border-accent/30 transition-colors duration-300">
             <CardContent className="pt-6">
-              <h4 className="font-semibold mb-3 text-foreground">Balance Report</h4>
-              <ol className="text-sm text-muted-foreground space-y-1.5 mb-4 list-decimal list-inside">
+              <h4 className="text-lg font-semibold mb-3 text-foreground">Balance Report</h4>
+              <ol className="text-base text-muted-foreground space-y-2 mb-4 list-decimal list-inside">
                 <li>Select your network</li>
                 <li>Add addresses to input</li>
                 <li>Execute Get Balance</li>

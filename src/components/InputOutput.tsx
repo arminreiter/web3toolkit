@@ -14,17 +14,17 @@ export function InputOutput() {
 
   return (
     <>
-      <div className="flex items-center justify-between px-3 py-2.5 mb-2 rounded-lg bg-secondary/50 border border-border/50">
-        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Input & Results</span>
-        <Button variant="ghost" size="icon-xs" onClick={clear} className="text-muted-foreground hover:text-destructive">
-          <Trash2 className="h-3.5 w-3.5" />
+      <div className="flex items-center justify-between px-4 py-3.5 mb-4 rounded-lg bg-secondary/50 border border-border/50">
+        <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Input & Results</span>
+        <Button variant="ghost" size="icon-sm" onClick={clear} className="text-muted-foreground hover:text-destructive">
+          <Trash2 className="h-4 w-4" />
         </Button>
       </div>
 
-      <div className="space-y-1 mb-3">
-        <Label htmlFor="floatingInput" className="text-xs text-muted-foreground">Input</Label>
+      <div className="space-y-2.5 mb-4">
+        <Label htmlFor="floatingInput" className="text-sm font-medium text-muted-foreground">Input</Label>
         <Textarea
-          className="w-full min-h-[80px] font-code"
+          className="w-full min-h-[80px] font-code text-base"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           id="floatingInput"
@@ -33,10 +33,10 @@ export function InputOutput() {
       </div>
 
       {results.map((res, idx) => (
-        <div key={idx} className="mb-2 space-y-1">
-          <Label className="text-xs text-primary">{res.actionName}</Label>
+        <div key={idx} className="mb-4 space-y-2.5">
+          <Label className="text-sm font-medium text-primary">{res.actionName}</Label>
           <Textarea
-            className="w-full font-code"
+            className="w-full font-code text-base"
             style={{ height: '100%' }}
             rows={res.result.split('\n').length}
             readOnly

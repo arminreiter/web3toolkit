@@ -1,7 +1,10 @@
-import { ethers, Mnemonic, isAddress, Wallet, randomBytes, HDNodeWallet } from "ethers";
-import Web3 from "web3";
-import { AbiItem } from "web3-utils";
+import { ethers, Mnemonic, isAddress, Wallet, randomBytes, HDNodeWallet, JsonRpcProvider, Contract, formatUnits, parseUnits, computeAddress } from "ethers";
 import { Network } from "../models/network";
+
+const ERC20_ABI = [
+    "function balanceOf(address) view returns (uint256)",
+    "function decimals() view returns (uint8)"
+];
 
 export class Web3Service {
 
@@ -79,10 +82,13 @@ export class Web3Service {
     static async *getPrivateKeysAsync(seedPhrase: string, amount: number, derivationPath: string = "m/44'/60'/0'/0/0") {
         seedPhrase = seedPhrase.trim();
 
+        const mnemonic = Mnemonic.fromPhrase(seedPhrase);
+        const seed = mnemonic.computeSeed();
+        const hdWallet = HDNodeWallet.fromSeed(seed);
+
         for (var i = 0; i < amount; i++) {
           var path = this.getPath(i, derivationPath);
-            const hdWallet = HDNodeWallet.fromPhrase(seedPhrase);
-            const wallet = hdWallet.derivePath(path);
+          const wallet = hdWallet.derivePath(path);
           yield wallet.privateKey;
         }
       }
@@ -94,7 +100,7 @@ export class Web3Service {
 
     static async getBalances(addresses: string, rpcUrl: string, delimiter: string = ": "): Promise<string> {
         var result = "";
-        var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+        const provider = new JsonRpcProvider(rpcUrl);
 
         var spadd = addresses.split("\n");
 
@@ -104,8 +110,8 @@ export class Web3Service {
             address = address.trim();
             if(address.length > 0) {
                 promises.push(
-                    web3js.eth.getBalance(address).then((bal) => {
-                    result += address + delimiter + Web3.utils.fromWei(bal, 'ether') + "\n";
+                    provider.getBalance(address).then((bal) => {
+                    result += address + delimiter + formatUnits(bal, 'ether') + "\n";
                     })
                 );
             }
@@ -118,29 +124,13 @@ export class Web3Service {
     }
 
     static async *getBalancesAsync(addresses: string, rpcUrl: string, delimiter: string = ": ", tokenAddress?: string): AsyncGenerator<string> {
-        var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+        const provider = new JsonRpcProvider(rpcUrl);
         var spadd = addresses.split("\n");
 
         // If tokenAddress is provided, create contract instance
-        let contract = undefined;
+        let contract: Contract | undefined = undefined;
         if (tokenAddress) {
-            const minABI: AbiItem[] = [
-                {
-                    constant: true,
-                    inputs: [{ name: "_owner", type: "address" }],
-                    name: "balanceOf",
-                    outputs: [{ name: "balance", type: "uint256" }],
-                    type: "function",
-                },
-                {
-                    constant: true,
-                    inputs: [],
-                    name: "decimals",
-                    outputs: [{ name: "", type: "uint8" }],
-                    type: "function",
-                }
-            ];
-            contract = new web3js.eth.Contract(minABI, tokenAddress);
+            contract = new Contract(tokenAddress, ERC20_ABI, provider);
         }
 
         for (let address of spadd) {
@@ -150,13 +140,13 @@ export class Web3Service {
                 let balance;
                 if (tokenAddress && contract) {
                     // Get token balance
-                    const balanceRaw = await contract.methods['balanceOf'](address).call();
-                    const decimals = await contract.methods['decimals']().call();
-                    balance = Number(balanceRaw) / Math.pow(10, Number(decimals));
+                    const balanceRaw: bigint = await contract.balanceOf(address);
+                    const decimals: bigint = await contract.decimals();
+                    balance = formatUnits(balanceRaw, Number(decimals));
                 } else {
                     // Get native currency balance
-                    balance = await web3js.eth.getBalance(address);
-                    balance = Web3.utils.fromWei(balance, 'ether');
+                    const bal = await provider.getBalance(address);
+                    balance = formatUnits(bal, 'ether');
                 }
                 yield `${address}${delimiter}${balance}\n`;
             } catch (error) {
@@ -167,59 +157,32 @@ export class Web3Service {
     }
 
     static async *getBalancesPerBlockAsync(address: string, rpcUrl: string, delimiter: string = ", ", startBlock: bigint, endBlock: bigint, iteration: number, tokenAddress?: string): AsyncGenerator<string> {
-        var web3js = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+        const provider = new JsonRpcProvider(rpcUrl);
 
         // If tokenAddress is provided, create contract instance
-        let contract = undefined;
+        let contract: Contract | undefined = undefined;
         if (tokenAddress) {
-            const minABI: AbiItem[] = [
-                {
-                    constant: true,
-                    inputs: [{ name: "_owner", type: "address" }],
-                    name: "balanceOf",
-                    outputs: [{ name: "balance", type: "uint256" }],
-                    type: "function",
-                },
-                {
-                    constant: true,
-                    inputs: [],
-                    name: "decimals",
-                    outputs: [{ name: "", type: "uint8" }],
-                    type: "function",
-                }
-            ];
-            contract = new web3js.eth.Contract(minABI, tokenAddress);
+            contract = new Contract(tokenAddress, ERC20_ABI, provider);
         }
 
         for(let i = Number(startBlock); i <= Number(endBlock); i += iteration) {
             try {
                 let balance;
                 if (tokenAddress && contract) {
-                    // Get token balance
-                    const balanceRaw = await contract.methods['balanceOf'](address).call({}, i);
-                    const decimals = await contract.methods['decimals']().call();
-                    balance = Number(balanceRaw) / Math.pow(10, Number(decimals));
+                    // Get token balance at specific block
+                    const balanceRaw: bigint = await contract.balanceOf(address, { blockTag: i });
+                    const decimals: bigint = await contract.decimals();
+                    balance = formatUnits(balanceRaw, Number(decimals));
                 } else {
-                    // Get native currency balance
-                    balance = await web3js.eth.getBalance(address, i);
-                    balance = Web3.utils.fromWei(balance, 'ether');
+                    // Get native currency balance at specific block
+                    const bal = await provider.getBalance(address, i);
+                    balance = formatUnits(bal, 'ether');
                 }
                 yield `${i}${delimiter}${address}${delimiter}${balance}\n`;
             } catch (error) {
                 yield(`Error fetching balance for address ${address}: ` + error + '\n');
             }
         }
-    }
-
-    static async sendTransaction(from: string, network:Network, receiver: string, amount: number) {
-        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
-        web3js.eth.sendTransaction({
-            from: from,
-            to: receiver,
-            value: amount
-        }).then((receipt) => {
-            return receipt.transactionHash;
-        })
     }
 
     static getAddresses(seedPhrase: string, amount:number, derivationPath:string = "m/44'/60'/0'/0/0") {
@@ -241,9 +204,13 @@ export class Web3Service {
         return addresses.join("\n");
     }
 
+    static async importWalletFromJson(json: string, password: string): Promise<{ address: string; privateKey: string }> {
+        const wallet = await Wallet.fromEncryptedJson(json, password);
+        return { address: wallet.address, privateKey: wallet.privateKey };
+    }
+
     static getAddressFromPrivateKey(key: string) : string {
-        var web3js = new Web3();
-        return web3js.eth.accounts.privateKeyToAccount(key).address;
+        return computeAddress(key);
     }
 
     static getAddressFromPrivateKeys(keys: string[]) :string[] {
@@ -260,37 +227,36 @@ export class Web3Service {
 
 
     static async getLastBlockNumber(network:Network) : Promise<bigint> {
-        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
-        var block = await web3js.eth.getBlock("latest");
-        return block.number;
+        const provider = new JsonRpcProvider(network.rpcUrl);
+        const blockNumber = await provider.getBlockNumber();
+        return BigInt(blockNumber);
     }
 
     static async getBlock(blockNumber:number, network:Network) : Promise<string> {
-        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
-        var block = await web3js.eth.getBlock(blockNumber);
+        const provider = new JsonRpcProvider(network.rpcUrl);
+        var block = await provider.getBlock(blockNumber);
 
         return JSON.stringify(block, null, 2);
     }
 
     static async getTransaction(txHash:string, network:Network) : Promise<string> {
-        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
-        var tx = await web3js.eth.getTransaction(txHash);
+        const provider = new JsonRpcProvider(network.rpcUrl);
+        var tx = await provider.getTransaction(txHash);
 
         return JSON.stringify(tx, null, 2);
     }
 
     static async drainFunds(key: string, targetAddress: string,
         network:Network, gas: number = 21000, gasPrice: number = 10) : Promise<string> {
-        var web3js = new Web3(new Web3.providers.HttpProvider(network.rpcUrl));
+        const provider = new JsonRpcProvider(network.rpcUrl);
         var result: string = "";
 
         var from = this.getAddressFromPrivateKey(key);
 
-        const nonce = await web3js.eth.getTransactionCount(from);
+        const nonce = await provider.getTransactionCount(from);
         var balance = BigInt(0);
         try {
-            const bal = await web3js.eth.getBalance(from);
-            balance = BigInt(bal);
+            balance = await provider.getBalance(from);
         }
         catch(error: any) {
             result = error.message;
@@ -298,8 +264,8 @@ export class Web3Service {
 
         if(balance < BigInt(1)) { return result; }
 
-        var gasPriceWei = web3js.utils.toWei(gasPrice.toString(), "Gwei");
-        var gasCosts = BigInt(gas * Number(web3js.utils.toNumber(gasPriceWei)));
+        var gasPriceWei = parseUnits(gasPrice.toString(), "gwei");
+        var gasCosts = BigInt(gas) * gasPriceWei;
 
         var amount =  balance - gasCosts;
 
@@ -308,20 +274,18 @@ export class Web3Service {
             return result;
         }
 
-        var signedTx = await web3js.eth.accounts.signTransaction({
-            to: targetAddress,
-            value: amount,
-            nonce: nonce,
-            gas: gas,
-            gasPrice: gasPriceWei,
-            chainId: network.chainId
-        }, key);
-
-        var signed : string = signedTx.rawTransaction ?? "";
+        const wallet = new Wallet(key, provider);
 
         try {
-            var tx = await web3js.eth.sendSignedTransaction(signed);
-            result = tx.transactionHash + " - from: " + from + " to: " + targetAddress + " amount: " + amount;
+            var tx = await wallet.sendTransaction({
+                to: targetAddress,
+                value: amount,
+                nonce: nonce,
+                gasLimit: gas,
+                gasPrice: gasPriceWei,
+            });
+            var receipt = await tx.wait();
+            result = (receipt?.hash ?? tx.hash) + " - from: " + from + " to: " + targetAddress + " amount: " + amount;
         }
         catch(error: any) {
             result = "ERROR - something went wrong with your transaction: " + error.message;

@@ -1,63 +1,47 @@
 'use client';
+
 import { useState } from 'react';
-import Web3 from 'web3';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { formatUnits, parseUnits } from 'ethers';
+import { ToolCard, FormField } from '@/components/tools';
 
 export default function WeiConverterPage() {
   const [wei, setWei] = useState('1');
-  const [gwei, setGwei] = useState(() => Web3.utils.fromWei('1', 'gwei'));
-  const [ether, setEther] = useState(() => Web3.utils.fromWei('1', 'ether'));
+  const [gwei, setGwei] = useState(() => formatUnits('1', 'gwei'));
+  const [ether, setEther] = useState(() => formatUnits('1', 'ether'));
 
-  const fwei = (value: string) => {
+  const fromWei = (value: string) => {
     setWei(value);
     try {
-      setEther(Web3.utils.fromWei(String(value), 'ether'));
-      setGwei(Web3.utils.fromWei(String(value), 'gwei'));
+      setEther(formatUnits(value, 'ether'));
+      setGwei(formatUnits(value, 'gwei'));
     } catch {}
   };
 
-  const fgwei = (value: string) => {
+  const fromGwei = (value: string) => {
     setGwei(value);
     try {
-      const weiVal = Web3.utils.toWei(String(value), 'gwei');
+      const weiVal = parseUnits(value, 'gwei').toString();
       setWei(weiVal);
-      setEther(Web3.utils.fromWei(String(weiVal), 'ether'));
+      setEther(formatUnits(weiVal, 'ether'));
     } catch {}
   };
 
-  const fether = (value: string) => {
+  const fromEther = (value: string) => {
     setEther(value);
     try {
-      const weiVal = Web3.utils.toWei(String(value), 'ether');
+      const weiVal = parseUnits(value, 'ether').toString();
       setWei(weiVal);
-      setGwei(Web3.utils.fromWei(String(weiVal), 'gwei'));
+      setGwei(formatUnits(weiVal, 'gwei'));
     } catch {}
   };
 
   return (
-    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
-      <CardContent className="pt-6 space-y-5">
-        <div>
-          <h3 className="text-lg font-semibold mb-1">Wei Converter</h3>
-          <p className="text-sm text-muted-foreground">Convert between Wei, Gwei, and Ether denominations.</p>
-        </div>
-        <div className="space-y-4">
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Wei</Label>
-            <Input type="number" value={wei} onChange={(e) => fwei(e.target.value)} className="font-code" />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Gwei</Label>
-            <Input type="number" value={gwei} onChange={(e) => fgwei(e.target.value)} className="font-code" />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Ether</Label>
-            <Input type="number" value={ether} onChange={(e) => fether(e.target.value)} className="font-code" />
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    <ToolCard title="Wei Converter" description="Convert between Wei, Gwei, and Ether denominations.">
+      <div className="space-y-4">
+        <FormField label="Wei" type="number" value={wei} onChange={fromWei} inputClassName="font-code" />
+        <FormField label="Gwei" type="number" value={gwei} onChange={fromGwei} inputClassName="font-code" />
+        <FormField label="Ether" type="number" value={ether} onChange={fromEther} inputClassName="font-code" />
+      </div>
+    </ToolCard>
   );
 }
