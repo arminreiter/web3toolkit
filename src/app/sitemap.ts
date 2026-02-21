@@ -21,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/getbalances',
     '/tools/getbalancesperblock',
     '/tools/drainfunds',
+    '/tools/getblock',
+    '/tools/gettransaction',
+    '/tools/tokeninfo',
+    '/tools/ensresolver',
+    '/tools/exportwallet',
+    '/tools/importwallet',
   ];
 
   return routes.map((route) => ({

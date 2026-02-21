@@ -7,10 +7,10 @@ export class Network {
         new Network("avax-main", "Avalanche", "https://api.avax.network/ext/bc/C/rpc", "/img/avalanche_avax_logo.svg", 43114),
         new Network("base-main", "Base", "https://mainnet.base.org", "/img/base_logo.png", 8453),
         new Network("bnb-main", "BNB Chain", "https://bsc-dataseed.binance.org", "/img/bnb_logo.png", 56),
-        new Network("eth-main", "Ethereum", "https://cloudflare-eth.com", "/img/ethereum_logo.webp", 1),
+        new Network("eth-main", "Ethereum", "https://ethereum-rpc.publicnode.com", "/img/ethereum_logo.webp", 1),
         new Network("gns-main", "Gnosis", "https://rpc.gnosischain.com", "/img/gnosis_logo.png", 100),
         new Network("op-main", "Optimism", "https://mainnet.optimism.io", "/img/optimism_logo.png", 10),
-        new Network("poly-main", "Polygon", "https://polygon.llamarpc.com", "/img/polygon_matic_logo.svg", 137),
+        new Network("poly-main", "Polygon", "https://polygon-bor-rpc.publicnode.com", "/img/polygon_matic_logo.svg", 137),
         new Network("arb-test", "Arbitrum Sepolia", "https://sepolia-rollup.arbitrum.io/rpc", "/img/arbitrum_logo.png", 421614, "test"),
         new Network("avax-test", "Avalanche Fuji Testnet", "https://api.avax-test.network/ext/bc/C/rpc", "/img/avalanche_avax_logo.svg", 43113, "test"),
         new Network("base-test", "Base Sepolia", "https://sepolia.base.org", "/img/base_logo.png", 84532, "test"),
@@ -62,6 +62,13 @@ export class Network {
 
         localStorage.setItem("customNetworks", btoa(JSON.stringify(this.CustomNetworks)));
         return true;
+    }
+
+    public static updateCustomNetwork(original: Network, name: string, rpc: string, chainId: number) {
+        const idx = this.CustomNetworks.findIndex(e => e.name === original.name && e.rpcUrl === original.rpcUrl && e.chainId === original.chainId);
+        if (idx === -1) return;
+        this.CustomNetworks[idx] = new Network("cst", name, rpc, "/img/w3tk_logo.png", chainId, "custom");
+        localStorage.setItem("customNetworks", btoa(JSON.stringify(this.CustomNetworks)));
     }
 
     public static removeCustomNetwork(net: Network) {

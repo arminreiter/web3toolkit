@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "web3toolkit",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "identifier": "app.w3tk.web3toolkit",
   "build": {
     "frontendDist": "../out",
@@ -32,6 +32,14 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "publisher": "a31labs",
+    "copyright": "Copyright (c) 2026 a31labs",
+    "category": "Utility",
+    "shortDescription": "Web3 utility toolkit for EVM-compatible chains",
+    "longDescription": "Web3ToolKit provides blockchain tools for EVM-compatible chains including key management, balance queries, fund operations, and utilities.",
+    "homepage": "https://web3toolkit.app",
+    "repository": "https://github.com/arminreiter/web3toolkit",
+    "license": "MIT"
   }
 }

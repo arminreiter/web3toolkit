@@ -27,8 +27,12 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Web3ToolKit',
-  description: 'A toolkit for the web3 - generate seed phrases, derive keys, check balances, and more.',
+  metadataBase: new URL('https://web3toolkit.app'),
+  title: {
+    template: '%s | Web3ToolKit',
+    default: 'Web3ToolKit - Blockchain Utilities for EVM Chains',
+  },
+  description: 'Open-source blockchain toolkit for EVM chains. Generate seed phrases, derive keys, check balances, convert wei, and automate workflows — all in your browser.',
   icons: {
     icon: [
       { url: '/img/icon-32.png', sizes: '32x32', type: 'image/png' },
@@ -37,17 +41,23 @@ export const metadata: Metadata = {
     ],
     apple: '/img/apple-icon.png',
   },
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'Web3ToolKit',
-    description: 'A toolkit for the web3 - generate seed phrases, derive keys, check balances, and more.',
+    title: 'Web3ToolKit - Blockchain Utilities for EVM Chains',
+    description: 'Open-source blockchain toolkit for EVM chains. Generate seed phrases, derive keys, check balances, convert wei, and automate workflows — all in your browser.',
     type: 'website',
     siteName: 'Web3ToolKit',
     locale: 'en_US',
+    url: '/',
+    images: [{ url: '/img/icon-512.png', width: 512, height: 512, alt: 'Web3ToolKit' }],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Web3ToolKit',
-    description: 'A toolkit for the web3 - generate seed phrases, derive keys, check balances, and more.',
+    card: 'summary',
+    title: 'Web3ToolKit - Blockchain Utilities for EVM Chains',
+    description: 'Open-source blockchain toolkit for EVM chains. Generate seed phrases, derive keys, check balances, convert wei, and automate workflows — all in your browser.',
+    images: ['/img/icon-512.png'],
   },
 };
 

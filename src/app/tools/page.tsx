@@ -9,6 +9,7 @@ export default function ToolsOverview() {
 
   return (
     <div className="stagger-children">
+      <h1 className="text-2xl font-semibold mb-6">Tools</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {tools.map((tool) => (
           <Card key={tool.module} className="border-border/40 bg-card/70 backdrop-blur-sm">
@@ -17,7 +18,7 @@ export default function ToolsOverview() {
                 <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
                   <tool.icon className="h-5 w-5" />
                 </div>
-                <h5 className="text-lg font-semibold text-foreground">{tool.module}</h5>
+                <h2 className="text-lg font-semibold text-foreground">{tool.module}</h2>
               </div>
               <div className="h-px bg-gradient-to-r from-border via-border/50 to-transparent mb-4" />
               <div className="flex flex-col gap-0.5">

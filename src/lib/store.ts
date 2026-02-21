@@ -3,6 +3,13 @@ import { Action } from './actions/action';
 import { ActionInput } from './models/actioninput';
 import { Network } from './models/network';
 
+export const SELECTED_NETWORK_KEY = 'selectedNetwork';
+const DEFAULT_NETWORK = 'avax-main';
+
+function getDefaultNetwork(): Network {
+    return Network.getNetwork(DEFAULT_NETWORK) ?? Network.getNetworks()[0];
+}
+
 export class ActionResult {
     constructor(public actionName: string, public result: string) {}
 }
@@ -28,7 +35,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     input: '',
     lastResult: '',
     results: [],
-    network: Network.getNetworks()[0],
+    network: getDefaultNetwork(),
     actions: [],
 
     setInput: (input: string) => set({ input }),
@@ -56,11 +63,19 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     clear: () => set({ lastResult: '', results: [] }),
 
-    setNetwork: (network: Network) => set({ network }),
+    setNetwork: (network: Network) => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(SELECTED_NETWORK_KEY, network.shortName);
+        }
+        set({ network });
+    },
 
     trySetNetwork: (net: string) => {
         const network = Network.getNetwork(net);
         if (network) {
+            if (typeof window !== 'undefined') {
+                localStorage.setItem(SELECTED_NETWORK_KEY, network.shortName);
+            }
             set({ network });
         }
     },

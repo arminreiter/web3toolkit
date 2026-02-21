@@ -31,7 +31,7 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-5 sm:px-8 py-8 sm:py-10 stagger-children">
         {/* Header */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-1.5">About</h2>
+          <h1 className="text-2xl font-semibold mb-1.5">About</h1>
           <p className="text-base text-muted-foreground">Learn about Web3ToolKit and try sample workflows</p>
         </div>
 
@@ -69,7 +69,7 @@ export default function AboutPage() {
           {/* Address Generation */}
           <Card className="border-border/40 bg-card/70 backdrop-blur-sm group hover:border-primary/30 transition-colors duration-300">
             <CardContent className="pt-6">
-              <h4 className="text-lg font-semibold mb-3 text-foreground">Address Generation</h4>
+              <h2 className="text-lg font-semibold mb-3 text-foreground">Address Generation</h2>
               <ol className="text-base text-muted-foreground space-y-2 mb-4 list-decimal list-inside">
                 <li>Generate Seed Phrase</li>
                 <li>Derive Private Keys</li>
@@ -85,7 +85,7 @@ export default function AboutPage() {
           {/* Balance Report */}
           <Card className="border-border/40 bg-card/70 backdrop-blur-sm group hover:border-accent/30 transition-colors duration-300">
             <CardContent className="pt-6">
-              <h4 className="text-lg font-semibold mb-3 text-foreground">Balance Report</h4>
+              <h2 className="text-lg font-semibold mb-3 text-foreground">Balance Report</h2>
               <ol className="text-base text-muted-foreground space-y-2 mb-4 list-decimal list-inside">
                 <li>Select your network</li>
                 <li>Add addresses to input</li>

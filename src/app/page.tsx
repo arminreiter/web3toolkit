@@ -86,7 +86,7 @@ export default function Home() {
                     <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-secondary/80 mb-5 ${feature.iconColor}`}>
                       <feature.icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-3 text-foreground">{feature.title}</h3>
+                    <h2 className="text-xl font-semibold mb-3 text-foreground">{feature.title}</h2>
                     <p className="text-base text-muted-foreground leading-relaxed mb-6">{feature.description}</p>
                     <div className="flex items-center gap-2 text-base font-medium text-primary opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300">
                       Explore <ArrowRight className="h-4 w-4" />

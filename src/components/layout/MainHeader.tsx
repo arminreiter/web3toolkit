@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Trash2, ChevronDown, PanelLeft } from 'lucide-react';
+import { Plus, Trash2, Pencil, ChevronDown, PanelLeft } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { Network } from '@/lib/models/network';
 import {
@@ -36,14 +36,36 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
   const [testnets] = useState(() => Network.getNetworks('test'));
   const [custom, setCustom] = useState(() => Network.getNetworks('custom'));
   const [showModal, setShowModal] = useState(false);
-  const [cstName, setCstName] = useState('localhost');
-  const [cstRpc, setCstRpc] = useState('http://localhost:8454');
-  const [cstChainId, setCstChainId] = useState(1337);
+  const [editingNetwork, setEditingNetwork] = useState<Network | null>(null);
+  const [cstName, setCstName] = useState('');
+  const [cstRpc, setCstRpc] = useState('http://127.0.0.1:8545');
+  const [cstChainId, setCstChainId] = useState(8454);
 
-  const addNetwork = () => {
-    const result = Network.addCustomNetwork(cstName, cstRpc, cstChainId);
-    if (!result) {
-      alert('Network already exists!');
+  const openAddModal = () => {
+    setEditingNetwork(null);
+    setCstName('localhost');
+    setCstRpc('http://127.0.0.1:8545');
+    setCstChainId(1337);
+    setShowModal(true);
+  };
+
+  const openEditModal = (net: Network) => {
+    setEditingNetwork(net);
+    setCstName(net.name);
+    setCstRpc(net.rpcUrl);
+    setCstChainId(net.chainId ?? 0);
+    setShowModal(true);
+  };
+
+  const saveNetwork = () => {
+    if (editingNetwork) {
+      Network.updateCustomNetwork(editingNetwork, cstName, cstRpc, cstChainId);
+    } else {
+      const result = Network.addCustomNetwork(cstName, cstRpc, cstChainId);
+      if (!result) {
+        alert('Network already exists!');
+        return;
+      }
     }
     setCustom(Network.getNetworks('custom'));
     setShowModal(false);
@@ -116,14 +138,26 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
                 <span className="flex items-center">
                   <img src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
                 </span>
-                <Trash2
-                  className="h-4 w-4 text-muted-foreground hover:text-destructive transition-colors"
-                  onClick={(e) => { e.stopPropagation(); deleteNetwork(net); }}
-                />
+                <span className="flex items-center gap-1">
+                  <button
+                    className="p-1 rounded hover:bg-secondary transition-colors"
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => { e.stopPropagation(); openEditModal(net); }}
+                  >
+                    <Pencil className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground transition-colors" />
+                  </button>
+                  <button
+                    className="p-1 rounded hover:bg-secondary transition-colors"
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => { e.stopPropagation(); deleteNetwork(net); }}
+                  >
+                    <Trash2 className="h-3.5 w-3.5 text-muted-foreground hover:text-destructive transition-colors" />
+                  </button>
+                </span>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setShowModal(true)} className="text-primary py-2.5">
+            <DropdownMenuItem onClick={openAddModal} className="text-primary py-2.5">
               <Plus className="h-4 w-4 mr-2.5" /> Add Network
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -133,7 +167,7 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add Custom Network</DialogTitle>
+            <DialogTitle>{editingNetwork ? 'Edit Custom Network' : 'Add Custom Network'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
@@ -151,7 +185,7 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
-            <Button onClick={addNetwork}>Add Network</Button>
+            <Button onClick={saveNetwork}>{editingNetwork ? 'Save' : 'Add Network'}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
