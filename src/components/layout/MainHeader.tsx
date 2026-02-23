@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Plus, Trash2, Pencil, ChevronDown, PanelLeft } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { Network } from '@/lib/models/network';
@@ -94,10 +95,12 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="flex items-center gap-3">
             <div className="relative shrink-0">
-              <img
+              <Image
                 src={network.imgUrl}
                 className="h-8 w-8 rounded-full object-contain"
                 alt={network.name}
+                width={32}
+                height={32}
               />
               <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-background animate-pulse-dot" />
             </div>
@@ -112,7 +115,7 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="lg" className="gap-2.5 border-border/60 bg-secondary/50 hover:bg-secondary shrink-0">
-              <img src={network.imgUrl} className="h-5 w-5 rounded-full object-contain" alt={network.name} />
+              <Image src={network.imgUrl} className="h-5 w-5 rounded-full object-contain" alt={network.name} width={20} height={20} />
               <span className="hidden sm:inline text-sm">{network.name}</span>
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </Button>
@@ -121,14 +124,14 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
             <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Mainnets</DropdownMenuLabel>
             {mainnets.map((net) => (
               <DropdownMenuItem key={net.shortName} onClick={() => setNetwork(net)} className="py-2.5">
-                <img src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
+                <Image src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} width={20} height={20} /> {net.name}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Testnets</DropdownMenuLabel>
             {testnets.map((net) => (
               <DropdownMenuItem key={net.shortName} onClick={() => setNetwork(net)} className="py-2.5">
-                <img src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
+                <Image src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} width={20} height={20} /> {net.name}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
@@ -136,7 +139,7 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
             {custom.map((net, idx) => (
               <DropdownMenuItem key={`custom-${idx}`} onClick={() => setNetwork(net)} className="flex justify-between py-2.5">
                 <span className="flex items-center">
-                  <img src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
+                  <Image src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} width={20} height={20} /> {net.name}
                 </span>
                 <span className="flex items-center gap-1">
                   <button

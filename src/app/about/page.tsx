@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FlaskConical, Github, ExternalLink } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { Actions } from '@/lib/actions/actions';
@@ -41,7 +42,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 items-center">
               <div className="text-center md:text-left">
                 <div className="relative inline-block">
-                  <img src="/img/w3tk_logo.png" className="h-40 w-auto" alt="Web3ToolKit" />
+                  <Image src="/img/w3tk_logo.png" className="h-40 w-auto" alt="Web3ToolKit" width={160} height={160} />
                   <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-150" />
                 </div>
               </div>
@@ -75,7 +76,7 @@ export default function AboutPage() {
                 <li>Derive Private Keys</li>
                 <li>Get Public Addresses</li>
               </ol>
-              <img src="/img/screenshots/scr1.jpg" className="w-full rounded-lg border border-border/50 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300" alt="Address Generation" />
+              <Image src="/img/screenshots/scr1.jpg" className="w-full rounded-lg border border-border/50 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300" alt="Address Generation" width={600} height={400} />
               <Button onClick={addressGeneration} size="sm" className="w-full gap-2">
                 <FlaskConical className="h-4 w-4" /> Try it out
               </Button>
@@ -91,7 +92,7 @@ export default function AboutPage() {
                 <li>Add addresses to input</li>
                 <li>Execute Get Balance</li>
               </ol>
-              <img src="/img/screenshots/scr2.jpg" className="w-full rounded-lg border border-border/50 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300" alt="Balance Report" />
+              <Image src="/img/screenshots/scr2.jpg" className="w-full rounded-lg border border-border/50 mb-4 opacity-80 group-hover:opacity-100 transition-opacity duration-300" alt="Balance Report" width={600} height={400} />
               <Button onClick={balanceReport} size="sm" variant="outline" className="w-full gap-2">
                 <FlaskConical className="h-4 w-4" /> Try it out
               </Button>

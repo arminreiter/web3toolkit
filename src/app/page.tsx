@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Wrench, Bot, CircleHelp, ArrowRight } from 'lucide-react';
 
@@ -48,10 +49,12 @@ export default function Home() {
           {/* Logo */}
           <div className="mb-10 sm:mb-12">
             <div className="inline-block relative">
-              <img
+              <Image
                 src="/img/w3tk_logo.png"
                 className="h-20 sm:h-28 w-auto mx-auto relative z-10"
                 alt="Web3ToolKit"
+                width={112}
+                height={112}
               />
               <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-[2]" />
             </div>
