@@ -9,7 +9,6 @@ export default function ToolsOverview() {
 
   return (
     <div className="stagger-children">
-      <h1 className="text-2xl font-semibold mb-6">Tools</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {tools.map((tool) => (
           <Card key={tool.module} className="border-border/40 bg-card/70 backdrop-blur-sm">
