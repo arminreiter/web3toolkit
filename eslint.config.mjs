@@ -1,10 +1,10 @@
-import nextConfig from "eslint-config-next";
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 
 const config = [
-  ...nextConfig,
+  ...nextCoreWebVitals,
   {
-    ignores: ["_archive/", "src-tauri/", "out/"],
+    ignores: ['out/**', '.next/**', 'node_modules/**', '_archive/**'],
   },
-];
+]
 
-export default config;
+export default config

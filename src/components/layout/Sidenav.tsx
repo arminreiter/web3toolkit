@@ -22,7 +22,7 @@ export function Sidenav() {
       {/* ── Mobile top bar ── */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-14 px-4 bg-background/95 backdrop-blur-sm border-b border-border/50">
         <Link href="/" className="flex items-center gap-2.5 text-foreground no-underline">
-          <Image src="/img/favicon.png" className="h-8 w-8" alt="Web3ToolKit" width={32} height={32} />
+          <Image src="/img/favicon.png" width={32} height={32} className="h-8 w-8" alt="Web3ToolKit" />
           <span className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">W3TK</span>
         </Link>
         <button
@@ -73,10 +73,11 @@ export function Sidenav() {
           <div className="relative">
             <Image
               src="/img/favicon.png"
-              className="h-10 w-10 transition-transform duration-300 group-hover:scale-110"
-              alt="Web3ToolKit"
               width={40}
               height={40}
+              className="h-10 w-10 transition-transform duration-300 group-hover:scale-110"
+              alt="Web3ToolKit"
+              priority
             />
             <div className="absolute inset-0 rounded-full bg-primary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>

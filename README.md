@@ -109,27 +109,23 @@ Open [http://localhost:3000](http://localhost:3000).
 Web3ToolKit is also available as a native desktop app built with [Tauri](https://v2.tauri.app), wrapping the static site in a lightweight native webview.
 
 ```bash
-pnpm tauri dev     # development with hot reload
-pnpm tauri build   # produce platform installers
+pnpm start
 ```
 
-See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for prerequisites and detailed instructions.
+Serves the `out/` directory using `npx serve`.
 
-## Tech Stack
+### Tests
 
-| | |
-|---|---|
-| **Framework** | Next.js (App Router), static export |
-| **UI** | Tailwind CSS v4, shadcn/ui, Lucide icons |
-| **Web3** | ethers v6 (wallet/key ops) |
-| **State** | Zustand |
-| **Desktop** | Tauri v2 |
-| **Tests** | Vitest |
-| **CI/CD** | GitHub Actions → Azure Static Web Apps |
+```bash
+pnpm test          # run all tests
+pnpm test:watch    # watch mode
+```
 
-## Contributing
+### Lint
 
-See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the full development guide — building, testing, Tauri setup, versioning, and project structure.
+```bash
+pnpm lint
+```
 
 ## License
 

@@ -51,10 +51,11 @@ export default function Home() {
             <div className="inline-block relative">
               <Image
                 src="/img/w3tk_logo.png"
+                width={512}
+                height={448}
                 className="h-20 sm:h-28 w-auto mx-auto relative z-10"
                 alt="Web3ToolKit"
-                width={112}
-                height={112}
+                priority
               />
               <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-[2]" />
             </div>

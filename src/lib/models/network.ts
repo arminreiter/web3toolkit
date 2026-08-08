@@ -15,10 +15,10 @@ export class Network {
         new Network("avax-test", "Avalanche Fuji Testnet", "https://api.avax-test.network/ext/bc/C/rpc", "/img/avalanche_avax_logo.svg", 43113, "test"),
         new Network("base-test", "Base Sepolia", "https://sepolia.base.org", "/img/base_logo.png", 84532, "test"),
         new Network("bnb-test", "BNB Testnet", "https://data-seed-prebsc-1-s1.binance.org:8545", "/img/bnb_logo.png", 97, "test"),
-        new Network("eth-test", "Ethereum Sepolia", "https://rpc.sepolia.org", "/img/ethereum_logo.webp", 11155111, "test"),
+        new Network("eth-test", "Ethereum Sepolia", "https://ethereum-sepolia-rpc.publicnode.com", "/img/ethereum_logo.webp", 11155111, "test"),
         new Network("gns-test", "Gnosis Chiado Testnet", "https://rpc.chiadochain.net", "/img/gnosis_logo.png", 10200, "test"),
         new Network("op-test", "Optimism Sepolia", "https://sepolia.optimism.io", "/img/optimism_logo.png", 11155420, "test"),
-        new Network("poly-test", "Polygon Amoy Testnet", "https://rpc-amoy.polygon.technology", "/img/polygon_matic_logo.svg", 80002, "test"),
+        new Network("poly-test", "Polygon Amoy Testnet", "https://polygon-amoy.drpc.org", "/img/polygon_matic_logo.svg", 80002, "test"),
     ];
 
     private static CustomNetworks: Network[] = [ ];

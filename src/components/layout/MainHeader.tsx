@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Plus, Trash2, Pencil, ChevronDown, PanelLeft } from 'lucide-react';
+import { Plus, Trash2, ChevronDown, PanelLeft, ExternalLink, Pencil } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { Network } from '@/lib/models/network';
 import {
@@ -97,10 +97,10 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
             <div className="relative shrink-0">
               <Image
                 src={network.imgUrl}
-                className="h-8 w-8 rounded-full object-contain"
-                alt={network.name}
                 width={32}
                 height={32}
+                className="h-8 w-8 rounded-full object-contain"
+                alt={network.name}
               />
               <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-background animate-pulse-dot" />
             </div>
@@ -111,11 +111,25 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
           </div>
         </div>
 
+        {/* Avalanche-specific toolkit link */}
+        {network.shortName.startsWith('avax') && (
+          <a
+            href="https://avaxtoolkit.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm border border-border/60 bg-secondary/50 hover:bg-secondary text-foreground transition-colors shrink-0"
+          >
+            <Image src="/img/avalanche_avax_logo.svg" width={16} height={16} className="h-4 w-4" alt="Avalanche" />
+            <span>avaxtoolkit.com</span>
+            <ExternalLink className="h-3 w-3 text-muted-foreground" />
+          </a>
+        )}
+
         {/* Network selector */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="lg" className="gap-2.5 border-border/60 bg-secondary/50 hover:bg-secondary shrink-0">
-              <Image src={network.imgUrl} className="h-5 w-5 rounded-full object-contain" alt={network.name} width={20} height={20} />
+              <Image src={network.imgUrl} width={20} height={20} className="h-5 w-5 rounded-full object-contain" alt={network.name} />
               <span className="hidden sm:inline text-sm">{network.name}</span>
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </Button>
@@ -124,14 +138,14 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
             <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Mainnets</DropdownMenuLabel>
             {mainnets.map((net) => (
               <DropdownMenuItem key={net.shortName} onClick={() => setNetwork(net)} className="py-2.5">
-                <Image src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} width={20} height={20} /> {net.name}
+                <Image src={net.imgUrl} width={20} height={20} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Testnets</DropdownMenuLabel>
             {testnets.map((net) => (
               <DropdownMenuItem key={net.shortName} onClick={() => setNetwork(net)} className="py-2.5">
-                <Image src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} width={20} height={20} /> {net.name}
+                <Image src={net.imgUrl} width={20} height={20} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
@@ -139,7 +153,7 @@ export function MainHeader({ onToggleSidebar, showSidebarToggle }: MainHeaderPro
             {custom.map((net, idx) => (
               <DropdownMenuItem key={`custom-${idx}`} onClick={() => setNetwork(net)} className="flex justify-between py-2.5">
                 <span className="flex items-center">
-                  <Image src={net.imgUrl} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} width={20} height={20} /> {net.name}
+                  <Image src={net.imgUrl} width={20} height={20} className="h-5 w-5 rounded-full object-contain mr-2.5" alt={net.name} /> {net.name}
                 </span>
                 <span className="flex items-center gap-1">
                   <button
