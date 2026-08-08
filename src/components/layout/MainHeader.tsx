@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Plus, Trash2, ChevronDown, PanelLeft, ExternalLink } from 'lucide-react';
+import { Plus, Trash2, ChevronDown, PanelLeft, ExternalLink, Pencil } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { Network } from '@/lib/models/network';
 import {
