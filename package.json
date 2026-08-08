@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy": "next build && find out -name '*.html' -exec sed -i 's|</head>|<script defer data-domain=\"web3toolkit.app\" src=\"https://wal.a31.at/js/script.outbound-links.js\"></script></head>|' {} + && wrangler deploy",
     "start": "npx serve@latest out",
     "lint": "eslint .",
     "test": "vitest run",
