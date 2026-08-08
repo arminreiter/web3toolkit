@@ -1,4 +1,4 @@
-# build Next.js app, then deploy to azure static website
+# build Next.js app, then deploy to Cloudflare Workers (static assets)
 on:
   push:
     branches:
@@ -28,30 +28,29 @@ jobs:
     - name: Cache Next.js build
       uses: actions/cache@v4
       with:
-        path: .next/cache
-        key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('src/**') }}
-        restore-keys: |
-          nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
-          nextjs-${{ runner.os }}-
+        name: nextjs-app
+        path: out
 
-    - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
 
-    - name: Lint
-      run: pnpm lint
+    steps:
+    - uses: actions/checkout@v4
 
-    - name: Test
-      run: pnpm test
-
-    - name: Build
-      run: pnpm run build
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: nextjs-app
+        path: out
 
     - name: Inject Plausible script into all HTML files
       run: |
         find out -name '*.html' -exec sed -i 's|</head>|<script defer data-domain="web3toolkit.app" src="https://wal.a31.at/js/script.outbound-links.js"></script></head>|' {} +
 
-    - name: Deploy to Azure Static Website
-      uses: TravisSpomer/deploy-to-azure-storage@v1.5.0
+    - name: Deploy to Cloudflare Workers
+      uses: cloudflare/wrangler-action@v3
       with:
-        source-path: out
-        sas-url: ${{ secrets.DEPLOY_SAS_URL }}
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        command: deploy
